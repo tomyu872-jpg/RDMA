@@ -166,7 +166,6 @@ int enable_falcon = 0;
 int enable_ornic = 0;
 uint32_t bitmap_retrans_size = BITMAP_SIZE;
 uint64_t bitmap_retrans_timeout_ns = 0;
-uint64_t falcon_reo_wnd_ns = 200000;
 double ornic_bw_gbps = 0.0;
 uint64_t ornic_gap_nack_timeout_ns = 0;
 uint32_t psn_path_k = 4;
@@ -1457,11 +1456,6 @@ int main(int argc, char *argv[]) {
                 conf >> v;
                 enable_falcon = v;
                 std::cerr << "ENABLE_FALCON\t\t" << (enable_falcon ? "Yes" : "No") << "\n";
-            } else if (key.compare("FALCON_REO_WND_NS") == 0) {
-                uint64_t v;
-                conf >> v;
-                falcon_reo_wnd_ns = v;
-                std::cerr << "FALCON_REO_WND_NS\t" << falcon_reo_wnd_ns << "\n";
             } else if (key.compare("ENABLE_ORNIC") == 0) {
                 bool v;
                 conf >> v;
@@ -1866,7 +1860,6 @@ int main(int argc, char *argv[]) {
             rdmaHw->SetAttribute("BitmapRetransTimeout",
                                  TimeValue(NanoSeconds(bitmap_retrans_timeout_ns)));
             rdmaHw->SetAttribute("EnableFalcon", BooleanValue(enable_falcon));
-            rdmaHw->SetAttribute("FalconReoWnd", TimeValue(NanoSeconds(falcon_reo_wnd_ns)));
             rdmaHw->SetAttribute("EnableOrnic", BooleanValue(enable_ornic));
             rdmaHw->SetAttribute("OrnicBandwidthGbps", DoubleValue(ornic_bw_gbps));
             rdmaHw->SetAttribute("OrnicGapNackTimeout",

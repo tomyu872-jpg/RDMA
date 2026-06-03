@@ -233,7 +233,6 @@ class RdmaHw : public Object {
     BitmapRetransModule m_bitmapRetrans;
     FalconRetransModule m_falcon;
     OrnicRetransModule m_ornicRetrans;
-    Time m_falconReoWnd;
     void UpdateBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q,
                                      const BitmapRetransFeedback &feedback);
     void HandleBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);

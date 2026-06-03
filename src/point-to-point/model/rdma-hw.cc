@@ -250,6 +250,35 @@ bool IsPsnInList(uint32_t psn, const std::string &psnList) {
     return false;
 }
 
+bool PsnListOverlapsFalconBitmap(uint32_t cumAckPsn, uint16_t bitmapBits, uint64_t bitmap,
+                                 const std::string &psnList) {
+    if (psnList.empty() || bitmapBits == 0) {
+        return false;
+    }
+
+    std::string normalized = psnList;
+    for (size_t i = 0; i < normalized.size(); ++i) {
+        if (normalized[i] == ',' || normalized[i] == ';' || normalized[i] == ':') {
+            normalized[i] = ' ';
+        }
+    }
+
+    std::istringstream iss(normalized);
+    uint32_t trackedPsn = 0;
+    while (iss >> trackedPsn) {
+        if (trackedPsn == cumAckPsn) {
+            return true;
+        }
+        if (trackedPsn > cumAckPsn) {
+            uint32_t offset = trackedPsn - cumAckPsn;
+            if (offset < bitmapBits && offset < 64 && ((bitmap >> offset) & 1ULL) != 0) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 }  // namespace
 
 std::unordered_map<unsigned, unsigned> acc_timeout_count;
@@ -429,10 +458,6 @@ TypeId RdmaHw::GetTypeId(void) {
                           TimeValue(NanoSeconds(0)),
                           MakeTimeAccessor(&RdmaHw::m_ornicGapNackTimeout),
                           MakeTimeChecker())
-            .AddAttribute("FalconReoWnd", "Falcon reordering window before retransmission",
-                          TimeValue(MicroSeconds(200)),
-                          MakeTimeAccessor(&RdmaHw::m_falconReoWnd),
-                          MakeTimeChecker())
             .AddAttribute("PsnPathK", "PSN-PATH K parameter", UintegerValue(4),
                           MakeUintegerAccessor(&RdmaHw::m_psnPathK),
                           MakeUintegerChecker<uint32_t>(1))
@@ -500,7 +525,6 @@ RdmaHw::RdmaHw() {
     m_psnPathGapTimeout = NanoSeconds(0);
     m_enableConsoleLog = 0;
     m_consoleLogPsns = "";
-    m_falconReoWnd = MicroSeconds(200);
 }
 
 void RdmaHw::SetNode(Ptr<Node> node) { m_node = node; }
@@ -877,9 +901,45 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
     } else if (m_enableFalcon) {
         auto falconRxKey = GetRxQpKey(ch.sip, canonicalFlowSport, ch.udp.dport, ch.udp.pg);
         m_falcon.RegisterRxFlow(falconRxKey);
+        uint32_t prevExpectedSeq = rxQp->ReceiverNextExpectedSeq;
         falconFeedback = m_falcon.OnData(falconRxKey, seqForCheck, payload_size, m_mtu);
         rxQp->ReceiverNextExpectedSeq = falconFeedback.ack.cumAckSeq;
         x = falconFeedback.ack.hasGap ? 2 : 1;
+        uint32_t packetSize = m_mtu == 0 ? 1 : m_mtu;
+        uint32_t psn = seqForCheck / packetSize;
+        if (m_enableConsoleLog == 1 && m_enablePathSelection && hasPsnPathTag &&
+            IsPsnInList(psn, m_consoleLogPsns)) {
+            const char *decision = falconFeedback.ack.hasGap ? "NACK" : "ACK";
+            const char *reason = "FALCON_ACK";
+            if (seqForCheck < prevExpectedSeq) {
+                reason = "FALCON_DUPLICATE_OR_OLD";
+            } else if (seqForCheck == prevExpectedSeq) {
+                reason = "FALCON_IN_ORDER";
+            } else if (falconFeedback.ack.hasGap) {
+                reason = "FALCON_GAP";
+            } else {
+                reason = "FALCON_OUT_OF_BITMAP";
+            }
+            std::cout << "[PSN_TRACE_RECV] t=" << Simulator::Now().GetNanoSeconds()
+                      << " node=" << m_node->GetId()
+                      << " flow=" << rxQp->m_flow_id
+                      << " seq=" << receivedSeq
+                      << " psn=" << psn
+                      << " expectedPsnBefore=" << (prevExpectedSeq / packetSize)
+                      << " expectedPsnAfter=" << (falconFeedback.ack.cumAckSeq / packetSize)
+                      << " decision=" << decision
+                      << " reason=" << reason
+                      << " pathId=" << pt.GetPathId()
+                      << " flowSport=" << pt.GetFlowSport()
+                      << " k=" << pt.GetK()
+                      << " epoch=" << pt.GetEpoch()
+                      << " probe=" << static_cast<uint32_t>(pt.GetProbe())
+                      << " cumAckPsn=" << (falconFeedback.ack.cumAckSeq / packetSize)
+                      << " bitmapBits=" << falconFeedback.ack.bitmapBits
+                      << " bitmap=0x" << std::hex << falconFeedback.ack.bitmap << std::dec
+                      << " hasGap=" << (falconFeedback.ack.hasGap ? 1 : 0)
+                      << std::endl;
+        }
         if (m_hpccTrace) {
             std::cout << "[FALCON_RX] t=" << Simulator::Now().GetNanoSeconds()
                       << " node=" << m_node->GetId() << " flow=" << rxQp->m_flow_id
@@ -1009,6 +1069,25 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
         Ptr<Packet> newp =
             Create<Packet>(std::max(60 - 14 - 20 - (int)seqh.GetSerializedSize(), 0));
         newp->AddHeader(seqh);
+        if (m_enableFalcon && m_enableConsoleLog == 1) {
+            uint32_t packetSize = m_mtu == 0 ? 1 : m_mtu;
+            uint32_t cumAckPsn = falconFeedback.ack.cumAckSeq / packetSize;
+            if (IsPsnInList(receivedSeq / packetSize, m_consoleLogPsns) ||
+                PsnListOverlapsFalconBitmap(cumAckPsn, falconFeedback.ack.bitmapBits,
+                                            falconFeedback.ack.bitmap, m_consoleLogPsns)) {
+                std::cout << "[PSN_TRACE_ACK_GEN] t=" << Simulator::Now().GetNanoSeconds()
+                          << " node=" << m_node->GetId()
+                          << " flow=" << rxQp->m_flow_id
+                          << " wireType=" << ((x == 1) ? "ACK" : "NACK")
+                          << " recvPsn=" << (receivedSeq / packetSize)
+                          << " cumAckPsn=" << cumAckPsn
+                          << " bitmapBits=" << falconFeedback.ack.bitmapBits
+                          << " bitmap=0x" << std::hex << falconFeedback.ack.bitmap << std::dec
+                          << " hasGap=" << (falconFeedback.ack.hasGap ? 1 : 0)
+                          << " controlBytes=" << newp->GetSize()
+                          << std::endl;
+            }
+        }
         if (m_hpccTrace && m_cc_mode == 3) {
             const char *wireType = (x == 1) ? "ACK" : "NACK";
             const char *semanticType = (x == 2) ? "NACK" : "ACK";
@@ -1141,11 +1220,28 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
         const uint64_t falconBitmap =
             (static_cast<uint64_t>(ch.ack.falconBitmapHi) << 32) | ch.ack.falconBitmapLo;
         const uint16_t falconBitmapBits = ch.ack.falconBitmapBits;
+        const uint32_t packetSize = qp->psnPath.packetSize == 0 ? m_mtu : qp->psnPath.packetSize;
+        const uint32_t cumAckPsn = packetSize == 0 ? 0 : seq / packetSize;
         const uint32_t old_snd_una = qp->snd_una;
+        if (m_enableConsoleLog == 1 &&
+            PsnListOverlapsFalconBitmap(cumAckPsn, falconBitmapBits, falconBitmap,
+                                        m_consoleLogPsns)) {
+            std::cout << "[PSN_TRACE_ACK_RX] t=" << Simulator::Now().GetNanoSeconds()
+                      << " node=" << m_node->GetId()
+                      << " qp=" << qp->m_flow_id
+                      << " wireType=" << ((ch.l3Prot == 0xFC) ? "ACK" :
+                                          ((ch.l3Prot == 0xFD) ? "NACK" : "OTHER"))
+                      << " cumAckSeq=" << seq
+                      << " cumAckPsn=" << cumAckPsn
+                      << " bitmapBits=" << falconBitmapBits
+                      << " bitmap=0x" << std::hex << falconBitmap << std::dec
+                      << " snd_una_psn_before="
+                      << (packetSize == 0 ? 0 : old_snd_una / packetSize)
+                      << std::endl;
+        }
         qp->Acknowledge(seq);
         std::vector<uint32_t> retransSeqs =
-            m_falcon.OnAck(key, seq, falconBitmapBits, falconBitmap, qp->psnPath.packetSize,
-                           Simulator::Now(), m_falconReoWnd);
+            m_falcon.OnAck(key, seq, falconBitmapBits, falconBitmap, qp->psnPath.packetSize);
         qp->m_selectiveAckedBytes = m_falcon.GetSelectiveAckedBytes(key);
         while (!qp->psnPath.pendingRetrans.empty()) {
             const PsnRetransRequest &req = qp->psnPath.pendingRetrans.front();
@@ -1156,24 +1252,30 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
         for (size_t idx = 0; idx < retransSeqs.size(); ++idx) {
             const uint32_t retransSeq = retransSeqs[idx];
             const uint32_t startPsn = retransSeq / qp->psnPath.packetSize;
-            bool duplicated = false;
-            for (size_t qidx = 0; qidx < qp->psnPath.pendingRetrans.size(); ++qidx) {
-                const PsnRetransRequest &req = qp->psnPath.pendingRetrans[qidx];
-                if (req.startPsn == startPsn && req.endPsn == startPsn) {
-                    duplicated = true;
-                    break;
-                }
-            }
-            if (!duplicated) {
-                PsnRetransRequest req;
-                req.startPsn = startPsn;
-                req.endPsn = startPsn;
-                req.epoch = qp->psnPath.mappingEpoch;
-                qp->psnPath.pendingRetrans.push_back(req);
-            }
+            PsnRetransRequest req;
+            req.startPsn = startPsn;
+            req.endPsn = startPsn;
+            req.epoch = qp->psnPath.mappingEpoch;
+            qp->psnPath.pendingRetrans.push_back(req);
         }
         if (qp->snd_nxt < qp->snd_una) {
             qp->snd_nxt = qp->snd_una;
+        }
+        if (m_enableConsoleLog == 1 &&
+            PsnListOverlapsFalconBitmap(cumAckPsn, falconBitmapBits, falconBitmap,
+                                        m_consoleLogPsns)) {
+            std::cout << "[PSN_TRACE_ACK_APPLY] t=" << Simulator::Now().GetNanoSeconds()
+                      << " node=" << m_node->GetId()
+                      << " qp=" << qp->m_flow_id
+                      << " cumAckPsn=" << cumAckPsn
+                      << " bitmapBits=" << falconBitmapBits
+                      << " bitmap=0x" << std::hex << falconBitmap << std::dec
+                      << " snd_una_psn_after="
+                      << (packetSize == 0 ? 0 : qp->snd_una / packetSize)
+                      << " selectiveAckedBytes=" << qp->m_selectiveAckedBytes
+                      << " bitmapRetransCount=" << retransSeqs.size()
+                      << " pendingRetrans=" << qp->psnPath.pendingRetrans.size()
+                      << std::endl;
         }
         if (qp->IsFinished()) {
             QpComplete(qp);
@@ -2672,7 +2774,7 @@ Ptr<Packet> RdmaHw::GetNxtPacket(Ptr<RdmaQueuePair> qp) {
         bool traceSelectedPsn =
             m_enableConsoleLog == 1 &&
             ((m_enablePsnPath && m_enablePathSwitch && m_enablePathAwareRetrans) ||
-             m_enableBitmapRetrans || m_enableOrnic) &&
+             m_enableBitmapRetrans || m_enableFalcon || m_enableOrnic) &&
             IsPsnInList(psn, m_consoleLogPsns);
         if (traceSelectedPsn || m_enableConsoleLog >= 2) {
             uint64_t win = qp->GetWin();

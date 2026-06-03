@@ -41,8 +41,8 @@ class FalconRetransModule {
     FalconRxResult OnData(const RdmaFlowKey &key, uint32_t seq, uint32_t size,
                           uint32_t packetSize);
 
-    std::vector<uint32_t> OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq, uint16_t bitmapBits,
-                                uint64_t bitmap, uint32_t packetSize, Time now, Time reoWnd);
+    std::vector<uint32_t> OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq,
+                                uint16_t bitmapBits, uint64_t bitmap, uint32_t packetSize);
 
     bool MarkRetransPending(const RdmaFlowKey &key, uint32_t seq);
     void ClearRetransPending(const RdmaFlowKey &key, uint32_t seq);

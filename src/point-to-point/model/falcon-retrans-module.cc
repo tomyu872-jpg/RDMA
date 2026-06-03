@@ -82,16 +82,14 @@ FalconRxResult FalconRetransModule::OnData(const RdmaFlowKey &key, uint32_t seq,
 
 std::vector<uint32_t> FalconRetransModule::OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq,
                                                  uint16_t bitmapBits, uint64_t bitmap,
-                                                 uint32_t packetSize, Time now, Time reoWnd) {
-    TxState &state = m_txStates[key];
+                                                 uint32_t packetSize) {
     std::vector<uint32_t> retransSeqs;
+    TxState &state = m_txStates[key];
     const uint32_t step = std::max<uint32_t>(1, packetSize);
-    Time newestAckedSent = Time(0);
 
     for (std::map<uint32_t, TxSegmentState>::iterator it = state.outstanding.begin();
          it != state.outstanding.end();) {
         if (it->first >= cumAckSeq) break;
-        newestAckedSent = std::max(newestAckedSent, it->second.lastSent);
         state.selectiveAckedBytes =
             state.selectiveAckedBytes >= it->second.size ? state.selectiveAckedBytes - it->second.size : 0;
         state.retransPending.erase(it->first);
@@ -108,29 +106,28 @@ std::vector<uint32_t> FalconRetransModule::OnAck(const RdmaFlowKey &key, uint32_
         if (it == state.outstanding.end()) {
             continue;
         }
-        newestAckedSent = std::max(newestAckedSent, it->second.lastSent);
         state.selectiveAckedBytes += it->second.size;
         state.retransPending.erase(seq);
         state.outstanding.erase(it);
     }
 
-    for (uint16_t bit = 0; bit < validBits; ++bit) {
+    uint16_t scanBits = validBits;
+    while (scanBits > 0 && ((bitmap >> (scanBits - 1)) & uint64_t(1)) == 0) {
+        --scanBits;
+    }
+
+    for (uint16_t bit = 0; bit < scanBits; ++bit) {
         if (((bitmap >> bit) & uint64_t(1)) != 0) {
             continue;
         }
         const uint32_t seq = cumAckSeq + static_cast<uint32_t>(bit) * step;
-        std::map<uint32_t, TxSegmentState>::iterator it = state.outstanding.find(seq);
-        if (it == state.outstanding.end()) {
+        if (state.outstanding.find(seq) == state.outstanding.end()) {
             continue;
         }
-        const bool timeReady = now >= it->second.lastSent + reoWnd;
-        const bool rackReady =
-            newestAckedSent > Time(0) && newestAckedSent >= it->second.lastSent + reoWnd;
-        if ((timeReady || rackReady) && state.retransPending.insert(seq).second) {
+        if (state.retransPending.insert(seq).second) {
             retransSeqs.push_back(seq);
         }
     }
-
     return retransSeqs;
 }
 
