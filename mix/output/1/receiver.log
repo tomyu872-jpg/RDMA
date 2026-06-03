@@ -1,0 +1,8 @@
+[NACK] t=2000069674 node=150 psn_expected=81 psn_got=81 reason=PSN_PATH_TIMEOUT_GAP
+[NACK] t=2000073854 node=150 psn_expected=86 psn_got=102 reason=SAME_PATH_GAP
+[NACK] t=2000075172 node=150 psn_expected=86 psn_got=104 reason=PSN_PATH_K_GAP
+[NACK] t=2000083739 node=150 psn_expected=100 psn_got=116 reason=SAME_PATH_GAP
+[NACK] t=2000084398 node=150 psn_expected=100 psn_got=117 reason=PSN_PATH_K_GAP
+[NACK] t=2000181045 node=150 psn_expected=245 psn_got=245 reason=PSN_PATH_TIMEOUT_GAP
+[NACK] t=2000423557 node=150 psn_expected=612 psn_got=612 reason=PSN_PATH_TIMEOUT_GAP
+[NACK] t=2000646299 node=150 psn_expected=949 psn_got=949 reason=PSN_PATH_TIMEOUT_GAP

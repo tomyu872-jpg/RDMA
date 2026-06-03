@@ -1,0 +1,108 @@
+Waf: Entering directory `/root/hpcc_rdma/build'
+Waf: Leaving directory `/root/hpcc_rdma/build'
+'build' finished successfully (0.386s)
+TOPOLOGY_FILE			config/1_topology.txt
+FLOW_FILE			config/1_flow.txt
+FLOW_INPUT_FILE			mix/output/1/1_in.txt
+CNP_OUTPUT_FILE			mix/output/1/1_out_cnp.txt
+FCT_OUTPUT_FILE		mix/output/1/1_out_fct.txt
+PFC_OUTPUT_FILE				mix/output/1/1_out_pfc.txt
+QLEN_MON_FILE				mix/output/1/1_out_qlen.txt
+VOQ_MON_FILE				mix/output/1/1_out_voq.txt
+VOQ_MON_DETAIL_FILE				mix/output/1/1_out_voq_per_dst.txt
+UPLINK_MON_FILE				mix/output/1/1_out_uplink.txt
+CONN_MON_FILE				mix/output/1/1_out_conn.txt
+EST_ERROR_MON_FILE			mix/output/1/1_out_est_error.txt
+QLEN_MON_START				2
+QLEN_MON_END				2
+SW_MONITORING_INTERVAL			10000
+FLOWGEN_START_TIME		2
+FLOWGEN_STOP_TIME		30
+BUFFER_SIZE				9
+ENABLE_CONSOLE_LOG		1
+CONSOLE_LOG_PSNS		305
+CC_MODE		1
+LB_MODE			0
+ENABLE_PFC			No
+ENABLE_IRN		1
+ENABLE_PATH_SELECT	Yes
+PSN_PATH_K		16
+ENABLE_PSN_PATH		Yes
+ENABLE_PATH_SWITCH	Yes
+ENABLE_PATH_AWARE_RETRANS	Yes
+PSN_PATH_GAP_TIMEOUT_NS	9000
+ENABLE_RX_OOO_NACK	No
+ENABLE_TX_NACK_GOBACK	No
+TX_NACK_RETRANS_INTERVAL_NS	20000
+ENABLE_BITMAP_RETRANS	No
+BITMAP_RETRANS_SIZE	16
+BITMAP_RETRANS_TIMEOUT_NS	10000
+ENABLE_FALCON		No
+FALCON_REO_WND_NS	50000
+ENABLE_ORNIC		No
+ORNIC_BW_GBPS		100
+ORNIC_GAP_NACK_TIMEOUT_NS	0
+CONWEAVE_TX_EXPIRY_TIME			+1000000.0ns
+CONWEAVE_REPLY_TIMEOUT_EXTRA			+4000.0ns
+CONWEAVE_PATH_PAUSE_TIME			+16000.0ns
+CONWEAVE_EXTRA_VOQ_FLUSH_TIME			+64000.0ns
+CONWEAVE_DEFAULT_VOQ_WAITING_TIME			+400000.0ns
+MIN_RATE		100Mb/s
+DCTCP_RATE_AI				1000Mb/s
+ERROR_RATE_PER_LINK		0
+L2_CHUNK_SIZE			4000
+L2_ACK_INTERVAL			5000
+L2_BACK_TO_ZERO			No
+RATE_BOUND		1
+HAS_WIN		0
+VAR_WIN		0
+FAST_REACT		0
+MI_THRESH		12
+INT_MULTI				1
+GLOBAL_T		1
+U_TARGET		0.85
+MULTI_RATE				0
+SAMPLE_FEEDBACK				0
+HPCC_TRACE				0
+HPCC_TRACE_INTERVAL			1
+ENABLE_QCN			Yes
+USE_DYNAMIC_PFC_THRESHOLD	No
+PACKET_PAYLOAD_SIZE		8192
+LINK_DOWN				0 0 0
+KMAX_MAP				 20000000000 400 50000000000 400 100000000000 400 200000000000 400 250000000000 400 400000000000 400
+KMIN_MAP				 20000000000 100 50000000000 100 100000000000 100 200000000000 100 250000000000 100 400000000000 100
+PMAX_MAP				 20000000000 0 50000000000 0 100000000000 0.2 200000000000 0.2 250000000000 0.2 400000000000 0.2
+LOAD			50
+RANDOM_SEED			1
+[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow.txt cc_mode=1 lb_mode=0
+[PROGRESS] Input opened: topology nodes=288 switches=32 links=512, flows=1
+[PROGRESS] Topology parsed and channels created.
+(AVG) NIC RATE: 100000000000
+[PROGRESS] Host NIC rate summary computed.
+[PROGRESS] Host IP mapping initialized.
+[PROGRESS] Switch ECN/PFC configuration completed.
+../scratch/network-load-balance.cc(1815) WARN - topo2bdpMap has no matched item with config/1_topology.txt, disable IRN BDP strict check and continue with IrnBdp=0
+[PROGRESS] Initializing RDMA host node=256
+[PROGRESS] Host 256 entering RdmaDriver::Init
+[PROGRESS] Host 256 finished RdmaDriver::Init
+[PROGRESS] Host 256 connected QpComplete trace
+[PROGRESS] RDMA drivers initialized on all hosts.
+[ROUTE_DUMP] phase=initial host_count=256
+[NEXTHOP_DUMP] phase=initial
+node_num=288
+maxRtt: 10620, maxBdp: 132750
+Configuring switches
+[PROGRESS] Flow scheduling initialized. total_flows=1
+------------------------------------------
+[PROGRESS] Simulator::Run starting. stop_time=40.000 s
+Running Simulation.
+*** input flow is over the prefixed number -- flow number : 1
+*** flow_input.idx : 1
+*** THIS IS THE LAST FLOW TO SEND :) 
+[PROGRESS] Flow file fully consumed. Scheduled flows=1
+[PSN_TRACE_SCHED_BLOCK] t=2000204949 qp=0 nextPsn=305 snd_nxt_psn=305 snd_una_psn=289 snd_nxt_bytes=2498560 snd_una_bytes=2367488 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=695 bytesLeft=5693440 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000204949 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=16 onTheFlyBytes=131072 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000204949 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=306 snd_una_psn=289 nextSeq=2506752 nextPsn=306 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=17 onTheFlyBytes=139264 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000211585 node=150 seq=2498560 psn=305 expectedPsn=305 prevPsn=289 prevReceived=0 earlierLossFound=0 firstMissingSamePath=-1 decision=ACCEPT reason=IN_ORDER currentPath=1 bitmapWindow=[305:0] nackTimerNs=2000185045 lastNACK=2007040
+
+*** Simulator is enforced to be finished, finished so far: 1/ total: 1, Time:+2000700000.0ns
+1.53395

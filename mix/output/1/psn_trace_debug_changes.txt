@@ -1,0 +1,109 @@
+PSN trace debug changes
+
+Purpose:
+- Make PSN_TRACE_SCHED_BLOCK easier to read by printing sequence-related values in packet/PSN units derived from PACKET_PAYLOAD_SIZE / qp->psnPath.packetSize.
+- Keep byte values too, so window comparisons remain visible.
+
+Files changed in this debug pass:
+- src/point-to-point/model/qbb-net-device.cc
+  - PSN_TRACE_SCHED_BLOCK now prints:
+    - snd_nxt_psn, snd_una_psn
+    - snd_nxt_bytes, snd_una_bytes
+    - bytesLeftPkts plus bytesLeft
+    - packetSize
+    - winPkts plus win
+    - onTheFlyPkts plus onTheFlyBytes
+    - winLeftBytes and winLeftPkts
+- src/point-to-point/model/rdma-hw.cc
+  - PSN_TRACE_SEND now prints:
+    - snd_nxt_psn, snd_una_psn
+    - packetSize
+    - winPkts plus win
+    - onTheFlyPkts plus onTheFlyBytes
+
+Current finding from mix/output/1/config.log before this debug pass:
+- PACKET_PAYLOAD_SIZE is 8192.
+- 817 was lost. Receiver accepted 816 in order, then got 818 while expectedPsn=817.
+- 833 was also lost later.
+- First attempt to send 849 was blocked after sending 848:
+  - t=2000631714 sent psn=848
+  - snd_nxt became psn=849
+  - win=261099 bytes, onTheFlyBytes=262144 bytes
+  - winLeftBytes=0, winLeftPkts=0
+  - t=2000632376 nextPsn=849 had isWinBound=1, condWindowAllowed=0, condReady=0
+- This means 849 did not go out because the HPCC window was smaller than the outstanding bytes by 1045 bytes.
+- Increasing only the initial HPCC window may not fix this because HPCC later updates qp->hp.m_W; by the blocking point it had become about 261099 bytes.
+
+Related note:
+- rdma-hw.cc currently has two HPCC initWin scaling sites that are not identical:
+  - one site uses qp->psnPath.k/4
+  - another site uses qp->psnPath.k
+  Keep this in mind when comparing runs or reverting experiments.
+
+Validation run after adding PSN-unit fields:
+- Command:
+  cd /root/hpcc_rdma && ./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/1/config.txt' > /tmp/psn_debug_run.log 2>&1
+- Build succeeded before the run.
+- The debug run produced /tmp/psn_debug_run.log.
+
+Key lines from /tmp/psn_debug_run.log:
+- PACKET_PAYLOAD_SIZE is 8192.
+- Before sending 849:
+  [PSN_TRACE_SEND] t=2000631714 ... psn=848 snd_nxt_psn=849 snd_una_psn=817 ... winPkts=31 win=261099 onTheFlyPkts=32 onTheFlyBytes=262144 winLeftBytes=0 winLeftPkts=0 ...
+- The next scheduling check for 849:
+  [PSN_TRACE_SCHED_BLOCK] t=2000632376 ... nextPsn=849 snd_nxt_psn=849 snd_una_psn=817 ... isWinBound=1 condWindowAllowed=0 condReady=0 ... winPkts=31 win=261099 onTheFlyPkts=32 onTheFlyBytes=262144 winLeftBytes=0 winLeftPkts=0
+- Interpretation:
+  849 did not send because the sender had 32 packets on the fly while HPCC's current window was only 31 packets plus a partial byte remainder. This is not fixed by only changing the initial window if HPCC later reduces/updates qp->hp.m_W to around 261099 bytes.
+
+Receiver NACK reason split:
+- Files changed:
+  - src/point-to-point/model/rdma-queue-pair.h
+  - src/point-to-point/model/rdma-queue-pair.cc
+  - src/point-to-point/model/rdma-hw.cc
+- Added RdmaRxQueuePair::m_lastNackReason.
+- ReceiverCheckSeq clears m_lastNackReason at the start of each packet check.
+- PSN-path receiver logic now records:
+  - SAME_PATH_GAP for same-path missing packet detection.
+  - BITMAP_WINDOW_OVERFLOW for packets beyond the bitmap receive window.
+- receiver.log now prefers this detailed reason when present.
+- Validation:
+  - ./waf build succeeded.
+  - A run with mix/output/1/config.txt produced receiver.log entries containing both:
+    reason=SAME_PATH_GAP
+    reason=BITMAP_WINDOW_OVERFLOW
+
+ENABLE_CONSOLE_LOG=2 sender full send log:
+- File changed:
+  - src/point-to-point/model/rdma-hw.cc
+- Added LogSenderPacket().
+- In RdmaHw::GetNxtPacket(), ENABLE_CONSOLE_LOG >= 2 now writes one [SEND] line to sender.log
+  for every data packet sent, including normal sends and retransmissions.
+- ENABLE_CONSOLE_LOG=1 behavior is unchanged for [PSN_TRACE_SEND]: it still prints selected
+  CONSOLE_LOG_PSNS packets to stdout when the PSN-path debug condition matches.
+- [SEND] fields include:
+  t, node, qp, seq, psn, snd_nxt_psn, snd_una_psn, snd_nxt, snd_una,
+  nextSeq, nextPsn, nextMode, packetSize, winPkts, win, onTheFlyPkts,
+  onTheFlyBytes, winLeftBytes, winLeftPkts, payloadSize, isRetrans,
+  retransMode, pathId, srcPort, pendingRetrans.
+- Validation:
+  - ./waf build succeeded.
+  - A temporary /tmp/config_console2.txt run with ENABLE_CONSOLE_LOG 2 produced
+    /tmp/sender.log containing 1092 [SEND] lines and 92 [RETX] lines.
+
+NACK_RX readability update:
+- File changed:
+  - src/point-to-point/model/rdma-hw.cc
+- In [NACK_RX], snd_nxt now prints in packet/PSN units by dividing qp->snd_nxt
+  by packetSize.
+- Added snd_nxt_bytes to keep the original byte offset visible.
+- Validation:
+  - ./waf build succeeded.
+
+TIMEOUT readability update:
+- File changed:
+  - src/point-to-point/model/rdma-hw.cc
+- In [TIMEOUT], snd_nxt and snd_una now print in packet/PSN units by dividing
+  by qp->psnPath.packetSize, falling back to m_mtu when packetSize is unset.
+- Added snd_nxt_bytes and snd_una_bytes to keep the original byte offsets visible.
+- Validation:
+  - ./waf build succeeded.

@@ -1,0 +1,16 @@
+[NACK_RX] t=2000073690 node=140 qp=0 snd_nxt=112 psn=81 action=ENQUEUE
+[RETX] t=2000073808 node=140 qp=0 psn=81
+[NACK_RX] t=2000077870 node=140 qp=0 snd_nxt=118 psn=86 action=ENQUEUE
+[RETX] t=2000078421 node=140 qp=0 psn=86
+[NACK_RX] t=2000079188 node=140 qp=0 snd_nxt=119 psn=86 action=ENQUEUE
+[RETX] t=2000079739 node=140 qp=0 psn=86
+[NACK_RX] t=2000087755 node=140 qp=0 snd_nxt=131 psn=100 action=ENQUEUE
+[RETX] t=2000088306 node=140 qp=0 psn=100
+[NACK_RX] t=2000088414 node=140 qp=0 snd_nxt=131 psn=100 action=ENQUEUE
+[RETX] t=2000088965 node=140 qp=0 psn=100
+[NACK_RX] t=2000185061 node=140 qp=0 snd_nxt=276 psn=245 action=ENQUEUE
+[RETX] t=2000185179 node=140 qp=0 psn=245
+[NACK_RX] t=2000427573 node=140 qp=0 snd_nxt=643 psn=612 action=ENQUEUE
+[RETX] t=2000427691 node=140 qp=0 psn=612
+[NACK_RX] t=2000650315 node=140 qp=0 snd_nxt=980 psn=949 action=ENQUEUE
+[RETX] t=2000650433 node=140 qp=0 psn=949
