@@ -1,0 +1,709 @@
+# project ns (3.19) configured on Sun May 31 00:48:52 2026 by
+# waf 1.7.11 (abi 98, python 20712f0 on linux2)
+# using ./waf configure --out build-local --disable-tests --enable-examples
+#
+----------------------------------------
+Setting top to
+/home/zpy/ns-allinone-3.19/hpcc_rdma
+----------------------------------------
+Setting out to
+/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local
+----------------------------------------
+Checking for 'gcc' (c compiler)
+find program=['gcc', 'cc'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='CC' -> '/usr/bin/gcc'
+find program=['ar'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='AR' -> '/usr/bin/ar'
+/usr/bin/gcc
+----------------------------------------
+Checking for 'g++' (c++ compiler)
+find program=['g++', 'c++'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='CXX' -> '/usr/bin/g++'
+(tool ar is already loaded, skipping)
+/usr/bin/g++
+---------------------------------------------------------
+Checking for compilation flag -Wl,--soname=foo... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-Wl,--soname=foo', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+---------------------------------------------------------
+Checking for program python
+/usr/bin/python
+find program=['python'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='PYTHON' -> '/usr/bin/python'
+['/usr/bin/python', '-c', 'import sys\nfor x in sys.version_info: print(str(x))']
+out: 3
+8
+10
+final
+0
+
+['/usr/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_python_lib(standard_lib=0, prefix='/usr/local') or ''))"]
+out: '/usr/local/lib/python3/dist-packages'
+
+'/usr/local/lib/python3/dist-packages'
+
+['/usr/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_python_lib(plat_specific=1, standard_lib=0, prefix='/usr/local') or ''))"]
+out: '/usr/local/lib/python3/dist-packages'
+
+'/usr/local/lib/python3/dist-packages'
+
+---------------------------------------------------------
+Checking for python version
+(3, 8, 10, 'final', 0)
+['/usr/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_config_var('prefix') or ''))\nprint(repr(get_config_var('SO') or ''))\nprint(repr(get_config_var('LDFLAGS') or ''))\nprint(repr(get_config_var('LIBDIR') or ''))\nprint(repr(get_config_var('LIBPL') or ''))\nprint(repr(get_config_var('INCLUDEPY') or ''))\nprint(repr(get_config_var('Py_ENABLE_SHARED') or ''))\nprint(repr(get_config_var('MACOSX_DEPLOYMENT_TARGET') or ''))\nprint(repr(get_config_var('LDSHARED') or ''))\nprint(repr(get_config_var('CFLAGS') or ''))"]
+out: '/usr'
+'.cpython-38-x86_64-linux-gnu.so'
+'-Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '
+'/usr/lib'
+'/usr/lib/python3.8/config-3.8-x86_64-linux-gnu'
+'/usr/include/python3.8'
+1
+''
+'x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '
+'-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g   -fstack-protector-strong -Wformat -Werror=format-security  -g -fwrapv -O2   '
+
+err: <string>:4: DeprecationWarning: SO is deprecated, use EXT_SUFFIX
+
+'/usr'
+'.cpython-38-x86_64-linux-gnu.so'
+'-Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '
+'/usr/lib'
+'/usr/lib/python3.8/config-3.8-x86_64-linux-gnu'
+'/usr/include/python3.8'
+1
+''
+'x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '
+'-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g   -fstack-protector-strong -Wformat -Werror=format-security  -g -fwrapv -O2   '
+
+Configuration returned from ['/usr/bin/python']:
+"prefix = '/usr'\nSO = '.cpython-38-x86_64-linux-gnu.so'\nLDFLAGS = '-Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '\nLIBDIR = '/usr/lib'\nLIBPL = '/usr/lib/python3.8/config-3.8-x86_64-linux-gnu'\nINCLUDEPY = '/usr/include/python3.8'\nPy_ENABLE_SHARED = 1\nMACOSX_DEPLOYMENT_TARGET = ''\nLDSHARED = 'x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions  -Wl,-z,relro -g -fwrapv -O2   '\nCFLAGS = '-Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g   -fstack-protector-strong -Wformat -Werror=format-security  -g -fwrapv -O2   '"
+
+
+
+# try again with -L$python_LIBDIR: ['/usr/lib']
+
+---------------------------------------------------------
+Checking for library python3.8 in LIBDIR
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_5f72010c6c2db2265f1655a9158ae95b/test.cpp -> build-local/.conf_check_5f72010c6c2db2265f1655a9158ae95b/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-fwrapv', '-fwrapv', '-fstack-protector-strong', '-fwrapv', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DPYTHONDIR="/usr/local/lib/python3/dist-packages"', '-DPYTHONARCHDIR="/usr/local/lib/python3/dist-packages"', '-DNDEBUG', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_5f72010c6c2db2265f1655a9158ae95b/testbuild/test.cpp.1.o -> build-local/.conf_check_5f72010c6c2db2265f1655a9158ae95b/testbuild/testprog
+
+['/usr/bin/g++', '-Wl,-Bsymbolic-functions', '-Wl,-z,relro', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_5f72010c6c2db2265f1655a9158ae95b/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L/usr/lib', '-lpython3.8']
+yes
+------------------------------------------------------------------------------------------------
+Checking for program /usr/bin/python-config,python3.8-config,python-config-3.8,python3.8m-config
+/usr/bin/python-config
+find program=['/usr/bin/python-config', 'python3.8-config', 'python-config-3.8', 'python3.8m-config'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='PYTHON_CONFIG' -> '/usr/bin/python-config'
+['/usr/bin/python-config', '--includes']
+out: -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7
+
+Include path for Python extensions (found via python-config --includes): ['/usr/include/python2.7', '/usr/include/x86_64-linux-gnu/python2.7']
+
+------------------------------------------------------------------------------------------------
+Checking for header Python.h
+==>
+
+#include <Python.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void Py_Initialize(void);
+	void Py_Finalize(void);
+#ifdef __cplusplus
+}
+#endif
+int main(int argc, char **argv)
+{
+   (void)argc; (void)argv;
+   Py_Initialize();
+   Py_Finalize();
+   return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_1f933b02106127ce3a9f4633a0e368e7/test.cpp -> build-local/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-fwrapv', '-fwrapv', '-fstack-protector-strong', '-fwrapv', '-fno-strict-aliasing', '-I/usr/include/python2.7', '-I/usr/include/x86_64-linux-gnu/python2.7', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DPYTHONDIR="/usr/local/lib/python3/dist-packages"', '-DPYTHONARCHDIR="/usr/local/lib/python3/dist-packages"', '-DNDEBUG', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/test.cpp.1.o -> build-local/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/testprog
+
+['/usr/bin/g++', '-Wl,-Bsymbolic-functions', '-Wl,-z,relro', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L/usr/lib', '-lpython3.8']
+yes
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -fvisibility=hidden... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-fvisibility=hidden', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DPYTHONDIR="/usr/local/lib/python3/dist-packages"', '-DPYTHONARCHDIR="/usr/local/lib/python3/dist-packages"', '-DHAVE_PYTHON_H=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -Wno-array-bounds... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-Wno-array-bounds', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DPYTHONDIR="/usr/local/lib/python3/dist-packages"', '-DPYTHONARCHDIR="/usr/local/lib/python3/dist-packages"', '-DHAVE_PYTHON_H=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for pybindgen location
+not found
+------------------------------------------------------------------------------------------------
+Python module pybindgen
+['/usr/bin/python', '-c', "\nimport pybindgen as current_module\nversion = getattr(current_module, '__version__', None)\nif version is not None:\n    print(str(version))\nelse:\n    print('unknown version')\n"]
+err: Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+ModuleNotFoundError: No module named 'pybindgen'
+
+not found
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/bindings/python: Could not find the python module 'pybindgen'
+------------------------------------------------------------------------------------------------
+Checking boost includes
+1_71
+------------------------------------------------------------------------------------------------
+Checking boost libs
+Found the boost path in /lib64 with the libraries:
+Trying pattern boost_system(-gcc[0-9]{0,3})+(-1_71)+
+Trying pattern boost_system(-1_71)+
+Trying pattern boost_system(-1_71)+
+Trying pattern boost_system(-gcc[0-9]{0,3})+
+Trying pattern boost_system
+Trying pattern boost_system
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src: lib system not found in /lib64
+not found
+------------------------------------------------------------------------------------------------
+Checking boost includes
+1_71
+------------------------------------------------------------------------------------------------
+Checking boost libs
+Found the boost path in /lib64 with the libraries:
+Trying pattern boost_system(-gcc[0-9]{0,3})+(-1_71)+
+Trying pattern boost_system(-1_71)+
+Trying pattern boost_system(-1_71)+
+Trying pattern boost_system(-gcc[0-9]{0,3})+
+Trying pattern boost_system
+Trying pattern boost_system
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src: lib system not found in /lib64
+not found
+------------------------------------------------------------------------------------------------
+Checking for click location
+not found
+------------------------------------------------------------------------------------------------
+Checking for program pkg-config
+/usr/bin/pkg-config
+find program=['pkg-config'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='PKGCONFIG' -> '/usr/bin/pkg-config'
+------------------------------------------------------------------------------------------------
+Checking for 'gtk+-2.0' >= 2.12
+['/usr/bin/pkg-config', '--atleast-version=2.12', 'gtk+-2.0']
+['/usr/bin/pkg-config', '--cflags', '--libs', 'gtk+-2.0']
+out: -pthread -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lharfbuzz -lfontconfig -lfreetype
+
+yes
+------------------------------------------------------------------------------------------------
+Checking for 'libxml-2.0' >= 2.7
+['/usr/bin/pkg-config', '--atleast-version=2.7', 'libxml-2.0']
+not found
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/config-store: The configuration failed
+------------------------------------------------------------------------------------------------
+Checking for type uint128_t
+==>
+#include <stdint.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	if ((uint128_t *) 0) return 0;
+	if (sizeof (uint128_t)) return 0;
+	return 1;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_656b178ce7442053dff90315b31a1cc5/test.cpp -> build-local/.conf_check_656b178ce7442053dff90315b31a1cc5/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp: In function ‘int main(int, char**)’:
+../test.cpp:5:7: error: ‘uint128_t’ was not declared in this scope; did you mean ‘uint32_t’?
+    5 |  if ((uint128_t *) 0) return 0;
+      |       ^~~~~~~~~
+      |       uint32_t
+../test.cpp:5:18: error: expected primary-expression before ‘)’ token
+    5 |  if ((uint128_t *) 0) return 0;
+      |                  ^
+../test.cpp:5:19: error: expected ‘)’ before numeric constant
+    5 |  if ((uint128_t *) 0) return 0;
+      |     ~             ^~
+      |                   )
+../test.cpp:6:14: error: ‘uint128_t’ was not declared in this scope; did you mean ‘uint32_t’?
+    6 |  if (sizeof (uint128_t)) return 0;
+      |              ^~~~~~~~~
+      |              uint32_t
+
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: Test does not build: Traceback (most recent call last):
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Tools/c_config.py", line 459, in run_c_code
+    bld.compile()
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Build.py", line 188, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140399033259216: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: The configuration failed
+------------------------------------------------------------------------------------------------
+Checking for type __uint128_t
+==>
+#include <stdint.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	if ((__uint128_t *) 0) return 0;
+	if (sizeof (__uint128_t)) return 0;
+	return 1;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_ace1886511f08627ee2e4ca020806295/test.cpp -> build-local/.conf_check_ace1886511f08627ee2e4ca020806295/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_ace1886511f08627ee2e4ca020806295/testbuild/test.cpp.1.o -> build-local/.conf_check_ace1886511f08627ee2e4ca020806295/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_ace1886511f08627ee2e4ca020806295/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking high precision time implementation
+128-bit integer
+------------------------------------------------------------------------------------------------
+Checking for header stdint.h
+==>
+#include <stdint.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/test.cpp -> build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/test.cpp.1.o -> build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header inttypes.h
+==>
+#include <inttypes.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/test.cpp -> build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/test.cpp.1.o -> build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header sys/inttypes.h
+==>
+#include <sys/inttypes.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_61ecbfef21667d45a28decabe37fdf64/test.cpp -> build-local/.conf_check_61ecbfef21667d45a28decabe37fdf64/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:10: fatal error: sys/inttypes.h: No such file or directory
+    1 | #include <sys/inttypes.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: Test does not build: Traceback (most recent call last):
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Tools/c_config.py", line 459, in run_c_code
+    bld.compile()
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Build.py", line 188, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140399032826000: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: The configuration failed
+------------------------------------------------------------------------------------------------
+Checking for header sys/types.h
+==>
+#include <sys/types.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_8d38681417ac64f5b5b7d4ca87b0e4f3/test.cpp -> build-local/.conf_check_8d38681417ac64f5b5b7d4ca87b0e4f3/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_8d38681417ac64f5b5b7d4ca87b0e4f3/testbuild/test.cpp.1.o -> build-local/.conf_check_8d38681417ac64f5b5b7d4ca87b0e4f3/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_8d38681417ac64f5b5b7d4ca87b0e4f3/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header sys/stat.h
+==>
+#include <sys/stat.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_8dd79274749d59bf459dfbeb1200c7d7/test.cpp -> build-local/.conf_check_8dd79274749d59bf459dfbeb1200c7d7/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_8dd79274749d59bf459dfbeb1200c7d7/testbuild/test.cpp.1.o -> build-local/.conf_check_8dd79274749d59bf459dfbeb1200c7d7/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_8dd79274749d59bf459dfbeb1200c7d7/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header dirent.h
+==>
+#include <dirent.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_c94d96928742c001335a0559791a93d8/test.cpp -> build-local/.conf_check_c94d96928742c001335a0559791a93d8/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_c94d96928742c001335a0559791a93d8/testbuild/test.cpp.1.o -> build-local/.conf_check_c94d96928742c001335a0559791a93d8/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_c94d96928742c001335a0559791a93d8/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header stdlib.h
+==>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_3a82ef2f96ebcc67f6086c98d2e6291e/test.cpp -> build-local/.conf_check_3a82ef2f96ebcc67f6086c98d2e6291e/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_3a82ef2f96ebcc67f6086c98d2e6291e/testbuild/test.cpp.1.o -> build-local/.conf_check_3a82ef2f96ebcc67f6086c98d2e6291e/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_3a82ef2f96ebcc67f6086c98d2e6291e/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header signal.h
+==>
+#include <signal.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_48955ac54d2136a572805353a7b9b62d/test.cpp -> build-local/.conf_check_48955ac54d2136a572805353a7b9b62d/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_48955ac54d2136a572805353a7b9b62d/testbuild/test.cpp.1.o -> build-local/.conf_check_48955ac54d2136a572805353a7b9b62d/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_48955ac54d2136a572805353a7b9b62d/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header pthread.h
+==>
+
+#include <pthread.h>
+int main ()
+{
+   pthread_mutex_t m;
+   pthread_mutex_init (&m, NULL);
+   return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_2be466e82e703a744ee152afe2b58299/test.cpp -> build-local/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-pthread', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/test.cpp.1.o -> build-local/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/testprog
+
+['/usr/bin/g++', '-pthread', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header stdint.h
+==>
+#include <stdint.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/test.cpp -> build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/test.cpp.1.o -> build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fa0c4ec9c63ac505501cc0863d9bdc48/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header inttypes.h
+==>
+#include <inttypes.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/test.cpp -> build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/test.cpp.1.o -> build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_7c67b81911f8bf0aede92c843d0e47cf/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header sys/inttypes.h
+==>
+#include <sys/inttypes.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_61ecbfef21667d45a28decabe37fdf64/test.cpp -> build-local/.conf_check_61ecbfef21667d45a28decabe37fdf64/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:10: fatal error: sys/inttypes.h: No such file or directory
+    1 | #include <sys/inttypes.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: Test does not build: Traceback (most recent call last):
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Tools/c_config.py", line 459, in run_c_code
+    bld.compile()
+  File "/home/zpy/ns-allinone-3.19/hpcc_rdma/.waf-1.7.11-edc6ccb516c5e3f9b892efc9f53a610f/waflib/Build.py", line 188, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140399032851856: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /home/zpy/ns-allinone-3.19/hpcc_rdma/src/core: The configuration failed
+------------------------------------------------------------------------------------------------
+Checking for library rt
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_5ef57bc0d8aa3565949b6ce1186fd4a7/test.cpp -> build-local/.conf_check_5ef57bc0d8aa3565949b6ce1186fd4a7/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-pthread', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_5ef57bc0d8aa3565949b6ce1186fd4a7/testbuild/test.cpp.1.o -> build-local/.conf_check_5ef57bc0d8aa3565949b6ce1186fd4a7/testbuild/testprog
+
+['/usr/bin/g++', '-pthread', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_5ef57bc0d8aa3565949b6ce1186fd4a7/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lrt']
+yes
+------------------------------------------------------------------------------------------------
+Checking for header netpacket/packet.h
+==>
+#include <netpacket/packet.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_f00bb2460dc7019f64c1a347be5879fa/test.cpp -> build-local/.conf_check_f00bb2460dc7019f64c1a347be5879fa/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_f00bb2460dc7019f64c1a347be5879fa/testbuild/test.cpp.1.o -> build-local/.conf_check_f00bb2460dc7019f64c1a347be5879fa/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_f00bb2460dc7019f64c1a347be5879fa/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for NSC location
+not found
+------------------------------------------------------------------------------------------------
+Checking for 'sqlite3'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'sqlite3']
+out: -lsqlite3
+
+yes
+------------------------------------------------------------------------------------------------
+Checking for header linux/if_tun.h
+==>
+#include <linux/if_tun.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] cxx: build-local/.conf_check_79f849e1774b3cde8897857e178c7c8c/test.cpp -> build-local/.conf_check_79f849e1774b3cde8897857e178c7c8c/testbuild/test.cpp.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] cxxprogram: build-local/.conf_check_79f849e1774b3cde8897857e178c7c8c/testbuild/test.cpp.1.o -> build-local/.conf_check_79f849e1774b3cde8897857e178c7c8c/testbuild/testprog
+
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_79f849e1774b3cde8897857e178c7c8c/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------------------------------------------------------
+Checking for program sudo
+/usr/bin/sudo
+find program=['sudo'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='SUDO' -> '/usr/bin/sudo'
+------------------------------------------------------------------------------------------------
+Checking for program valgrind
+/usr/bin/valgrind
+find program=['valgrind'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='VALGRIND' -> '/usr/bin/valgrind'
+------------------------------------------------------------------------------------------------
+Checking for 'gsl'
+['/usr/bin/pkg-config', '--cflags', '--libs', 'gsl']
+out: -lgsl -lgslcblas -lm
+
+yes
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -Wno-error=deprecated-d... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -Wno-error=deprecated-d... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] c: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
+
+['/usr/bin/gcc', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] cprogram: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
+
+['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -fstrict-aliasing... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -fstrict-aliasing... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] c: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
+
+['/usr/bin/gcc', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] cprogram: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
+
+['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -Wstrict-aliasing... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] cxx: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
+
+['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-std=gnu++11', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+[2/2] cxxprogram: build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
+
+['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for compilation flag -Wstrict-aliasing... support
+==>
+#include <stdio.h>
+int main() { return 0; }
+
+<==
+[1/2] c: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
+
+['/usr/bin/gcc', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_SQLITE3=1', '-DHAVE_IF_TUN_H=1', '-DHAVE_GSL=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] cprogram: build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
+
+['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/zpy/ns-allinone-3.19/hpcc_rdma/build-local/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+ok
+------------------------------------------------------------------------------------------------
+Checking for program doxygen
+not found
+find program=['doxygen'] paths=['/home/zpy/.codex/tmp/arg0/codex-arg0Riuc8B', '/home/zpy/.vscode-server/cli/servers/Stable-8761a5560cfd65fdd19ce7e2bd18dab5c0a4d84e/server/bin/remote-cli', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/opt/xilinx/xrt/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/tools/Xilinx/Vitis_HLS/2022.1/bin', '/tools/Xilinx/Model_Composer/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/arm/lin/bin', '/tools/Xilinx/Vitis/2022.1/gnu/microblaze/linux_toolchain/lin64_le/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch32/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-linux/bin', '/tools/Xilinx/Vitis/2022.1/gnu/aarch64/lin/aarch64-none/bin', '/tools/Xilinx/Vitis/2022.1/gnu/armr5/lin/gcc-arm-none-eabi/bin', '/tools/Xilinx/Vitis/2022.1/tps/lnx64/cmake-3.3.2/bin', '/tools/Xilinx/Vitis/2022.1/aietools/bin', '/tools/Xilinx/Vivado/2022.1/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/zpy/.vscode-server/extensions/openai.chatgpt-26.527.31454-linux-x64/bin/linux-x86_64'] var='DOXYGEN' -> ''
+from /home/zpy/ns-allinone-3.19/hpcc_rdma: Could not find the program doxygen

@@ -1,0 +1,33 @@
+date,id,ccmode,lbmode,cwh_tx_expiry_time,cwh_extra_reply_deadline,cwh_path_pause_time,cwh_extra_voq_flush_time,cwh_default_voq_waiting_time,pfc,irn,has_win,var_win,topo,bw,cdf,load,time
+05/22/26,468448610,1,6,1000,4,16,64,400,1,0,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/468448610/config.txt' > /root/hpcc_rdma/mix/output/468448610/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/468448610/config.txt'
+
+05/22/26,567625084,1,3,1000,4,16,64,400,1,0,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/567625084/config.txt' > /root/hpcc_rdma/mix/output/567625084/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/567625084/config.txt'
+
+05/22/26,337166799,1,0,1000,4,16,64,400,1,0,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/337166799/config.txt' > /root/hpcc_rdma/mix/output/337166799/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/337166799/config.txt'
+
+05/22/26,717005889,1,9,300,4,16,16,200,1,0,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/717005889/config.txt' > /root/hpcc_rdma/mix/output/717005889/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/717005889/config.txt'
+
+05/22/26,57658846,1,0,1000,4,16,64,400,0,1,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/57658846/config.txt' > /root/hpcc_rdma/mix/output/57658846/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/57658846/config.txt'
+
+05/22/26,570733626,1,6,1000,4,16,64,400,0,1,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/570733626/config.txt' > /root/hpcc_rdma/mix/output/570733626/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/570733626/config.txt'
+
+05/22/26,599327768,1,3,1000,4,16,64,400,0,1,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/599327768/config.txt' > /root/hpcc_rdma/mix/output/599327768/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/599327768/config.txt'
+
+05/22/26,718687607,1,9,300,4,16,16,200,0,1,0,0,leaf_spine_128_100G_OS2,100,AliStorage2019,50,0.1
+./waf --run 'scratch/network-load-balance /root/hpcc_rdma/mix/output/718687607/config.txt' > /root/hpcc_rdma/mix/output/718687607/config.log 2>&1
+./waf --run 'scratch/network-load-balance' --command-template='gdb --args %s /root/hpcc_rdma/mix/output/718687607/config.txt'
+
