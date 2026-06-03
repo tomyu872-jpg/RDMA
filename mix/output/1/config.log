@@ -1,6 +1,6 @@
 Waf: Entering directory `/root/hpcc_rdma/build'
 Waf: Leaving directory `/root/hpcc_rdma/build'
-'build' finished successfully (0.386s)
+'build' finished successfully (0.383s)
 TOPOLOGY_FILE			config/1_topology.txt
 FLOW_FILE			config/1_flow.txt
 FLOW_INPUT_FILE			mix/output/1/1_in.txt
@@ -21,25 +21,25 @@ FLOWGEN_STOP_TIME		30
 BUFFER_SIZE				9
 ENABLE_CONSOLE_LOG		1
 CONSOLE_LOG_PSNS		305
-CC_MODE		1
+CC_MODE		3
 LB_MODE			0
 ENABLE_PFC			No
 ENABLE_IRN		1
 ENABLE_PATH_SELECT	Yes
 PSN_PATH_K		16
-ENABLE_PSN_PATH		Yes
-ENABLE_PATH_SWITCH	Yes
-ENABLE_PATH_AWARE_RETRANS	Yes
+ENABLE_PSN_PATH		No
+ENABLE_PATH_SWITCH	No
+ENABLE_PATH_AWARE_RETRANS	No
 PSN_PATH_GAP_TIMEOUT_NS	9000
 ENABLE_RX_OOO_NACK	No
 ENABLE_TX_NACK_GOBACK	No
 TX_NACK_RETRANS_INTERVAL_NS	20000
 ENABLE_BITMAP_RETRANS	No
-BITMAP_RETRANS_SIZE	16
+BITMAP_RETRANS_SIZE	64
 BITMAP_RETRANS_TIMEOUT_NS	10000
 ENABLE_FALCON		No
 FALCON_REO_WND_NS	50000
-ENABLE_ORNIC		No
+ENABLE_ORNIC		Yes
 ORNIC_BW_GBPS		100
 ORNIC_GAP_NACK_TIMEOUT_NS	0
 CONWEAVE_TX_EXPIRY_TIME			+1000000.0ns
@@ -47,6 +47,14 @@ CONWEAVE_REPLY_TIMEOUT_EXTRA			+4000.0ns
 CONWEAVE_PATH_PAUSE_TIME			+16000.0ns
 CONWEAVE_EXTRA_VOQ_FLUSH_TIME			+64000.0ns
 CONWEAVE_DEFAULT_VOQ_WAITING_TIME			+400000.0ns
+ALPHA_RESUME_INTERVAL		1
+RATE_DECREASE_INTERVAL		1
+CLAMP_TARGET_RATE		Yes
+RP_TIMER			300
+FAST_RECOVERY_TIMES		1
+EWMA_GAIN			0.06
+RATE_AI				20.0Mb/s
+RATE_HAI			50.0Mb/s
 MIN_RATE		100Mb/s
 DCTCP_RATE_AI				1000Mb/s
 ERROR_RATE_PER_LINK		0
@@ -74,7 +82,7 @@ KMIN_MAP				 20000000000 100 50000000000 100 100000000000 100 200000000000 100 2
 PMAX_MAP				 20000000000 0 50000000000 0 100000000000 0.2 200000000000 0.2 250000000000 0.2 400000000000 0.2
 LOAD			50
 RANDOM_SEED			1
-[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow.txt cc_mode=1 lb_mode=0
+[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow.txt cc_mode=3 lb_mode=0
 [PROGRESS] Input opened: topology nodes=288 switches=32 links=512, flows=1
 [PROGRESS] Topology parsed and channels created.
 (AVG) NIC RATE: 100000000000
@@ -100,9 +108,59 @@ Running Simulation.
 *** flow_input.idx : 1
 *** THIS IS THE LAST FLOW TO SEND :) 
 [PROGRESS] Flow file fully consumed. Scheduled flows=1
-[PSN_TRACE_SCHED_BLOCK] t=2000204949 qp=0 nextPsn=305 snd_nxt_psn=305 snd_una_psn=289 snd_nxt_bytes=2498560 snd_una_bytes=2367488 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=695 bytesLeft=5693440 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000204949 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=16 onTheFlyBytes=131072 winLeftBytes=0 winLeftPkts=0
-[PSN_TRACE_SEND] t=2000204949 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=306 snd_una_psn=289 nextSeq=2506752 nextPsn=306 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=17 onTheFlyBytes=139264 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
-[PSN_TRACE_RECV] t=2000211585 node=150 seq=2498560 psn=305 expectedPsn=305 prevPsn=289 prevReceived=0 earlierLossFound=0 firstMissingSamePath=-1 decision=ACCEPT reason=IN_ORDER currentPath=1 bitmapWindow=[305:0] nackTimerNs=2000185045 lastNACK=2007040
+[PSN_TRACE_SCHED_BLOCK] t=2000215812 qp=0 nextPsn=305 snd_nxt_psn=305 snd_una_psn=289 snd_nxt_bytes=2498560 snd_una_bytes=2367488 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=695 bytesLeft=5693440 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000215812 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=16 onTheFlyBytes=131072 winLeftBytes=225027 winLeftPkts=28
+[PSN_TRACE_SEND] t=2000215812 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=306 snd_una_psn=289 nextSeq=2506752 nextPsn=306 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=17 onTheFlyBytes=139264 winLeftBytes=216835 winLeftPkts=27 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000227728 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000227728 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000227728 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000228390 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000228390 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000228390 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000229052 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000229052 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000229052 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000229714 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000229714 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000229714 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000230376 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000230376 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000230376 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000231038 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000231038 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000231038 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000231700 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000231700 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000231700 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000232362 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000232362 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000232362 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000233024 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000233024 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000233024 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000233686 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000233686 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000233686 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000234348 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000234348 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000234348 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000234376 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=305 expectedPsnAfter=323 decision=ACK reason=ORNIC_IN_ORDER gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000235010 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000235010 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000235010 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000235038 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000235672 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000235672 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000235672 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000235700 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000236334 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000236334 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000236334 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000236362 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000236996 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000236996 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000236996 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000237024 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000237658 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000237658 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000237658 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000237686 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_SCHED_BLOCK] t=2000238320 qp=0 nextPsn=305 snd_nxt_psn=323 snd_una_psn=305 snd_nxt_bytes=2646016 snd_una_bytes=2498560 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=1 retransFront=[ORNIC:305] bytesLeftPkts=677 bytesLeft=5545984 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000238320 packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26
+[PSN_TRACE_SEND] t=2000238320 node=140 qp=0 seq=2498560 psn=305 snd_nxt_psn=323 snd_una_psn=305 nextSeq=2646016 nextPsn=323 nextMode=NEW packetSize=8192 winPkts=43 win=356099 onTheFlyPkts=18 onTheFlyBytes=147456 winLeftBytes=208643 winLeftPkts=26 payloadSize=8192 isRetrans=1 retransMode=PSN_QUEUE pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_RECV] t=2000238348 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000239010 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000239672 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000240334 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000240996 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000241658 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000242320 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000242982 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000243644 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000244306 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
+[PSN_TRACE_RECV] t=2000244968 node=150 flow=0 seq=2498560 psn=305 expectedPsnBefore=323 expectedPsnAfter=323 decision=ACK reason=ORNIC_DUPLICATE_OR_OLD gap=0 otd=0 mddNs=60242 rttMinNs=3943685480 rttMaxNs=3943805964
 
-*** Simulator is enforced to be finished, finished so far: 1/ total: 1, Time:+2000700000.0ns
-1.53395
+*** Simulator is enforced to be finished, finished so far: 1/ total: 1, Time:+2000900000.0ns
+0.967235
