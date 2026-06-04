@@ -166,8 +166,9 @@ int enable_falcon = 0;
 int enable_ornic = 0;
 uint32_t bitmap_retrans_size = BITMAP_SIZE;
 uint64_t bitmap_retrans_timeout_ns = 0;
+uint64_t falcon_rx_send_delay_ns = 0;
+uint64_t ornic_rx_send_delay_ns = 0;
 double ornic_bw_gbps = 0.0;
-uint64_t ornic_gap_nack_timeout_ns = 0;
 uint32_t psn_path_k = 4;
 uint64_t psn_path_gap_timeout_ns = 0;
 int random_seed = 1;  // change this randomly if you want random expt
@@ -1456,6 +1457,9 @@ int main(int argc, char *argv[]) {
                 conf >> v;
                 enable_falcon = v;
                 std::cerr << "ENABLE_FALCON\t\t" << (enable_falcon ? "Yes" : "No") << "\n";
+            } else if (key.compare("FALCON_RX_SEND_DELAY_NS") == 0) {
+                conf >> falcon_rx_send_delay_ns;
+                std::cerr << "FALCON_RX_SEND_DELAY_NS\t" << falcon_rx_send_delay_ns << "\n";
             } else if (key.compare("ENABLE_ORNIC") == 0) {
                 bool v;
                 conf >> v;
@@ -1466,11 +1470,9 @@ int main(int argc, char *argv[]) {
                 conf >> v;
                 ornic_bw_gbps = v;
                 std::cerr << "ORNIC_BW_GBPS\t\t" << ornic_bw_gbps << "\n";
-            } else if (key.compare("ORNIC_GAP_NACK_TIMEOUT_NS") == 0) {
-                uint64_t v;
-                conf >> v;
-                ornic_gap_nack_timeout_ns = v;
-                std::cerr << "ORNIC_GAP_NACK_TIMEOUT_NS\t" << ornic_gap_nack_timeout_ns << "\n";
+            } else if (key.compare("ORNIC_RX_SEND_DELAY_NS") == 0) {
+                conf >> ornic_rx_send_delay_ns;
+                std::cerr << "ORNIC_RX_SEND_DELAY_NS\t" << ornic_rx_send_delay_ns << "\n";
             } else if (key.compare("RANDOM_SEED") == 0) {
                 int v;
                 conf >> v;
@@ -1860,10 +1862,12 @@ int main(int argc, char *argv[]) {
             rdmaHw->SetAttribute("BitmapRetransTimeout",
                                  TimeValue(NanoSeconds(bitmap_retrans_timeout_ns)));
             rdmaHw->SetAttribute("EnableFalcon", BooleanValue(enable_falcon));
+            rdmaHw->SetAttribute("FalconRxSendDelay",
+                                 TimeValue(NanoSeconds(falcon_rx_send_delay_ns)));
             rdmaHw->SetAttribute("EnableOrnic", BooleanValue(enable_ornic));
             rdmaHw->SetAttribute("OrnicBandwidthGbps", DoubleValue(ornic_bw_gbps));
-            rdmaHw->SetAttribute("OrnicGapNackTimeout",
-                                 TimeValue(NanoSeconds(ornic_gap_nack_timeout_ns)));
+            rdmaHw->SetAttribute("OrnicRxSendDelay",
+                                 TimeValue(NanoSeconds(ornic_rx_send_delay_ns)));
             rdmaHw->SetAttribute("PsnPathK", UintegerValue(psn_path_k));
             rdmaHw->SetAttribute("PsnPathGapTimeout",
                                  TimeValue(NanoSeconds(psn_path_gap_timeout_ns)));

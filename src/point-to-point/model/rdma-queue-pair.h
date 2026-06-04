@@ -285,9 +285,6 @@ class RdmaRxQueuePair : public Object {  // Rx side queue pair
     EventId bitmapExpectedTimerEvent;
     uint32_t bitmapExpectedTimeoutSeq{0xffffffffu};
     bool bitmapExpectedNackSent{false};
-    EventId ornicGapNackTimerEvent;
-    uint32_t ornicGapNackTimeoutSeq{0xffffffffu};
-    bool ornicGapTimeoutNackSent{false};
     std::array<uint8_t, BITMAP_SIZE> bitmap{};
     struct ECNAccount {
         uint16_t qIndex;

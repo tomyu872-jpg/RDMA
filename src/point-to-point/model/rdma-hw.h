@@ -19,6 +19,12 @@
 
 namespace ns3 {
 
+enum class RxControlDelayKind {
+    None,
+    Falcon,
+    Ornic,
+};
+
 struct RdmaInterfaceMgr {
     Ptr<QbbNetDevice> dev;
     Ptr<RdmaQueuePairGroup> qpGrp;
@@ -98,9 +104,6 @@ class RdmaHw : public Object {
     void SchedulePsnPathGapTimer(Ptr<RdmaRxQueuePair> q);
     void HandlePsnPathGapTimeout(Ptr<RdmaRxQueuePair> q, uint32_t missingPsn);
     void SendPsnPathGapTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t missingPsn);
-    void UpdateOrnicGapNackTimeout(Ptr<RdmaRxQueuePair> q, const OrnicRxFeedback &feedback);
-    void HandleOrnicGapNackTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);
-    void SendOrnicGapTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);
     void AddHeader(Ptr<Packet> p, uint16_t protocolNumber);
     static uint16_t EtherToPpp(uint16_t protocol);
 
@@ -218,8 +221,9 @@ class RdmaHw : public Object {
     bool m_enableOrnic;
     uint32_t m_bitmapRetransSize;
     Time m_bitmapRetransTimeout;
+    Time m_falconRxSendDelay;
+    Time m_ornicRxSendDelay;
     double m_ornicBandwidthGbps;
-    Time m_ornicGapNackTimeout;
     uint32_t m_psnPathK;
     uint32_t m_psnPathO;
     uint32_t m_psnPathBasePort;
@@ -233,6 +237,10 @@ class RdmaHw : public Object {
     BitmapRetransModule m_bitmapRetrans;
     FalconRetransModule m_falcon;
     OrnicRetransModule m_ornicRetrans;
+    void SendRxControlPacket(Ptr<QbbNetDevice> dev, Ptr<Packet> p,
+                             RxControlDelayKind delayKind);
+    void SendRxControlPacketNow(Ptr<QbbNetDevice> dev, Ptr<Packet> p);
+    void EnqueueFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq);
     void UpdateBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q,
                                      const BitmapRetransFeedback &feedback);
     void HandleBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);

@@ -446,6 +446,11 @@ TypeId RdmaHw::GetTypeId(void) {
             .AddAttribute("EnableFalcon", "Enable Falcon CumAck+Bitmap selective retransmission",
                           BooleanValue(false), MakeBooleanAccessor(&RdmaHw::m_enableFalcon),
                           MakeBooleanChecker())
+            .AddAttribute("FalconRxSendDelay",
+                          "Receiver-side fixed delay before sending Falcon ACK/NACK controls",
+                          TimeValue(NanoSeconds(0)),
+                          MakeTimeAccessor(&RdmaHw::m_falconRxSendDelay),
+                          MakeTimeChecker())
             .AddAttribute("EnableOrnic", "Enable ORNIC OTD-based selective retransmission",
                           BooleanValue(false), MakeBooleanAccessor(&RdmaHw::m_enableOrnic),
                           MakeBooleanChecker())
@@ -453,10 +458,10 @@ TypeId RdmaHw::GetTypeId(void) {
                           "ORNIC bandwidth B in Gbps. Zero means use the NIC data rate.",
                           DoubleValue(0.0), MakeDoubleAccessor(&RdmaHw::m_ornicBandwidthGbps),
                           MakeDoubleChecker<double>(0.0))
-            .AddAttribute("OrnicGapNackTimeout",
-                          "Receiver fallback timeout before NACKing an ORNIC gap held by OTD",
+            .AddAttribute("OrnicRxSendDelay",
+                          "Receiver-side fixed delay before sending ORNIC ACK/NACK controls",
                           TimeValue(NanoSeconds(0)),
-                          MakeTimeAccessor(&RdmaHw::m_ornicGapNackTimeout),
+                          MakeTimeAccessor(&RdmaHw::m_ornicRxSendDelay),
                           MakeTimeChecker())
             .AddAttribute("PsnPathK", "PSN-PATH K parameter", UintegerValue(4),
                           MakeUintegerAccessor(&RdmaHw::m_psnPathK),
@@ -511,8 +516,9 @@ RdmaHw::RdmaHw() {
     m_enableOrnic = false;
     m_bitmapRetransSize = BITMAP_SIZE;
     m_bitmapRetransTimeout = NanoSeconds(0);
+    m_falconRxSendDelay = NanoSeconds(0);
+    m_ornicRxSendDelay = NanoSeconds(0);
     m_ornicBandwidthGbps = 0.0;
-    m_ornicGapNackTimeout = NanoSeconds(0);
     m_psnPathK = 4;
     m_psnPathO = 0;
     m_psnPathBasePort = 10000;
@@ -839,6 +845,7 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
     BitmapRetransFeedback bitmapFeedback;
     FalconRxResult falconFeedback;
     OrnicRxFeedback ornicFeedback;
+    RxControlDelayKind rxControlDelayKind = RxControlDelayKind::None;
     if (m_enableOrnic) {
         auto ornicRxKey = GetRxQpKey(ch.sip, canonicalFlowSport, ch.udp.dport, ch.udp.pg);
         m_ornicRetrans.SetWindowSize(m_psnPathK == 0 ? 1 : m_psnPathK);
@@ -850,8 +857,8 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
         ornicFeedback = m_ornicRetrans.OnData(ornicRxKey, seqForCheck, payload_size, m_mtu,
                                               oneWayDelayNs);
         rxQp->ReceiverNextExpectedSeq = ornicFeedback.ackSeq;
-        UpdateOrnicGapNackTimeout(rxQp, ornicFeedback);
         x = ornicFeedback.sendControl ? (ornicFeedback.isNack ? 2 : 1) : 5;
+        rxControlDelayKind = RxControlDelayKind::Ornic;
         uint32_t packetSize = m_mtu == 0 ? 1 : m_mtu;
         uint32_t psn = seqForCheck / packetSize;
         if (m_enableConsoleLog == 1 && IsPsnInList(psn, m_consoleLogPsns)) {
@@ -905,6 +912,7 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
         falconFeedback = m_falcon.OnData(falconRxKey, seqForCheck, payload_size, m_mtu);
         rxQp->ReceiverNextExpectedSeq = falconFeedback.ack.cumAckSeq;
         x = falconFeedback.ack.hasGap ? 2 : 1;
+        rxControlDelayKind = RxControlDelayKind::Falcon;
         uint32_t packetSize = m_mtu == 0 ? 1 : m_mtu;
         uint32_t psn = seqForCheck / packetSize;
         if (m_enableConsoleLog == 1 && m_enablePathSelection && hasPsnPathTag &&
@@ -1124,8 +1132,7 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
 
         // send
         uint32_t nic_idx = GetNicIdxOfRxQp(rxQp);
-        m_nic[nic_idx].dev->RdmaEnqueueHighPrioQ(newp);
-        m_nic[nic_idx].dev->TriggerTransmit();
+        SendRxControlPacket(m_nic[nic_idx].dev, newp, rxControlDelayKind);
     }
     return 0;
 }
@@ -1250,13 +1257,7 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
             qp->psnPath.pendingRetrans.pop_front();
         }
         for (size_t idx = 0; idx < retransSeqs.size(); ++idx) {
-            const uint32_t retransSeq = retransSeqs[idx];
-            const uint32_t startPsn = retransSeq / qp->psnPath.packetSize;
-            PsnRetransRequest req;
-            req.startPsn = startPsn;
-            req.endPsn = startPsn;
-            req.epoch = qp->psnPath.mappingEpoch;
-            qp->psnPath.pendingRetrans.push_back(req);
+            EnqueueFalconBitmapRetrans(qp, retransSeqs[idx]);
         }
         if (qp->snd_nxt < qp->snd_una) {
             qp->snd_nxt = qp->snd_una;
@@ -2356,100 +2357,6 @@ void RdmaHw::SendBitmapExpectedTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t expe
     m_nic[nic_idx].dev->TriggerTransmit();
 }
 
-void RdmaHw::UpdateOrnicGapNackTimeout(Ptr<RdmaRxQueuePair> q,
-                                       const OrnicRxFeedback &feedback) {
-    if (!m_enableOrnic || q == NULL || m_ornicGapNackTimeout.GetNanoSeconds() <= 0) {
-        return;
-    }
-
-    if (feedback.gap == 0) {
-        q->ornicGapNackTimeoutSeq = 0xffffffffu;
-        q->ornicGapTimeoutNackSent = false;
-        if (q->ornicGapNackTimerEvent.IsRunning()) {
-            q->ornicGapNackTimerEvent.Cancel();
-        }
-        return;
-    }
-
-    if (q->ornicGapNackTimeoutSeq != feedback.ackSeq) {
-        q->ornicGapNackTimeoutSeq = feedback.ackSeq;
-        q->ornicGapTimeoutNackSent = false;
-        if (q->ornicGapNackTimerEvent.IsRunning()) {
-            q->ornicGapNackTimerEvent.Cancel();
-        }
-    }
-
-    if (!q->ornicGapNackTimerEvent.IsRunning()) {
-        q->ornicGapNackTimerEvent =
-            Simulator::Schedule(m_ornicGapNackTimeout, &RdmaHw::HandleOrnicGapNackTimeout,
-                                this, q, q->ornicGapNackTimeoutSeq);
-    }
-}
-
-void RdmaHw::HandleOrnicGapNackTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq) {
-    if (!m_enableOrnic || q == NULL || m_ornicGapNackTimeout.GetNanoSeconds() <= 0) {
-        return;
-    }
-    if (q->ornicGapNackTimeoutSeq != expectedSeq ||
-        q->ReceiverNextExpectedSeq != expectedSeq) {
-        return;
-    }
-
-    q->ornicGapTimeoutNackSent = true;
-    SendOrnicGapTimeoutNack(q, expectedSeq);
-    if (q->ornicGapNackTimeoutSeq == expectedSeq &&
-        q->ReceiverNextExpectedSeq == expectedSeq &&
-        m_ornicGapNackTimeout.GetNanoSeconds() > 0) {
-        q->ornicGapNackTimerEvent =
-            Simulator::Schedule(m_ornicGapNackTimeout, &RdmaHw::HandleOrnicGapNackTimeout,
-                                this, q, expectedSeq);
-    }
-}
-
-void RdmaHw::SendOrnicGapTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq) {
-    uint32_t packetSize = m_mtu == 0 ? 1 : m_mtu;
-    q->m_nackTimer = Simulator::Now() + MicroSeconds(m_nack_interval);
-    q->m_lastNACK = expectedSeq;
-    q->m_lastNackReason = "ORNIC_TIMEOUT_GENERATE_NACK";
-
-    qbbHeader seqh;
-    seqh.SetSeq(expectedSeq);
-    seqh.SetPG(q->m_ecn_source.qIndex);
-    seqh.SetSport(q->sport);
-    seqh.SetDport(q->dport);
-    seqh.SetIrnNack(expectedSeq);
-    seqh.SetIrnNackSize(packetSize);
-
-    Ptr<Packet> newp =
-        Create<Packet>(std::max(60 - 14 - 20 - (int)seqh.GetSerializedSize(), 0));
-    newp->AddHeader(seqh);
-
-    Ipv4Header head;
-    head.SetDestination(Ipv4Address(q->dip));
-    head.SetSource(Ipv4Address(q->sip));
-    head.SetProtocol(0xFD);
-    head.SetTtl(64);
-    head.SetPayloadSize(newp->GetSize());
-    head.SetIdentification(q->m_ipid++);
-    newp->AddHeader(head);
-    AddHeader(newp, 0x800);
-
-    LogReceiverNack(m_node->GetId(), expectedSeq, q->ReceiverNextExpectedSeq, packetSize,
-                    "ORNIC_TIMEOUT_GENERATE_NACK");
-    if (m_hpccTrace) {
-        std::cout << "[ORNIC_TIMEOUT_NACK] t=" << Simulator::Now().GetNanoSeconds()
-                  << " node=" << m_node->GetId()
-                  << " expectedSeq=" << expectedSeq
-                  << " expectedPsn=" << (packetSize == 0 ? 0 : expectedSeq / packetSize)
-                  << " timeoutNs=" << m_ornicGapNackTimeout.GetNanoSeconds()
-                  << std::endl;
-    }
-
-    uint32_t nic_idx = GetNicIdxOfRxQp(q);
-    m_nic[nic_idx].dev->RdmaEnqueueHighPrioQ(newp);
-    m_nic[nic_idx].dev->TriggerTransmit();
-}
-
 void RdmaHw::HandlePsnPathGapTimeout(Ptr<RdmaRxQueuePair> q, uint32_t missingPsn) {
     if (!(m_enablePsnPath && m_enablePathSwitch && m_enablePathAwareRetrans)) return;
     if (m_psnPathGapTimeout.GetNanoSeconds() <= 0 || q == NULL) return;
@@ -2555,6 +2462,42 @@ void RdmaHw::QpComplete(Ptr<RdmaQueuePair> qp) {
 
 void RdmaHw::SetLinkDown(Ptr<QbbNetDevice> dev) {
     printf("RdmaHw: node:%u a link down\n", m_node->GetId());
+}
+
+void RdmaHw::SendRxControlPacket(Ptr<QbbNetDevice> dev, Ptr<Packet> p,
+                                 RxControlDelayKind delayKind) {
+    Time delay = NanoSeconds(0);
+    if (delayKind == RxControlDelayKind::Falcon) {
+        delay = m_falconRxSendDelay;
+    } else if (delayKind == RxControlDelayKind::Ornic) {
+        delay = m_ornicRxSendDelay;
+    }
+    if (!delay.IsZero()) {
+        Simulator::Schedule(delay, &RdmaHw::SendRxControlPacketNow, this, dev, p);
+        return;
+    }
+    SendRxControlPacketNow(dev, p);
+}
+
+void RdmaHw::SendRxControlPacketNow(Ptr<QbbNetDevice> dev, Ptr<Packet> p) {
+    dev->RdmaEnqueueHighPrioQ(p);
+    dev->TriggerTransmit();
+}
+
+void RdmaHw::EnqueueFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq) {
+    const uint32_t packetSize = qp->psnPath.packetSize == 0 ? m_mtu : qp->psnPath.packetSize;
+    const uint32_t startPsn = seq / packetSize;
+    for (size_t idx = 0; idx < qp->psnPath.pendingRetrans.size(); ++idx) {
+        const PsnRetransRequest &req = qp->psnPath.pendingRetrans[idx];
+        if (req.startPsn == startPsn && req.endPsn == startPsn) {
+            return;
+        }
+    }
+    PsnRetransRequest req;
+    req.startPsn = startPsn;
+    req.endPsn = startPsn;
+    req.epoch = qp->psnPath.mappingEpoch;
+    qp->psnPath.pendingRetrans.push_back(req);
 }
 
 void RdmaHw::AddTableEntry(Ipv4Address &dstAddr, uint32_t intf_idx) {

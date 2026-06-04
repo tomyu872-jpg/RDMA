@@ -225,11 +225,6 @@ RdmaRxQueuePair::RdmaRxQueuePair() {
     if (bitmapExpectedTimerEvent.IsRunning()) {
         bitmapExpectedTimerEvent.Cancel();
     }
-    ornicGapNackTimeoutSeq = 0xffffffffu;
-    ornicGapTimeoutNackSent = false;
-    if (ornicGapNackTimerEvent.IsRunning()) {
-        ornicGapNackTimerEvent.Cancel();
-    }
 }
 
 uint32_t RdmaRxQueuePair::GetHash(void) {
