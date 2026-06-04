@@ -1,6 +1,6 @@
 Waf: Entering directory `/root/hpcc_rdma/build'
 Waf: Leaving directory `/root/hpcc_rdma/build'
-'build' finished successfully (0.106s)
+'build' finished successfully (0.200s)
 TOPOLOGY_FILE			config/1_topology.txt
 FLOW_FILE			config/1_flow.txt
 FLOW_INPUT_FILE			mix/output/1/1_in.txt
@@ -21,7 +21,7 @@ FLOWGEN_STOP_TIME		30
 BUFFER_SIZE				9
 ENABLE_CONSOLE_LOG		1
 CONSOLE_LOG_PSNS		81,82
-CC_MODE		3
+CC_MODE		1
 LB_MODE			0
 ENABLE_PFC			No
 ENABLE_IRN		1
@@ -52,7 +52,7 @@ RATE_DECREASE_INTERVAL		1
 CLAMP_TARGET_RATE		Yes
 RP_TIMER			300
 FAST_RECOVERY_TIMES		1
-EWMA_GAIN			0.06
+EWMA_GAIN			0.03
 RATE_AI				20.0Mb/s
 RATE_HAI			50.0Mb/s
 MIN_RATE		100Mb/s
@@ -77,19 +77,787 @@ ENABLE_QCN			Yes
 USE_DYNAMIC_PFC_THRESHOLD	No
 PACKET_PAYLOAD_SIZE		8192
 LINK_DOWN				0 0 0
-KMAX_MAP				 20000000000 400 50000000000 400 100000000000 400 200000000000 400 250000000000 400 400000000000 400
-KMIN_MAP				 20000000000 100 50000000000 100 100000000000 100 200000000000 100 250000000000 100 400000000000 100
-PMAX_MAP				 20000000000 0 50000000000 0 100000000000 0.2 200000000000 0.2 250000000000 0.2 400000000000 0.2
+KMIN_MAP				 20000000000 5 50000000000 5 100000000000 5 200000000000 5 250000000000 5 400000000000 5
+KMAX_MAP				 20000000000 30 50000000000 30 100000000000 30 200000000000 30 250000000000 30 400000000000 30
+PMAX_MAP				 20000000000 0.05 50000000000 0.05 100000000000 0.05 200000000000 0.05 250000000000 0.05 400000000000 0.05
 LOAD			50
 RANDOM_SEED			1
-[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow.txt cc_mode=3 lb_mode=0
+[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow.txt cc_mode=1 lb_mode=0
 [PROGRESS] Input opened: topology nodes=288 switches=32 links=512, flows=4
 [PROGRESS] Topology parsed and channels created.
 (AVG) NIC RATE: 100000000000
 [PROGRESS] Host NIC rate summary computed.
 [PROGRESS] Host IP mapping initialized.
+[DCQCN_ECN_CONFIG] switch=0 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=0 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=1 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=2 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=3 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=4 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=5 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=6 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=7 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=8 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=9 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=10 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=11 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=12 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=13 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=14 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=17 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=18 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=19 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=20 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=21 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=22 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=23 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=24 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=25 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=26 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=27 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=28 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=29 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=30 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=31 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=15 port=32 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=16 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=17 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=18 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=19 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=20 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=21 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=22 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=23 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=24 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=25 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=26 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=27 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=28 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=29 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=30 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=1 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=2 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=3 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=4 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=5 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=6 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=7 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=8 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=9 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=10 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=11 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=12 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=13 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=14 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=15 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
+[DCQCN_ECN_CONFIG] switch=31 port=16 rate_bps=100000000000 kmin_bytes=5000 kmax_bytes=30000 pmax=0.05
 [PROGRESS] Switch ECN/PFC configuration completed.
-../scratch/network-load-balance.cc(1811) WARN - topo2bdpMap has no matched item with config/1_topology.txt, disable IRN BDP strict check and continue with IrnBdp=0
+../scratch/network-load-balance.cc(1818) WARN - topo2bdpMap has no matched item with config/1_topology.txt, disable IRN BDP strict check and continue with IrnBdp=0
 [PROGRESS] Initializing RDMA host node=256
 [PROGRESS] Host 256 entering RdmaDriver::Init
 [PROGRESS] Host 256 finished RdmaDriver::Init
@@ -108,58 +876,116 @@ Running Simulation.
 *** flow_input.idx : 4
 *** THIS IS THE LAST FLOW TO SEND :) 
 [PROGRESS] Flow file fully consumed. Scheduled flows=4
-[PSN_TRACE_SCHED_BLOCK] t=2000053622 qp=0 nextPsn=81 snd_nxt_psn=81 snd_una_psn=51 snd_nxt_bytes=663552 snd_una_bytes=417792 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053622 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35
-[PSN_TRACE_SEND] t=2000053622 node=140 qp=0 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=51 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=31 onTheFlyBytes=253952 winLeftBytes=277048 winLeftPkts=34 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000053622 qp=1 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053622 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000053622 node=34 qp=1 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000053622 qp=2 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053622 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000053622 node=120 qp=2 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000053622 qp=3 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053622 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000053622 node=190 qp=3 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000054284 qp=0 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054284 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000054284 node=140 qp=0 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000054284 qp=1 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054284 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000054284 node=34 qp=1 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000054284 qp=2 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054284 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000054284 node=120 qp=2 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
-[PSN_TRACE_SCHED_BLOCK] t=2000054284 qp=3 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054284 packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=293432 winLeftPkts=36
-[PSN_TRACE_SEND] t=2000054284 node=190 qp=3 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=64 win=531000 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=285240 winLeftPkts=35 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
-[PSN_TRACE_ACK_GEN] t=2000059608 node=150 flow=0 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_ACK_GEN] t=2000059608 node=80 flow=1 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_ACK_GEN] t=2000059608 node=130 flow=2 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_ACK_GEN] t=2000059608 node=220 flow=3 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060270 node=150 flow=0 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060270 node=150 flow=0 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060270 node=80 flow=1 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060270 node=80 flow=1 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060270 node=130 flow=2 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060270 node=130 flow=2 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060270 node=220 flow=3 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060270 node=220 flow=3 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060932 node=150 flow=0 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060932 node=150 flow=0 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060932 node=80 flow=1 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060932 node=80 flow=1 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060932 node=130 flow=2 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060932 node=130 flow=2 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_RECV] t=2000060932 node=220 flow=3 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
-[PSN_TRACE_ACK_GEN] t=2000060932 node=220 flow=3 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=70
-[PSN_TRACE_ACK_RX] t=2000072640 node=34 qp=1 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
-[PSN_TRACE_ACK_APPLY] t=2000072640 node=34 qp=1 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000072640 node=120 qp=2 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
-[PSN_TRACE_ACK_APPLY] t=2000072640 node=120 qp=2 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000072640 node=190 qp=3 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
-[PSN_TRACE_ACK_APPLY] t=2000072640 node=190 qp=3 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000072864 node=140 qp=0 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
-[PSN_TRACE_ACK_APPLY] t=2000072864 node=140 qp=0 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000073302 node=140 qp=0 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
-[PSN_TRACE_ACK_APPLY] t=2000073302 node=140 qp=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000073302 node=34 qp=1 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
-[PSN_TRACE_ACK_APPLY] t=2000073302 node=34 qp=1 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000073302 node=120 qp=2 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
-[PSN_TRACE_ACK_APPLY] t=2000073302 node=120 qp=2 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
-[PSN_TRACE_ACK_RX] t=2000073302 node=190 qp=3 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
-[PSN_TRACE_ACK_APPLY] t=2000073302 node=190 qp=3 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000053379 qp=0 nextPsn=81 snd_nxt_psn=81 snd_una_psn=51 snd_nxt_bytes=663552 snd_una_bytes=417792 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053379 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000053379 node=140 qp=0 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=51 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=31 onTheFlyBytes=253952 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000053379 qp=1 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053379 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000053379 node=34 qp=1 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000053379 qp=2 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053379 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000053379 node=120 qp=2 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000053379 qp=3 nextPsn=81 snd_nxt_psn=81 snd_una_psn=52 snd_nxt_bytes=663552 snd_una_bytes=425984 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=919 bytesLeft=7528448 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000053379 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000053379 node=190 qp=3 seq=663552 psn=81 snd_nxt_psn=82 snd_una_psn=52 nextSeq=671744 nextPsn=82 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=1 srcPort=10001 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000054038 qp=0 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054038 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000054038 node=140 qp=0 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000054038 qp=1 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054038 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000054038 node=34 qp=1 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000054038 qp=2 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054038 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000054038 node=120 qp=2 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
+[PSN_TRACE_SCHED_BLOCK] t=2000054038 qp=3 nextPsn=82 snd_nxt_psn=82 snd_una_psn=53 snd_nxt_bytes=671744 snd_una_bytes=434176 paused=0 hasPendingRetrans=0 hasGoBackRetrans=0 hasRetransToSend=0 retransFront=[] bytesLeftPkts=918 bytesLeft=7520256 isWinBound=0 irnEnabled=1 irnCanTransmit=1 condWindowAllowed=1 condReady=1 nextAvailNs=2000054038 packetSize=8192 winPkts=0 win=0 onTheFlyPkts=29 onTheFlyBytes=237568 winLeftBytes=0 winLeftPkts=0
+[PSN_TRACE_SEND] t=2000054038 node=190 qp=3 seq=671744 psn=82 snd_nxt_psn=83 snd_una_psn=53 nextSeq=679936 nextPsn=83 nextMode=NEW packetSize=8192 winPkts=0 win=0 onTheFlyPkts=30 onTheFlyBytes=245760 winLeftBytes=0 winLeftPkts=0 payloadSize=8192 isRetrans=0 retransMode=NEW pathId=2 srcPort=10002 pendingRetrans=0
+[PSN_TRACE_ACK_GEN] t=2000059356 node=150 flow=0 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_ACK_GEN] t=2000059356 node=80 flow=1 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_ACK_GEN] t=2000059356 node=130 flow=2 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_ACK_GEN] t=2000059356 node=220 flow=3 wireType=ACK recvPsn=80 cumAckPsn=81 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060015 node=150 flow=0 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060015 node=150 flow=0 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060015 node=80 flow=1 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060015 node=80 flow=1 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060015 node=130 flow=2 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060015 node=130 flow=2 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060015 node=220 flow=3 seq=663552 psn=81 expectedPsnBefore=81 expectedPsnAfter=82 decision=ACK reason=FALCON_IN_ORDER pathId=1 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060015 node=220 flow=3 wireType=ACK recvPsn=81 cumAckPsn=82 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060674 node=150 flow=0 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060674 node=150 flow=0 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060674 node=80 flow=1 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060674 node=80 flow=1 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060674 node=130 flow=2 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060674 node=130 flow=2 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_RECV] t=2000060674 node=220 flow=3 seq=671744 psn=82 expectedPsnBefore=82 expectedPsnAfter=83 decision=ACK reason=FALCON_IN_ORDER pathId=2 flowSport=10000 k=16 epoch=0 probe=0 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0
+[PSN_TRACE_ACK_GEN] t=2000060674 node=220 flow=3 wireType=ACK recvPsn=82 cumAckPsn=83 bitmapBits=64 bitmap=0x0 hasGap=0 controlBytes=28
+[PSN_TRACE_ACK_RX] t=2000072372 node=34 qp=1 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
+[PSN_TRACE_ACK_APPLY] t=2000072372 node=34 qp=1 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000072372 node=120 qp=2 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
+[PSN_TRACE_ACK_APPLY] t=2000072372 node=120 qp=2 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000072372 node=190 qp=3 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
+[PSN_TRACE_ACK_APPLY] t=2000072372 node=190 qp=3 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000072544 node=140 qp=0 wireType=ACK cumAckSeq=663552 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_before=80
+[PSN_TRACE_ACK_APPLY] t=2000072544 node=140 qp=0 cumAckPsn=81 bitmapBits=64 bitmap=0x0 snd_una_psn_after=81 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000073031 node=140 qp=0 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
+[PSN_TRACE_ACK_APPLY] t=2000073031 node=140 qp=0 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000073031 node=34 qp=1 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
+[PSN_TRACE_ACK_APPLY] t=2000073031 node=34 qp=1 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000073031 node=120 qp=2 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
+[PSN_TRACE_ACK_APPLY] t=2000073031 node=120 qp=2 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[PSN_TRACE_ACK_RX] t=2000073031 node=190 qp=3 wireType=ACK cumAckSeq=671744 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_before=81
+[PSN_TRACE_ACK_APPLY] t=2000073031 node=190 qp=3 cumAckPsn=82 bitmapBits=64 bitmap=0x0 snd_una_psn_after=82 selectiveAckedBytes=0 bitmapRetransCount=0 pendingRetrans=0
+[DCQCN_CNP_RX] t=2000160678 node=120 qp=2 rate_bps=100000000000 target_rate_bps=100000000000 alpha=1 firstCnp=1 rateDecreasePending=0
+[DCQCN_FIRST_CNP_DECREASE] t=2000160678 node=120 qp=2 old_rate_bps=100000000000 new_rate_bps=100000000000 rateOnFirstCnp=1 alpha=1
+[DCQCN_RATE_DECREASE] t=2000161679 node=120 qp=2 old_rate_bps=100000000000 new_rate_bps=51500000000 target_rate_bps=100000000000 min_rate_bps=100000000 alpha=0.97 clamp=1
+[DCQCN_CNP_RX] t=2000194556 node=120 qp=2 rate_bps=51500000000 target_rate_bps=100000000000 alpha=0.365988 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000194679 node=120 qp=2 old_rate_bps=51500000000 new_rate_bps=41586026630 target_rate_bps=51500000000 min_rate_bps=100000000 alpha=0.385009 clamp=1
+[DCQCN_CNP_RX] t=2000305658 node=34 qp=1 rate_bps=100000000000 target_rate_bps=100000000000 alpha=1 firstCnp=1 rateDecreasePending=0
+[DCQCN_FIRST_CNP_DECREASE] t=2000305658 node=34 qp=1 old_rate_bps=100000000000 new_rate_bps=100000000000 rateOnFirstCnp=1 alpha=1
+[DCQCN_CNP_RX] t=2000305658 node=190 qp=3 rate_bps=100000000000 target_rate_bps=100000000000 alpha=1 firstCnp=1 rateDecreasePending=0
+[DCQCN_FIRST_CNP_DECREASE] t=2000305658 node=190 qp=3 old_rate_bps=100000000000 new_rate_bps=100000000000 rateOnFirstCnp=1 alpha=1
+[DCQCN_RATE_DECREASE] t=2000306659 node=34 qp=1 old_rate_bps=100000000000 new_rate_bps=51500000000 target_rate_bps=100000000000 min_rate_bps=100000000 alpha=0.97 clamp=1
+[DCQCN_RATE_DECREASE] t=2000306659 node=190 qp=3 old_rate_bps=100000000000 new_rate_bps=51500000000 target_rate_bps=100000000000 min_rate_bps=100000000 alpha=0.97 clamp=1
+[DCQCN_CNP_RX] t=2000308294 node=140 qp=0 rate_bps=100000000000 target_rate_bps=100000000000 alpha=1 firstCnp=1 rateDecreasePending=0
+[DCQCN_FIRST_CNP_DECREASE] t=2000308294 node=140 qp=0 old_rate_bps=100000000000 new_rate_bps=100000000000 rateOnFirstCnp=1 alpha=1
+[DCQCN_RATE_DECREASE] t=2000309295 node=140 qp=0 old_rate_bps=100000000000 new_rate_bps=51500000000 target_rate_bps=100000000000 min_rate_bps=100000000 alpha=0.97 clamp=1
+[DCQCN_CNP_RX] t=2000404765 node=34 qp=1 rate_bps=51500000000 target_rate_bps=100000000000 alpha=0.0490232 firstCnp=0 rateDecreasePending=0
+[DCQCN_CNP_RX] t=2000404765 node=190 qp=3 rate_bps=51500000000 target_rate_bps=100000000000 alpha=0.0490232 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000405659 node=34 qp=1 old_rate_bps=51500000000 new_rate_bps=49503022920 target_rate_bps=51500000000 min_rate_bps=100000000 alpha=0.0775525 clamp=1
+[DCQCN_RATE_DECREASE] t=2000405659 node=190 qp=3 old_rate_bps=51500000000 new_rate_bps=49503022920 target_rate_bps=51500000000 min_rate_bps=100000000 alpha=0.0775525 clamp=1
+[DCQCN_CNP_RX] t=2000407323 node=34 qp=1 rate_bps=49503022920 target_rate_bps=51500000000 alpha=0.0752259 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000407659 node=34 qp=1 old_rate_bps=49503022920 new_rate_bps=46954380707 target_rate_bps=49503022920 min_rate_bps=100000000 alpha=0.102969 clamp=1
+[DCQCN_CNP_RX] t=2000408988 node=140 qp=0 rate_bps=51500000000 target_rate_bps=100000000000 alpha=0.0475525 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000409295 node=140 qp=0 old_rate_bps=51500000000 new_rate_bps=49539757233 target_rate_bps=51500000000 min_rate_bps=100000000 alpha=0.0761259 clamp=1
+[DCQCN_CNP_RX] t=2000471790 node=120 qp=2 rate_bps=41586026630 target_rate_bps=51500000000 alpha=8.34144e-05 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000472679 node=120 qp=2 old_rate_bps=41586026630 new_rate_bps=40960553827 target_rate_bps=41586026630 min_rate_bps=100000000 alpha=0.0300809 clamp=1
+[DCQCN_CNP_RX] t=2000491654 node=140 qp=0 rate_bps=49539757233 target_rate_bps=51500000000 alpha=0.00626347 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000492295 node=140 qp=0 old_rate_bps=49539757233 new_rate_bps=48646169901 target_rate_bps=49539757233 min_rate_bps=100000000 alpha=0.0360756 clamp=1
+[DCQCN_CNP_RX] t=2000496974 node=140 qp=0 rate_bps=48646169901 target_rate_bps=49539757233 alpha=0.0319374 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000497295 node=140 qp=0 old_rate_bps=48646169901 new_rate_bps=47162964867 target_rate_bps=48646169901 min_rate_bps=100000000 alpha=0.0609793 clamp=1
+[DCQCN_CNP_RX] t=2000515644 node=140 qp=0 rate_bps=47162964867 target_rate_bps=48646169901 alpha=0.0352431 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000516295 node=140 qp=0 old_rate_bps=47162964867 new_rate_bps=45649369038 target_rate_bps=47162964867 min_rate_bps=100000000 alpha=0.0641858 clamp=1
+[DCQCN_CNP_RX] t=2000621115 node=120 qp=2 rate_bps=40960553827 target_rate_bps=41586026630 alpha=0.000331518 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000621679 node=120 qp=2 old_rate_bps=40960553827 new_rate_bps=40339559618 target_rate_bps=40960553827 min_rate_bps=100000000 alpha=0.0303216 clamp=1
+[DCQCN_CNP_RX] t=2000638814 node=120 qp=2 rate_bps=40339559618 target_rate_bps=40960553827 alpha=0.0180664 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000639679 node=120 qp=2 old_rate_bps=40339559618 new_rate_bps=39381003109 target_rate_bps=40339559618 min_rate_bps=100000000 alpha=0.0475244 clamp=1
+[DCQCN_CNP_RX] t=2000833263 node=34 qp=1 rate_bps=48228701813 target_rate_bps=49503022920 alpha=2.45864e-07 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000833659 node=34 qp=1 old_rate_bps=48228701813 new_rate_bps=47505265534 target_rate_bps=48228701813 min_rate_bps=100000000 alpha=0.0300002 clamp=1
+[DCQCN_CNP_RX] t=2000842363 node=120 qp=2 rate_bps=39381003109 target_rate_bps=40339559618 alpha=0.000101113 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000842679 node=120 qp=2 old_rate_bps=39381003109 new_rate_bps=38788356826 target_rate_bps=39381003109 min_rate_bps=100000000 alpha=0.0300981 clamp=1
+[DCQCN_CNP_RX] t=2000874332 node=120 qp=2 rate_bps=38788356826 target_rate_bps=39381003109 alpha=0.0117075 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000874679 node=120 qp=2 old_rate_bps=38788356826 new_rate_bps=37986286670 target_rate_bps=38788356826 min_rate_bps=100000000 alpha=0.0413562 clamp=1
+[DCQCN_CNP_RX] t=2000917849 node=140 qp=0 rate_bps=46406166952 target_rate_bps=47162964867 alpha=3.1835e-07 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2000918295 node=140 qp=0 old_rate_bps=46406166952 new_rate_bps=45710067282 target_rate_bps=46406166952 min_rate_bps=100000000 alpha=0.0300003 clamp=1
+[DCQCN_CNP_RX] t=2001080365 node=120 qp=2 rate_bps=37986286670 target_rate_bps=38788356826 alpha=8.03057e-05 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001080679 node=120 qp=2 old_rate_bps=37986286670 new_rate_bps=37415012869 target_rate_bps=37986286670 min_rate_bps=100000000 alpha=0.0300779 clamp=1
+[DCQCN_CNP_RX] t=2001104979 node=140 qp=0 rate_bps=45710067282 target_rate_bps=46406166952 alpha=0.000103913 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001105295 node=140 qp=0 old_rate_bps=45710067282 new_rate_bps=45022112594 target_rate_bps=45710067282 min_rate_bps=100000000 alpha=0.0301008 clamp=1
+[DCQCN_CNP_RX] t=2001139807 node=140 qp=0 rate_bps=45022112594 target_rate_bps=45710067282 alpha=0.010686 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001140295 node=140 qp=0 old_rate_bps=45022112594 new_rate_bps=44113443403 target_rate_bps=45022112594 min_rate_bps=100000000 alpha=0.0403655 clamp=1
+[DCQCN_CNP_RX] t=2001150055 node=140 qp=0 rate_bps=44113443403 target_rate_bps=45022112594 alpha=0.0306871 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001150295 node=140 qp=0 old_rate_bps=44113443403 new_rate_bps=42795191102 target_rate_bps=44113443403 min_rate_bps=100000000 alpha=0.0597665 clamp=1
+[DCQCN_CNP_RX] t=2001190781 node=140 qp=0 rate_bps=42795191102 target_rate_bps=44113443403 alpha=0.0176737 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001191295 node=140 qp=0 old_rate_bps=42795191102 new_rate_bps=41786434242 target_rate_bps=42795191102 min_rate_bps=100000000 alpha=0.0471435 clamp=1
+[DCQCN_CNP_RX] t=2001235996 node=140 qp=0 rate_bps=41786434242 target_rate_bps=42795191102 alpha=0.0123418 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001236295 node=140 qp=0 old_rate_bps=41786434242 new_rate_bps=40909514004 target_rate_bps=41786434242 min_rate_bps=100000000 alpha=0.0419715 clamp=1
+[DCQCN_CNP_RX] t=2001405799 node=120 qp=2 rate_bps=37700649769 target_rate_bps=37986286670 alpha=1.51029e-06 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001406679 node=120 qp=2 old_rate_bps=37700649769 new_rate_bps=37135112407 target_rate_bps=37700649769 min_rate_bps=100000000 alpha=0.0300015 clamp=1
+[DCQCN_CNP_RX] t=2001474700 node=120 qp=2 rate_bps=37135112407 target_rate_bps=37700649769 alpha=0.00378112 firstCnp=0 rateDecreasePending=0
+[DCQCN_RATE_DECREASE] t=2001475679 node=120 qp=2 old_rate_bps=37135112407 new_rate_bps=36509985758 target_rate_bps=37135112407 min_rate_bps=100000000 alpha=0.0336677 clamp=1
 
-*** Simulator is enforced to be finished, finished so far: 4/ total: 4, Time:+2000900000.0ns
-0.646687
+*** Simulator is enforced to be finished, finished so far: 4/ total: 4, Time:+2001500000.0ns
+1.70403

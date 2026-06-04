@@ -1738,6 +1738,13 @@ int main(int argc, char *argv[]) {
                        rate2kmax.find(rate) != rate2kmax.end() &&
                        rate2pmax.find(rate) != rate2pmax.end());
                 sw->m_mmu->ConfigEcn(j, rate2kmin[rate], rate2kmax[rate], rate2pmax[rate]);
+                if (cc_mode == 1 && enable_qcn) {
+                    std::cerr << "[DCQCN_ECN_CONFIG] switch=" << i << " port=" << j
+                              << " rate_bps=" << rate
+                              << " kmin_bytes=" << rate2kmin[rate] * 1000
+                              << " kmax_bytes=" << rate2kmax[rate] * 1000
+                              << " pmax=" << rate2pmax[rate] << "\n";
+                }
                 // set pfc
                 uint64_t delay =
                     DynamicCast<QbbChannel>(dev->GetChannel())->GetDelay().GetTimeStep();

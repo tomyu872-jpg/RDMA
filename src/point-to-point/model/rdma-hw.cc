@@ -1286,6 +1286,9 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
             qp->m_retransmit = Simulator::Schedule(qp->GetRto(m_mtu), &RdmaHw::HandleTimeout,
                                                    this, qp, qp->GetRto(m_mtu));
         }
+        if (cnp && m_cc_mode == 1) {
+            cnp_received_mlx(qp);
+        }
         if (m_cc_mode == 3) {
             bool ack_progress = (qp->snd_una > old_snd_una);
             if (ch.ack.seq > qp->hp.m_lastAckSeq) {

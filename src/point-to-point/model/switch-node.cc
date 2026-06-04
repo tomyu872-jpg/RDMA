@@ -340,23 +340,24 @@ void SwitchNode::SwitchNotifyDequeue(uint32_t ifIndex, uint32_t qIndex, Ptr<Pack
     p->PeekPacketTag(t);
     if (qIndex != 0) {
         uint32_t inDev = t.GetFlowId();
+        bool egressCongested = false;
+        if (m_ecnEnabled && m_ccMode == 1) {
+            egressCongested = m_mmu->ShouldSendCN(ifIndex, qIndex);
+        }
         if (inDev != Settings::CONWEAVE_CTRL_DUMMY_INDEV) {
             // NOTE: ConWeave's probe/reply does not need to pass inDev interface,
             // so skip for conweave's queued packets
             m_mmu->RemoveFromIngressAdmission(inDev, qIndex, p->GetSize());
         }
         m_mmu->RemoveFromEgressAdmission(ifIndex, qIndex, p->GetSize());
-        if (m_ecnEnabled) {
-            bool egressCongested = m_mmu->ShouldSendCN(ifIndex, qIndex);
-            if (egressCongested) {
-                PppHeader ppp;
-                Ipv4Header h;
-                p->RemoveHeader(ppp);
-                p->RemoveHeader(h);
-                h.SetEcn((Ipv4Header::EcnType)0x03);
-                p->AddHeader(h);
-                p->AddHeader(ppp);
-            }
+        if (egressCongested) {
+            PppHeader ppp;
+            Ipv4Header h;
+            p->RemoveHeader(ppp);
+            p->RemoveHeader(h);
+            h.SetEcn((Ipv4Header::EcnType)0x03);
+            p->AddHeader(h);
+            p->AddHeader(ppp);
         }
         // NOTE: ConWeave's probe/reply does not need to pass inDev interface
         if (inDev != Settings::CONWEAVE_CTRL_DUMMY_INDEV) {
