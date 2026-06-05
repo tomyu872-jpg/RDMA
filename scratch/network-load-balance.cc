@@ -170,6 +170,7 @@ uint64_t falcon_rx_send_delay_ns = 0;
 uint64_t ornic_rx_send_delay_ns = 0;
 double ornic_bw_gbps = 0.0;
 uint32_t psn_path_k = 4;
+double psn_path_beta = 1.0;
 uint64_t psn_path_gap_timeout_ns = 0;
 int random_seed = 1;  // change this randomly if you want random expt
 
@@ -1396,6 +1397,9 @@ int main(int argc, char *argv[]) {
             } else if (key.compare("PSN_PATH_K") == 0) {
                 conf >> psn_path_k;
                 std::cerr << "PSN_PATH_K\t\t" << psn_path_k << "\n";
+            } else if (key.compare("PSN_PATH_BETA") == 0) {
+                conf >> psn_path_beta;
+                std::cerr << "PSN_PATH_BETA\t\t" << psn_path_beta << "\n";
             } else if (key.compare("PSN_PATH_GAP_TIMEOUT_NS") == 0) {
                 conf >> psn_path_gap_timeout_ns;
                 std::cerr << "PSN_PATH_GAP_TIMEOUT_NS\t" << psn_path_gap_timeout_ns << "\n";
@@ -1876,6 +1880,7 @@ int main(int argc, char *argv[]) {
             rdmaHw->SetAttribute("OrnicRxSendDelay",
                                  TimeValue(NanoSeconds(ornic_rx_send_delay_ns)));
             rdmaHw->SetAttribute("PsnPathK", UintegerValue(psn_path_k));
+            rdmaHw->SetAttribute("PsnPathBeta", DoubleValue(psn_path_beta));
             rdmaHw->SetAttribute("PsnPathGapTimeout",
                                  TimeValue(NanoSeconds(psn_path_gap_timeout_ns)));
             // topo2bdpMap (e.g., longest BDP 25000: 8us * 25Gbps)

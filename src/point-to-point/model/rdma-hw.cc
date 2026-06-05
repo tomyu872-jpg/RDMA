@@ -193,6 +193,23 @@ std::string FormatPathIndices(const std::vector<uint32_t> &indices) {
     return oss.str();
 }
 
+std::string FormatPathStats(const std::vector<PsnPathStats> &stats) {
+    std::ostringstream oss;
+    oss << "[";
+    for (size_t i = 0; i < stats.size(); ++i) {
+        if (i != 0) oss << ",";
+        oss << "{id=" << i
+            << ",active=" << (stats[i].active ? 1 : 0)
+            << ",probing=" << (stats[i].probing ? 1 : 0)
+            << ",ack=" << stats[i].ackCount
+            << ",nack=" << stats[i].nackCount
+            << ",score=" << stats[i].score
+            << "}";
+    }
+    oss << "]";
+    return oss.str();
+}
+
 uint32_t BuildActivePathMask(const std::vector<PsnPathStats> &stats) {
     uint32_t mask = 0;
     for (uint32_t i = 0; i < stats.size() && i < 32; ++i) {
@@ -1487,8 +1504,9 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
     const char *semanticType = isLossNack ? "NACK" : "ACK";
 
     if (qp->psnPath.pathSelectionEnabled && qp->psnPath.activePathCount > 0) {
-        uint32_t ackPsn = PsnPath::GetPsnFromSeq(seq, qp->psnPath.packetSize);
-        uint32_t pathId = SelectPathFromStats(ackPsn, qp->psnPath.k, qp->psnPath.o,
+        uint32_t statSeq = isLossNack ? ch.ack.irnNack : seq;
+        uint32_t statPsn = PsnPath::GetPsnFromSeq(statSeq, qp->psnPath.packetSize);
+        uint32_t pathId = SelectPathFromStats(statPsn, qp->psnPath.k, qp->psnPath.o,
                                               qp->psnPath.pathStats);
         if (pathId < qp->psnPath.pathStats.size()) {
             if (isLossNack) {
@@ -1499,6 +1517,23 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
             qp->psnPath.pathStats[pathId].score =
                 static_cast<double>(qp->psnPath.pathStats[pathId].ackCount) -
                 m_psnPathBeta * static_cast<double>(qp->psnPath.pathStats[pathId].nackCount);
+            if (m_enableConsoleLog >= 1 && isLossNack) {
+                std::cout << "[PATH_NACK_STAT] t=" << Simulator::Now().GetNanoSeconds()
+                          << " qp=" << qp->m_flow_id
+                          << " ackSeq=" << seq
+                          << " nackSeq=" << ch.ack.irnNack
+                          << " nackSize=" << ch.ack.irnNackSize
+                          << " statSeq=" << statSeq
+                          << " statPsn=" << statPsn
+                          << " pathId=" << pathId
+                          << " pathAck=" << qp->psnPath.pathStats[pathId].ackCount
+                          << " pathNack=" << qp->psnPath.pathStats[pathId].nackCount
+                          << " pathScore=" << qp->psnPath.pathStats[pathId].score
+                          << " beta=" << m_psnPathBeta
+                          << " activePaths="
+                          << FormatPathIndices(CollectActivePathIndices(qp->psnPath.pathStats))
+                          << std::endl;
+            }
             if (m_hpccTrace) {
                 std::cout << "[PATH_STAT_UPDATE] t=" << Simulator::Now().GetNanoSeconds()
                           << " qp=" << qp->m_flow_id << " ackType=0x" << std::hex
@@ -1509,7 +1544,7 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
                           << " nackSeq=" << ch.ack.irnNack
                           << " nackSize=" << ch.ack.irnNackSize
                           << " isLossNack=" << (isLossNack ? 1 : 0)
-                          << " ackPsn=" << ackPsn << " pathId=" << pathId
+                          << " statPsn=" << statPsn << " pathId=" << pathId
                           << " ackCount=" << qp->psnPath.pathStats[pathId].ackCount
                           << " nackCount=" << qp->psnPath.pathStats[pathId].nackCount
                           << " score=" << qp->psnPath.pathStats[pathId].score
@@ -2968,6 +3003,14 @@ void RdmaHw::EvaluatePathState(Ptr<RdmaQueuePair> qp) {
     uint32_t oldEpoch = qp->psnPath.mappingEpoch;
     uint32_t oldOffset = qp->psnPath.o;
     uint32_t oldFpsn = qp->psnPath.fpsn;
+    bool hasPathFeedback = false;
+    for (uint32_t i = 0; i < qp->psnPath.pathStats.size(); ++i) {
+        if (qp->psnPath.pathStats[i].ackCount > 0 || qp->psnPath.pathStats[i].nackCount > 0) {
+            hasPathFeedback = true;
+            break;
+        }
+    }
+    std::string beforeStats = FormatPathStats(qp->psnPath.pathStats);
 
     uint32_t activeCount = 0;
     bool hasInactivePath = false;
@@ -3042,6 +3085,34 @@ void RdmaHw::EvaluatePathState(Ptr<RdmaQueuePair> qp) {
          beforeActive != CollectActivePathIndices(qp->psnPath.pathStats));
     if (pathChanged) {
         qp->stat.pathSwitchCount++;
+    }
+
+    if (m_enableConsoleLog >= 1 && (hasPathFeedback || pathChanged || shouldProbeCandidate ||
+                                    !beforeProbing.empty())) {
+        std::cout << "[PATH_EVAL_DETAIL] t=" << Simulator::Now().GetNanoSeconds()
+                  << " qp=" << qp->m_flow_id
+                  << " beta=" << m_psnPathBeta
+                  << " tRemove=" << m_psnPathTRemove
+                  << " tExplore=" << m_psnPathTExplore
+                  << " evalIntervalUs=" << m_psnPathEvalIntervalUs
+                  << " beforeActive=" << FormatPathIndices(beforeActive)
+                  << " beforeProbing=" << FormatPathIndices(beforeProbing)
+                  << " beforeStats=" << beforeStats
+                  << " afterActive="
+                  << FormatPathIndices(CollectActivePathIndices(qp->psnPath.pathStats))
+                  << " afterProbing="
+                  << FormatPathIndices(CollectProbingPathIndices(qp->psnPath.pathStats))
+                  << " changed=" << (pathChanged ? 1 : 0)
+                  << " shouldProbeCandidate=" << (shouldProbeCandidate ? 1 : 0)
+                  << " activeCount=" << activeCount
+                  << " oldEpoch=" << oldEpoch
+                  << " newEpoch=" << qp->psnPath.mappingEpoch
+                  << " oldOffset=" << oldOffset
+                  << " newOffset=" << qp->psnPath.o
+                  << " oldFpsn=" << oldFpsn
+                  << " newFpsn=" << qp->psnPath.fpsn
+                  << " pathSwitchCount=" << qp->stat.pathSwitchCount
+                  << std::endl;
     }
 
     if (m_hpccTrace && (pathChanged || shouldProbeCandidate || !beforeProbing.empty())) {

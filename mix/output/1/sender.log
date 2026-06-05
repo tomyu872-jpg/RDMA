@@ -1,240 +1,76 @@
-[RETX] t=2000076444 node=140 qp=0 psn=85
-[RETX] t=2000077103 node=140 qp=0 psn=85
-[RETX] t=2000077762 node=140 qp=0 psn=85
-[RETX] t=2000078421 node=140 qp=0 psn=85
-[RETX] t=2000079080 node=140 qp=0 psn=85
-[RETX] t=2000079739 node=140 qp=0 psn=85
-[RETX] t=2000080398 node=140 qp=0 psn=85
-[RETX] t=2000081057 node=140 qp=0 psn=85
-[RETX] t=2000082375 node=140 qp=0 psn=85
-[RETX] t=2000083034 node=140 qp=0 psn=94
-[RETX] t=2000083693 node=140 qp=0 psn=85
-[RETX] t=2000084352 node=140 qp=0 psn=94
-[RETX] t=2000085011 node=140 qp=0 psn=85
-[RETX] t=2000085670 node=140 qp=0 psn=85
-[RETX] t=2000086329 node=140 qp=0 psn=94
-[RETX] t=2000086988 node=140 qp=0 psn=85
-[RETX] t=2000087647 node=140 qp=0 psn=94
-[RETX] t=2000088306 node=140 qp=0 psn=85
-[RETX] t=2000088965 node=140 qp=0 psn=94
-[RETX] t=2000089624 node=140 qp=0 psn=85
-[RETX] t=2000090283 node=140 qp=0 psn=94
-[RETX] t=2000090942 node=140 qp=0 psn=85
-[RETX] t=2000091601 node=140 qp=0 psn=94
-[RETX] t=2000092260 node=140 qp=0 psn=85
-[RETX] t=2000092919 node=140 qp=0 psn=85
-[RETX] t=2000093578 node=140 qp=0 psn=94
-[RETX] t=2000094237 node=140 qp=0 psn=85
-[RETX] t=2000094896 node=140 qp=0 psn=94
-[RETX] t=2000095555 node=140 qp=0 psn=85
-[RETX] t=2000096214 node=140 qp=0 psn=94
-[RETX] t=2000096873 node=140 qp=0 psn=94
-[RETX] t=2000097532 node=140 qp=0 psn=94
-[RETX] t=2000098191 node=140 qp=0 psn=94
-[RETX] t=2000098850 node=140 qp=0 psn=94
-[RETX] t=2000099509 node=140 qp=0 psn=94
-[RETX] t=2000100168 node=140 qp=0 psn=94
-[RETX] t=2000100827 node=140 qp=0 psn=94
-[RETX] t=2000101486 node=140 qp=0 psn=94
-[RETX] t=2000102145 node=140 qp=0 psn=94
-[RETX] t=2000181884 node=140 qp=0 psn=206
-[RETX] t=2000182543 node=140 qp=0 psn=206
-[RETX] t=2000183202 node=140 qp=0 psn=206
-[RETX] t=2000183861 node=140 qp=0 psn=206
-[RETX] t=2000185179 node=140 qp=0 psn=206
-[RETX] t=2000185838 node=140 qp=0 psn=206
-[RETX] t=2000186497 node=140 qp=0 psn=206
-[RETX] t=2000187815 node=140 qp=0 psn=206
-[RETX] t=2000188474 node=140 qp=0 psn=206
-[RETX] t=2000189133 node=140 qp=0 psn=206
-[RETX] t=2000189792 node=140 qp=0 psn=206
-[RETX] t=2000190451 node=140 qp=0 psn=206
-[RETX] t=2000191769 node=140 qp=0 psn=206
-[RETX] t=2000192428 node=140 qp=0 psn=206
-[RETX] t=2000193087 node=140 qp=0 psn=206
-[RETX] t=2000193746 node=140 qp=0 psn=206
-[RETX] t=2000194405 node=140 qp=0 psn=206
-[RETX] t=2000195064 node=140 qp=0 psn=206
-[RETX] t=2000195723 node=140 qp=0 psn=206
-[RETX] t=2000196382 node=140 qp=0 psn=206
-[RETX] t=2000197041 node=140 qp=0 psn=206
-[RETX] t=2000197700 node=140 qp=0 psn=206
-[RETX] t=2000198359 node=140 qp=0 psn=206
-[RETX] t=2000199018 node=140 qp=0 psn=206
-[RETX] t=2000199677 node=140 qp=0 psn=206
-[RETX] t=2000200336 node=140 qp=0 psn=206
-[RETX] t=2000200995 node=140 qp=0 psn=206
-[RETX] t=2000308412 node=140 qp=0 psn=371
-[RETX] t=2000309071 node=140 qp=0 psn=371
-[RETX] t=2000309730 node=140 qp=0 psn=371
-[RETX] t=2000311009 node=140 qp=0 psn=371
-[RETX] t=2000312288 node=140 qp=0 psn=371
-[RETX] t=2000313567 node=140 qp=0 psn=371
-[RETX] t=2000314846 node=140 qp=0 psn=371
-[RETX] t=2000316125 node=140 qp=0 psn=371
-[RETX] t=2000317404 node=140 qp=0 psn=371
-[RETX] t=2000318683 node=140 qp=0 psn=371
-[RETX] t=2000319962 node=140 qp=0 psn=371
-[RETX] t=2000321241 node=140 qp=0 psn=371
-[RETX] t=2000322520 node=140 qp=0 psn=371
-[RETX] t=2000323799 node=140 qp=0 psn=371
-[RETX] t=2000325078 node=140 qp=0 psn=371
-[RETX] t=2000326357 node=140 qp=0 psn=371
-[RETX] t=2000327636 node=140 qp=0 psn=371
-[RETX] t=2000387671 node=34 qp=1 psn=512
-[RETX] t=2000388950 node=34 qp=1 psn=512
-[RETX] t=2000391508 node=34 qp=1 psn=512
-[RETX] t=2000392787 node=34 qp=1 psn=515
-[RETX] t=2000392865 node=140 qp=0 psn=435
-[RETX] t=2000394066 node=34 qp=1 psn=512
-[RETX] t=2000394144 node=140 qp=0 psn=435
-[RETX] t=2000395345 node=34 qp=1 psn=515
-[RETX] t=2000395423 node=140 qp=0 psn=435
-[RETX] t=2000396624 node=34 qp=1 psn=512
-[RETX] t=2000396702 node=140 qp=0 psn=435
-[RETX] t=2000397903 node=34 qp=1 psn=512
-[RETX] t=2000397981 node=140 qp=0 psn=435
-[RETX] t=2000399182 node=34 qp=1 psn=515
-[RETX] t=2000399260 node=140 qp=0 psn=435
-[RETX] t=2000400461 node=34 qp=1 psn=512
-[RETX] t=2000400539 node=140 qp=0 psn=435
-[RETX] t=2000401740 node=34 qp=1 psn=515
-[RETX] t=2000401818 node=140 qp=0 psn=435
-[RETX] t=2000403019 node=34 qp=1 psn=512
-[RETX] t=2000403097 node=140 qp=0 psn=435
-[RETX] t=2000404298 node=34 qp=1 psn=512
-[RETX] t=2000404376 node=140 qp=0 psn=435
-[RETX] t=2000405577 node=34 qp=1 psn=515
-[RETX] t=2000405655 node=140 qp=0 psn=435
-[RETX] t=2000406856 node=34 qp=1 psn=512
-[RETX] t=2000406934 node=140 qp=0 psn=435
-[RETX] t=2000408187 node=34 qp=1 psn=515
-[RETX] t=2000408213 node=140 qp=0 psn=435
-[RETX] t=2000409492 node=140 qp=0 psn=435
-[RETX] t=2000409590 node=34 qp=1 psn=515
-[RETX] t=2000410822 node=140 qp=0 psn=435
-[RETX] t=2000410993 node=34 qp=1 psn=515
-[RETX] t=2000412152 node=140 qp=0 psn=435
-[RETX] t=2000412396 node=34 qp=1 psn=515
-[RETX] t=2000604681 node=120 qp=2 psn=515
-[RETX] t=2000606290 node=120 qp=2 psn=515
-[RETX] t=2000607899 node=120 qp=2 psn=515
-[RETX] t=2000609508 node=120 qp=2 psn=515
-[RETX] t=2000611117 node=120 qp=2 psn=515
-[RETX] t=2000612726 node=120 qp=2 psn=515
-[RETX] t=2000614335 node=120 qp=2 psn=515
-[RETX] t=2000615944 node=120 qp=2 psn=515
-[RETX] t=2000617553 node=120 qp=2 psn=515
-[RETX] t=2000619162 node=120 qp=2 psn=515
-[RETX] t=2000620771 node=120 qp=2 psn=515
-[RETX] t=2000622380 node=120 qp=2 psn=515
-[RETX] t=2000624014 node=120 qp=2 psn=515
-[RETX] t=2000731126 node=190 qp=3 psn=770
-[RETX] t=2000732431 node=190 qp=3 psn=771
-[RETX] t=2000733736 node=190 qp=3 psn=770
-[RETX] t=2000735041 node=190 qp=3 psn=771
-[RETX] t=2000736346 node=190 qp=3 psn=770
-[RETX] t=2000737651 node=190 qp=3 psn=771
-[RETX] t=2000738956 node=190 qp=3 psn=770
-[RETX] t=2000740261 node=190 qp=3 psn=771
-[RETX] t=2000741566 node=190 qp=3 psn=770
-[RETX] t=2000742871 node=190 qp=3 psn=771
-[RETX] t=2000744176 node=190 qp=3 psn=779
-[RETX] t=2000745481 node=190 qp=3 psn=770
-[RETX] t=2000746786 node=190 qp=3 psn=771
-[RETX] t=2000748091 node=190 qp=3 psn=779
-[RETX] t=2000749396 node=190 qp=3 psn=782
-[RETX] t=2000750701 node=190 qp=3 psn=770
-[RETX] t=2000752006 node=190 qp=3 psn=771
-[RETX] t=2000753311 node=190 qp=3 psn=779
-[RETX] t=2000754616 node=190 qp=3 psn=782
-[RETX] t=2000755921 node=190 qp=3 psn=779
-[RETX] t=2000757226 node=190 qp=3 psn=782
-[RETX] t=2000758531 node=190 qp=3 psn=779
-[RETX] t=2000759836 node=190 qp=3 psn=782
-[RETX] t=2000761141 node=190 qp=3 psn=779
-[RETX] t=2000762446 node=190 qp=3 psn=782
-[RETX] t=2000763751 node=190 qp=3 psn=779
-[RETX] t=2000765056 node=190 qp=3 psn=782
-[RETX] t=2000767666 node=190 qp=3 psn=782
-[RETX] t=2000768971 node=190 qp=3 psn=782
-[RETX] t=2000771265 node=34 qp=1 psn=769
-[RETX] t=2000772631 node=34 qp=1 psn=770
-[RETX] t=2000772886 node=190 qp=3 psn=782
-[RETX] t=2000773997 node=34 qp=1 psn=769
-[RETX] t=2000774191 node=190 qp=3 psn=782
-[RETX] t=2000775363 node=34 qp=1 psn=770
-[RETX] t=2000776729 node=34 qp=1 psn=769
-[RETX] t=2000776801 node=190 qp=3 psn=782
-[RETX] t=2000778095 node=34 qp=1 psn=770
-[RETX] t=2000779461 node=34 qp=1 psn=769
-[RETX] t=2000780827 node=34 qp=1 psn=770
-[RETX] t=2000782193 node=34 qp=1 psn=769
-[RETX] t=2000783559 node=34 qp=1 psn=770
-[RETX] t=2000784925 node=34 qp=1 psn=769
-[RETX] t=2000786291 node=34 qp=1 psn=770
-[RETX] t=2000787657 node=34 qp=1 psn=769
-[RETX] t=2000789023 node=34 qp=1 psn=770
-[RETX] t=2000790389 node=34 qp=1 psn=769
-[RETX] t=2000791755 node=34 qp=1 psn=770
-[RETX] t=2000951408 node=120 qp=2 psn=709
-[RETX] t=2000953143 node=120 qp=2 psn=709
-[RETX] t=2000954878 node=120 qp=2 psn=709
-[RETX] t=2000956613 node=120 qp=2 psn=709
-[RETX] t=2000958348 node=120 qp=2 psn=709
-[RETX] t=2000960083 node=120 qp=2 psn=709
-[RETX] t=2000961818 node=120 qp=2 psn=709
-[RETX] t=2000963553 node=120 qp=2 psn=709
-[RETX] t=2000965288 node=120 qp=2 psn=709
-[RETX] t=2000967023 node=120 qp=2 psn=709
-[RETX] t=2000968525 node=140 qp=0 psn=828
-[RETX] t=2000968758 node=120 qp=2 psn=709
-[RETX] t=2000969967 node=140 qp=0 psn=828
-[RETX] t=2000970493 node=120 qp=2 psn=709
-[RETX] t=2000971409 node=140 qp=0 psn=828
-[RETX] t=2000972851 node=140 qp=0 psn=828
-[RETX] t=2000974293 node=140 qp=0 psn=828
-[RETX] t=2000977177 node=140 qp=0 psn=828
-[RETX] t=2000978619 node=140 qp=0 psn=828
-[RETX] t=2000980061 node=140 qp=0 psn=828
-[RETX] t=2000981503 node=140 qp=0 psn=828
-[RETX] t=2000982945 node=140 qp=0 psn=828
-[RETX] t=2000984387 node=140 qp=0 psn=828
-[RETX] t=2000985829 node=140 qp=0 psn=828
-[RETX] t=2000987271 node=140 qp=0 psn=828
-[RETX] t=2001161889 node=140 qp=0 psn=949
-[RETX] t=2001163429 node=140 qp=0 psn=949
-[RETX] t=2001164969 node=140 qp=0 psn=949
-[RETX] t=2001166509 node=140 qp=0 psn=949
-[RETX] t=2001168049 node=140 qp=0 psn=949
-[RETX] t=2001169589 node=140 qp=0 psn=949
-[RETX] t=2001171129 node=140 qp=0 psn=949
-[RETX] t=2001172669 node=140 qp=0 psn=949
-[RETX] t=2001174209 node=140 qp=0 psn=949
-[RETX] t=2001177289 node=140 qp=0 psn=949
-[RETX] t=2001180369 node=140 qp=0 psn=949
-[RETX] t=2001230537 node=140 qp=0 psn=982
-[RETX] t=2001232114 node=140 qp=0 psn=982
-[RETX] t=2001233691 node=140 qp=0 psn=982
-[RETX] t=2001235268 node=140 qp=0 psn=982
-[RETX] t=2001236845 node=140 qp=0 psn=982
-[RETX] t=2001238456 node=140 qp=0 psn=982
-[RETX] t=2001240067 node=140 qp=0 psn=982
-[RETX] t=2001241678 node=140 qp=0 psn=982
-[RETX] t=2001244900 node=140 qp=0 psn=982
-[RETX] t=2001246511 node=140 qp=0 psn=982
-[RETX] t=2001248122 node=140 qp=0 psn=982
-[RETX] t=2001249733 node=140 qp=0 psn=982
-[RETX] t=2001274218 node=140 qp=0 psn=998
-[RETX] t=2001398383 node=120 qp=2 psn=952
-[RETX] t=2001400131 node=120 qp=2 psn=952
-[RETX] t=2001401879 node=120 qp=2 psn=952
-[RETX] t=2001403627 node=120 qp=2 psn=952
-[RETX] t=2001405375 node=120 qp=2 psn=952
-[RETX] t=2001407123 node=120 qp=2 psn=952
-[RETX] t=2001408898 node=120 qp=2 psn=952
-[RETX] t=2001410673 node=120 qp=2 psn=952
-[RETX] t=2001412448 node=120 qp=2 psn=952
-[RETX] t=2001414223 node=120 qp=2 psn=952
-[RETX] t=2001415998 node=120 qp=2 psn=952
-[RETX] t=2001417773 node=120 qp=2 psn=952
+[NACK_RX] t=2000075008 node=140 qp=0 snd_nxt=114 psn=83 action=ENQUEUE
+[RETX] t=2000075126 node=140 qp=0 psn=83
+[NACK_RX] t=2000158873 node=140 qp=0 snd_nxt=241 psn=209 action=ENQUEUE
+[RETX] t=2000159478 node=140 qp=0 psn=209
+[NACK_RX] t=2000198900 node=34 qp=1 snd_nxt=302 psn=271 action=ENQUEUE
+[RETX] t=2000199018 node=34 qp=1 psn=271
+[NACK_RX] t=2000315543 node=34 qp=1 snd_nxt=465 psn=447 action=ENQUEUE
+[RETX] t=2000316320 node=34 qp=1 psn=447
+[NACK_RX] t=2000320175 node=140 qp=0 snd_nxt=391 psn=374 action=ENQUEUE
+[RETX] t=2000320987 node=140 qp=0 psn=374
+[NACK_RX] t=2000324336 node=34 qp=1 snd_nxt=471 psn=447 action=ENQUEUE
+[RETX] t=2000325546 node=34 qp=1 psn=447
+[NACK_RX] t=2000330360 node=140 qp=0 snd_nxt=398 psn=374 action=ENQUEUE
+[RETX] t=2000331219 node=140 qp=0 psn=374
+[NACK_RX] t=2000340639 node=140 qp=0 snd_nxt=405 psn=388 action=ENQUEUE
+[RETX] t=2000341451 node=140 qp=0 psn=388
+[NACK_RX] t=2000350824 node=140 qp=0 snd_nxt=412 psn=388 action=ENQUEUE
+[RETX] t=2000351683 node=140 qp=0 psn=388
+[NACK_RX] t=2000401872 node=34 qp=1 snd_nxt=528 psn=512 action=ENQUEUE
+[RETX] t=2000401990 node=34 qp=1 psn=512
+[NACK_RX] t=2000413960 node=34 qp=1 snd_nxt=537 psn=515 action=ENQUEUE
+[RETX] t=2000415211 node=34 qp=1 psn=515
+[NACK_RX] t=2000419232 node=34 qp=1 snd_nxt=539 psn=515 action=ENQUEUE
+[RETX] t=2000419288 node=34 qp=1 psn=515
+[NACK_RX] t=2000449812 node=34 qp=1 snd_nxt=561 psn=545 action=ENQUEUE
+[RETX] t=2000450545 node=34 qp=1 psn=545
+[NACK_RX] t=2000459838 node=34 qp=1 snd_nxt=567 psn=545 action=ENQUEUE
+[RETX] t=2000460058 node=34 qp=1 psn=545
+[NACK_RX] t=2000470197 node=34 qp=1 snd_nxt=574 psn=558 action=ENQUEUE
+[RETX] t=2000470930 node=34 qp=1 psn=558
+[NACK_RX] t=2000480223 node=34 qp=1 snd_nxt=580 psn=558 action=ENQUEUE
+[RETX] t=2000480443 node=34 qp=1 psn=558
+[NACK_RX] t=2000502163 node=120 qp=2 snd_nxt=505 psn=488 action=ENQUEUE
+[RETX] t=2000503295 node=120 qp=2 psn=488
+[NACK_RX] t=2000512648 node=120 qp=2 snd_nxt=512 psn=488 action=ENQUEUE
+[RETX] t=2000513687 node=120 qp=2 psn=488
+[NACK_RX] t=2000585033 node=120 qp=2 snd_nxt=565 psn=549 action=ENQUEUE
+[RETX] t=2000585736 node=120 qp=2 psn=549
+[NACK_RX] t=2000737213 node=190 qp=3 snd_nxt=788 psn=770 action=ENQUEUE
+[RETX] t=2000738377 node=190 qp=3 psn=770
+[NACK_RX] t=2000746427 node=190 qp=3 snd_nxt=794 psn=770 action=ENQUEUE
+[RETX] t=2000747484 node=190 qp=3 psn=770
+[NACK_RX] t=2000747728 node=190 qp=3 snd_nxt=794 psn=771 action=ENQUEUE
+[RETX] t=2000748785 node=190 qp=3 psn=771
+[NACK_RX] t=2000752932 node=190 qp=3 snd_nxt=797 psn=771 action=ENQUEUE
+[RETX] t=2000753989 node=190 qp=3 psn=771
+[NACK_RX] t=2000762039 node=190 qp=3 snd_nxt=803 psn=779 action=ENQUEUE
+[RETX] t=2000763096 node=190 qp=3 psn=779
+[NACK_RX] t=2000765942 node=190 qp=3 snd_nxt=805 psn=779 action=ENQUEUE
+[RETX] t=2000766999 node=190 qp=3 psn=779
+[NACK_RX] t=2000767243 node=190 qp=3 snd_nxt=805 psn=782 action=ENQUEUE
+[RETX] t=2000768300 node=190 qp=3 psn=782
+[NACK_RX] t=2000768544 node=190 qp=3 snd_nxt=805 psn=782 action=ENQUEUE
+[RETX] t=2000769601 node=190 qp=3 psn=782
+[NACK_RX] t=2000799661 node=190 qp=3 snd_nxt=828 psn=811 action=ENQUEUE
+[RETX] t=2000800825 node=190 qp=3 psn=811
+[NACK_RX] t=2000817982 node=190 qp=3 snd_nxt=841 psn=814 action=ENQUEUE
+[RETX] t=2000819039 node=190 qp=3 psn=814
+[NACK_RX] t=2000834895 node=190 qp=3 snd_nxt=853 psn=827 action=ENQUEUE
+[RETX] t=2000835952 node=190 qp=3 psn=827
+[NACK_RX] t=2000839679 node=140 qp=0 snd_nxt=768 psn=752 action=ENQUEUE
+[RETX] t=2000840873 node=140 qp=0 psn=752
+[NACK_RX] t=2000848753 node=140 qp=0 snd_nxt=773 psn=752 action=ENQUEUE
+[RETX] t=2000849189 node=140 qp=0 psn=752
+[NACK_RX] t=2000855580 node=34 qp=1 snd_nxt=857 psn=841 action=ENQUEUE
+[RETX] t=2000855998 node=34 qp=1 psn=841
+[NACK_RX] t=2000875650 node=34 qp=1 snd_nxt=871 psn=853 action=ENQUEUE
+[RETX] t=2000876068 node=34 qp=1 psn=853
+[NACK_RX] t=2000901306 node=120 qp=2 snd_nxt=796 psn=780 action=ENQUEUE
+[RETX] t=2000902324 node=120 qp=2 psn=780
+[NACK_RX] t=2000910220 node=120 qp=2 snd_nxt=801 psn=780 action=ENQUEUE
+[RETX] t=2000910592 node=120 qp=2 psn=780
+[NACK_RX] t=2000978335 node=140 qp=0 snd_nxt=864 psn=849 action=ENQUEUE
+[RETX] t=2000978381 node=140 qp=0 psn=849
+[NACK_RX] t=2000986219 node=140 qp=0 snd_nxt=869 psn=849 action=ENQUEUE
+[RETX] t=2000986823 node=140 qp=0 psn=849
