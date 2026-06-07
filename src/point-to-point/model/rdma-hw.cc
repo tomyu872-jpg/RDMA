@@ -300,6 +300,8 @@ bool PsnListOverlapsFalconBitmap(uint32_t cumAckPsn, uint16_t bitmapBits, uint64
 
 std::unordered_map<unsigned, unsigned> acc_timeout_count;
 uint64_t RdmaHw::nAllPkts = 0;
+RdmaHw::TxDataPacketCallback RdmaHw::m_txDataPacketCallback;
+RdmaHw::RxDataPacketCallback RdmaHw::m_rxDataPacketCallback;
 
 void RdmaHw::SetEndpointLogFiles(const std::string &senderLogPath,
                                  const std::string &receiverLogPath) {
@@ -307,6 +309,14 @@ void RdmaHw::SetEndpointLogFiles(const std::string &senderLogPath,
     if (g_receiverLog.is_open()) g_receiverLog.close();
     g_senderLogPath = senderLogPath;
     g_receiverLogPath = receiverLogPath;
+}
+
+void RdmaHw::SetTxDataPacketCallback(TxDataPacketCallback cb) {
+    m_txDataPacketCallback = cb;
+}
+
+void RdmaHw::SetRxDataPacketCallback(RxDataPacketCallback cb) {
+    m_rxDataPacketCallback = cb;
 }
 
 TypeId RdmaHw::GetTypeId(void) {
@@ -808,6 +818,10 @@ int RdmaHw::ReceiveUdp(Ptr<Packet> p, CustomHeader &ch) {
             printf("ERROR: UDP NIC cannot find the flow\n");
             exit(1);
         }
+    }
+
+    if (!m_rxDataPacketCallback.IsNull()) {
+        m_rxDataPacketCallback(Ipv4Address(ch.sip), Ipv4Address(ch.dip), payload_size);
     }
 
     if (ecnbits != 0) {
@@ -2601,6 +2615,9 @@ Ptr<Packet> RdmaHw::GetNxtPacket(Ptr<RdmaQueuePair> qp) {
     if (isRetrans) {
         qp->stat.txRetransPkts += 1;
         LogSenderRetrans(m_node->GetId(), qp, seq, qp->psnPath.packetSize);
+    }
+    if (!m_txDataPacketCallback.IsNull()) {
+        m_txDataPacketCallback(qp->sip, qp->dip, payload_size, isRetrans);
     }
 
     Ptr<Packet> p = Create<Packet>(payload_size);

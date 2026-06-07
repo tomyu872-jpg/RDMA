@@ -2,6 +2,7 @@
 #define RDMA_HW_H
 
 #include <ns3/custom-header.h>
+#include <ns3/callback.h>
 #include <ns3/node.h>
 #include <ns3/rdma.h>
 #include <ns3/selective-packet-queue.h>
@@ -38,6 +39,10 @@ class RdmaHw : public Object {
     static TypeId GetTypeId(void);
     static void SetEndpointLogFiles(const std::string &senderLogPath,
                                     const std::string &receiverLogPath);
+    typedef Callback<void, Ipv4Address, Ipv4Address, uint32_t, bool> TxDataPacketCallback;
+    typedef Callback<void, Ipv4Address, Ipv4Address, uint32_t> RxDataPacketCallback;
+    static void SetTxDataPacketCallback(TxDataPacketCallback cb);
+    static void SetRxDataPacketCallback(RxDataPacketCallback cb);
     RdmaHw();
 
     Ptr<Node> m_node;
@@ -67,6 +72,8 @@ class RdmaHw : public Object {
     std::unordered_set<RdmaFlowKey, RdmaFlowKeyHash> akashic_Qp;    // instance for each src
     std::unordered_set<RdmaFlowKey, RdmaFlowKeyHash> akashic_RxQp;  // instance for each dst
     static uint64_t nAllPkts;                   // number of total packets
+    static TxDataPacketCallback m_txDataPacketCallback;
+    static RxDataPacketCallback m_rxDataPacketCallback;
 
     /* TxQpeueuPair */
     static RdmaFlowKey GetQpKey(uint32_t dip, uint16_t sport, uint16_t dport,

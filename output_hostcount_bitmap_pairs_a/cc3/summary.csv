@@ -1,0 +1,11 @@
+FCT_US
+host_count,bitmap
+512,1358.0014999999999
+
+GOODPUT_GBPS
+host_count,bitmap
+512,55.55702066684999
+
+RETRANS
+host_count,bitmap
+512,12.0

@@ -123,6 +123,8 @@ class Settings {
 
     // for common setting
     static uint32_t packet_payload;
+    static uint32_t enable_console_log;
+    static std::string console_log_psns;
 
     // for statistic
     static uint32_t node_num;

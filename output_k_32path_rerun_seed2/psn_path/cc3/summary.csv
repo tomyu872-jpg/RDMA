@@ -1,0 +1,2 @@
+k,status,runid,flow_count,fct_avg_us,fct_p50_us,fct_p95_us,fct_p99_us,slowdown_avg,slowdown_p99,goodput_avg_gbps,goodput_p50_gbps,goodput_p95_gbps,path_switch_count,retrans_count,archive_dir,log
+4,ok,k4_20260607003043_3639,4,788.136,790.396,812.5419499999999,814.82519,1.1766384998954944,1.2164838165477292,83.76124952380952,91.7504,98.304,0,79,output_k_32path_rerun_seed2/psn_path/cc3/k4/k4_20260607003043_3639,./mix/output/k4_20260607003043_3639/config.log

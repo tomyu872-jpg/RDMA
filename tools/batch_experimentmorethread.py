@@ -4,14 +4,14 @@ Batch experiment runner for hpcc_rdma.
 
 Features:
 - Accept cc modes, methods, loss list, topology line number to modify (0=no change)
-- Copy topology (if modifying) into run dir and edit specified line's last field
+- Copy topology into run dir and edit selected link lines' loss field
 - Generate a config.txt per run (based on a template config)
 - Run simulations with multiple worker processes
 - Archive FCT output to output/<method>/cc<mode>/loss<loss>/
 
 Usage:
   python3 tools/batch_experimentmorethread.py --cc3-all
-  python3 tools/batch_experimentmorethread.py --losses 0.0,0.001,... --topo-line 350 --methods psn_path,gbn --ccs 1,3
+  python3 tools/batch_experimentmorethread.py --losses 0.0,0.001,... --topo-line 350 --methods psn_path,gbn,ornic --ccs 1,3
 """
 import argparse
 import concurrent.futures
@@ -58,23 +58,30 @@ def replace_config_key(lines, key, value):
 
 
 DEFAULT_LOSSES = '0.0001,0.0005,0.001,0.002,0.004,0.006,0.008,0.01'
-DEFAULT_TOPO_BLOCK_FIRST_LINE = 3
-DEFAULT_TOPO_BLOCK_LAST_START = 243
-DEFAULT_TOPO_BLOCK_STRIDE = 16
-DEFAULT_TOPO_BLOCK_SIZE = 8
-DEFAULT_METHODS = 'psn_path,mpirn,gbn,falcon'
+DEFAULT_METHODS = 'psn_path,mpirn,gbn,falcon,ornic'
 
 
 METHOD_FLAGS = {
     'psn_path': {'ENABLE_PSN_PATH': 1, 'ENABLE_PATH_SWITCH': 1, 'ENABLE_PATH_AWARE_RETRANS': 1,
-                 'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0, 'ENABLE_FALCON': 0},
+                 'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0,
+                 'ENABLE_FALCON': 0, 'ENABLE_ORNIC': 0, 'ORNIC_BW_GBPS': 100,
+                 'ORNIC_RX_SEND_DELAY_NS': 9000},
     'gbn': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
-            'ENABLE_RX_OOO_NACK': 1, 'ENABLE_TX_NACK_GOBACK': 1, 'ENABLE_BITMAP_RETRANS': 0, 'ENABLE_FALCON': 0},
+            'ENABLE_RX_OOO_NACK': 1, 'ENABLE_TX_NACK_GOBACK': 1, 'ENABLE_BITMAP_RETRANS': 0,
+            'ENABLE_FALCON': 0, 'ENABLE_ORNIC': 0, 'ORNIC_BW_GBPS': 100,
+            'ORNIC_RX_SEND_DELAY_NS': 9000},
     'mpirn': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
-              'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 1, 'ENABLE_FALCON': 0},
+              'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 1,
+              'ENABLE_FALCON': 0, 'ENABLE_ORNIC': 0, 'ORNIC_BW_GBPS': 100,
+              'ORNIC_RX_SEND_DELAY_NS': 9000},
     'falcon': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
                'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0, 'ENABLE_FALCON': 1,
-               'FALCON_RX_SEND_DELAY_NS': 0},
+               'FALCON_RX_SEND_DELAY_NS': 0, 'ENABLE_ORNIC': 0, 'ORNIC_BW_GBPS': 100,
+               'ORNIC_RX_SEND_DELAY_NS': 9000},
+    'ornic': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
+              'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0,
+              'ENABLE_FALCON': 0, 'ENABLE_ORNIC': 1, 'ORNIC_BW_GBPS': 100,
+              'ORNIC_RX_SEND_DELAY_NS': 9000},
 }
 
 METHOD_ALIASES = {
@@ -84,6 +91,7 @@ METHOD_ALIASES = {
     'bitmap': 'mpirn',
     'mpirn': 'mpirn',
     'falcon': 'falcon',
+    'ornic': 'ornic',
 }
 
 
@@ -95,12 +103,16 @@ def normalize_method(method):
     return normalized
 
 
-def default_topo_lines():
+def default_topo_lines(topo_path):
     lines = []
-    start = DEFAULT_TOPO_BLOCK_FIRST_LINE
-    while start <= DEFAULT_TOPO_BLOCK_LAST_START:
-        lines.extend(range(start, start + DEFAULT_TOPO_BLOCK_SIZE))
-        start += DEFAULT_TOPO_BLOCK_STRIDE
+    for idx, line in enumerate(read_lines(topo_path), start=1):
+        if idx < 3:
+            continue
+        parts = line.strip().split()
+        if len(parts) < 5:
+            raise RuntimeError(f"topology line {idx} doesn't look like a link line: {line}")
+        if float(parts[4]) > 0:
+            lines.append(idx)
     return lines
 
 
@@ -158,7 +170,7 @@ def run_one(template_config_path, topo_path, topo_lines, cc_mode, method, loss, 
             parts = topo_mod_lines[idx].rstrip('\n').split()
             if len(parts) < 5:
                 raise RuntimeError(f"topology line {topo_line} doesn't look like a link line: {topo_mod_lines[idx]}")
-            parts[-1] = str(loss)
+            parts[4] = str(loss)
             topo_mod_lines[idx] = ' '.join(parts) + '\n'
         topo_target = os.path.join(run_dir, os.path.basename(topo_path))
         write_lines(topo_target, topo_mod_lines)
@@ -237,13 +249,13 @@ def run_one(template_config_path, topo_path, topo_lines, cc_mode, method, loss, 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--topo-line', type=int, default=0, help='(deprecated) single topology line number to modify (1-based)')
-    parser.add_argument('--topo-lines', type=str, default='', help='comma-separated topology line numbers to modify (1-based); empty uses the built-in 128-line blocks')
+    parser.add_argument('--topo-lines', type=str, default='', help='comma-separated topology line numbers to modify (1-based); empty scans from line 3 and modifies lines whose 5th field is not 0')
     parser.add_argument('--topo-file', default='config/1_topology.txt')
     parser.add_argument('--template-config', default='mix/output/1/config.txt')
     parser.add_argument('--losses', default=DEFAULT_LOSSES,
                         help='comma separated loss values')
     parser.add_argument('--methods', default=DEFAULT_METHODS,
-                        help='comma separated retransmission methods: psn_path,mpirn,gbn,falcon (aliases: psn-path,bitmap)')
+                        help='comma separated retransmission methods: psn_path,mpirn,gbn,falcon,ornic (aliases: psn-path,bitmap)')
     parser.add_argument('--ccs', default='1,3', help='comma separated CC modes (numbers)')
     parser.add_argument('--cc3-all', action='store_true',
                         help='run all retransmission methods with CC_MODE=3')
@@ -272,7 +284,7 @@ def main():
     elif args.topo_line and args.topo_line > 0:
         topo_lines = [args.topo_line]
     else:
-        topo_lines = default_topo_lines()
+        topo_lines = default_topo_lines(args.topo_file)
 
     ensure_output_dir(args.work_dir)
 

@@ -23,7 +23,7 @@
 #define BITNSLOTS(nb) ((nb + CHAR_BIT - 1) / CHAR_BIT)
 
 #define ESTIMATED_MAX_FLOW_PER_HOST 9120
-#define BITMAP_SIZE 100
+#define BITMAP_SIZE 32
 
 namespace ns3 {
 
@@ -48,6 +48,7 @@ struct PsnMappingSnapshot {
     uint32_t k{0};
     uint32_t o{0};
     uint32_t fpsn{0};
+    uint32_t activePathMask{0};
 };
 
 struct PsnRetransRequest {
@@ -73,6 +74,27 @@ struct PsnPathState {
     std::vector<PsnPathStats> pathStats;
     std::deque<PsnRetransRequest> pendingRetrans;
     EventId evalEvent;
+};
+
+struct OrnicState {
+    bool enabled{false};
+    uint32_t packetSize{8192};
+    std::deque<uint32_t> pendingRetrans;
+};
+
+struct HpPathState {
+    uint32_t ownerPathSig{0};
+    bool initialized{false};
+    IntHop hop[IntHeader::maxHop];
+    uint64_t lastTxBytes[IntHeader::maxHop];
+    uint64_t lastTimestamp[IntHeader::maxHop];
+
+    HpPathState() : ownerPathSig(0), initialized(false) {
+        for (uint32_t i = 0; i < IntHeader::maxHop; i++) {
+            lastTxBytes[i] = 0;
+            lastTimestamp[i] = 0;
+        }
+    }
 };
 
 class IrnSackManager {
@@ -149,6 +171,7 @@ class RdmaQueuePair : public Object {
         IntHop hop[IntHeader::maxHop];
         uint64_t lastTxBytes[IntHeader::maxHop];
         uint64_t lastTimestamp[IntHeader::maxHop];
+        std::vector<HpPathState> pathState;
         double u;
     } hp;
     struct {
@@ -187,6 +210,7 @@ class RdmaQueuePair : public Object {
         uint64_t pathSwitchCount{0};
     } stat;
     PsnPathState psnPath;
+    OrnicState ornic;
 
     // Implement Timeout according to IB Spec Vol. 1 C9-139.
     // For an HCA requester using Reliable Connection service, to detect missing responses,
@@ -251,6 +275,16 @@ class RdmaRxQueuePair : public Object {  // Rx side queue pair
    public:
     uint32_t outcount{0};
     uint32_t lastoutseq{0};
+    std::array<uint32_t, BITMAP_SIZE> psnPathGapPsn{};
+    std::array<uint32_t, BITMAP_SIZE> psnPathGapObservedPkts{};
+    std::array<bool, BITMAP_SIZE> psnPathGapNackSent{};
+    std::deque<uint32_t> psnPathGapPendingNacks;
+    uint32_t psnPathEarliestGapPsn{0xffffffffu};
+    Time psnPathEarliestGapStart;
+    EventId psnPathGapTimerEvent;
+    EventId bitmapExpectedTimerEvent;
+    uint32_t bitmapExpectedTimeoutSeq{0xffffffffu};
+    bool bitmapExpectedNackSent{false};
     std::array<uint8_t, BITMAP_SIZE> bitmap{};
     struct ECNAccount {
         uint16_t qIndex;
@@ -268,6 +302,9 @@ class RdmaRxQueuePair : public Object {  // Rx side queue pair
     Time m_nackTimer;
     int32_t m_milestone_rx;
     uint32_t m_lastNACK;
+    std::string m_lastNackReason;
+    bool m_ackSeqOverrideValid{false};
+    uint32_t m_ackSeqOverride{0};
     EventId QcnTimerEvent;  // if destroy this rxQp, remember to cancel this timer
     IrnSackManager m_irn_sack_;
     std::vector<PsnMappingSnapshot> psnMappingHistory;

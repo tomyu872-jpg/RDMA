@@ -1,0 +1,12 @@
+[PROGRESS] Config loaded: topo=config/1_topology.txt flow=config/1_flow_k32_4flows.txt cc_mode=3 lb_mode=0
+[PROGRESS] Input opened: topology nodes=192 switches=64 links=1152, flows=4
+[PROGRESS] Topology parsed and channels created.
+[PROGRESS] Host NIC rate summary computed.
+[PROGRESS] Host IP mapping initialized.
+[PROGRESS] Switch ECN/PFC configuration completed.
+[PROGRESS] RDMA drivers initialized on all hosts.
+[ROUTE_DUMP] phase=initial host_count=128
+[NEXTHOP_DUMP] phase=initial
+[PROGRESS] Flow scheduling initialized. total_flows=4
+[PROGRESS] Simulator::Run starting. stop_time=40.000 s
+[PROGRESS] Flow file fully consumed. Scheduled flows=4

@@ -2,19 +2,29 @@
 #define RDMA_HW_H
 
 #include <ns3/custom-header.h>
+#include <ns3/callback.h>
 #include <ns3/node.h>
 #include <ns3/rdma.h>
 #include <ns3/selective-packet-queue.h>
 
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
 #include "qbb-net-device.h"
 #include "bitmap-retrans-module.h"
 #include "falcon-retrans-module.h"
+#include "ornic-retrans-module.h"
+#include "rdma-flow-key.h"
 #include "rdma-queue-pair.h"
 
 namespace ns3 {
+
+enum class RxControlDelayKind {
+    None,
+    Falcon,
+    Ornic,
+};
 
 struct RdmaInterfaceMgr {
     Ptr<QbbNetDevice> dev;
@@ -27,6 +37,12 @@ struct RdmaInterfaceMgr {
 class RdmaHw : public Object {
    public:
     static TypeId GetTypeId(void);
+    static void SetEndpointLogFiles(const std::string &senderLogPath,
+                                    const std::string &receiverLogPath);
+    typedef Callback<void, Ipv4Address, Ipv4Address, uint32_t, bool> TxDataPacketCallback;
+    typedef Callback<void, Ipv4Address, Ipv4Address, uint32_t> RxDataPacketCallback;
+    static void SetTxDataPacketCallback(TxDataPacketCallback cb);
+    static void SetRxDataPacketCallback(RxDataPacketCallback cb);
     RdmaHw();
 
     Ptr<Node> m_node;
@@ -40,8 +56,8 @@ class RdmaHw : public Object {
     bool m_var_win, m_fast_react;
     bool m_rateBound;
     std::vector<RdmaInterfaceMgr> m_nic;  // list of running nic controlled by this RdmaHw
-    std::unordered_map<uint64_t, Ptr<RdmaQueuePair>> m_qpMap;      // mapping from uint64_t to qp
-    std::unordered_map<uint64_t, Ptr<RdmaRxQueuePair>> m_rxQpMap;  // mapping from uint64_t to rx qp
+    std::unordered_map<RdmaFlowKey, Ptr<RdmaQueuePair>, RdmaFlowKeyHash> m_qpMap;
+    std::unordered_map<RdmaFlowKey, Ptr<RdmaRxQueuePair>, RdmaFlowKeyHash> m_rxQpMap;
     std::unordered_map<uint32_t, std::vector<int>>
         m_rtTable;  // map from ip address (u32) to possible ECMP port (index of dev)
 
@@ -53,14 +69,16 @@ class RdmaHw : public Object {
     void Setup(QpCompleteCallback cb);  // setup shared data and callbacks with the QbbNetDevice
 
     /* Akashic Record of finished QP */
-    std::unordered_set<uint64_t> akashic_Qp;    // instance for each src
-    std::unordered_set<uint64_t> akashic_RxQp;  // instance for each dst
+    std::unordered_set<RdmaFlowKey, RdmaFlowKeyHash> akashic_Qp;    // instance for each src
+    std::unordered_set<RdmaFlowKey, RdmaFlowKeyHash> akashic_RxQp;  // instance for each dst
     static uint64_t nAllPkts;                   // number of total packets
+    static TxDataPacketCallback m_txDataPacketCallback;
+    static RxDataPacketCallback m_rxDataPacketCallback;
 
     /* TxQpeueuPair */
-    static uint64_t GetQpKey(uint32_t dip, uint16_t sport, uint16_t dport,
-                             uint16_t pg);          // get the lookup key for m_qpMap
-    Ptr<RdmaQueuePair> GetQp(uint64_t key);         // get the qp
+    static RdmaFlowKey GetQpKey(uint32_t dip, uint16_t sport, uint16_t dport,
+                                uint16_t pg);       // get the lookup key for m_qpMap
+    Ptr<RdmaQueuePair> GetQp(const RdmaFlowKey &key);  // get the qp
     uint32_t GetNicIdxOfQp(Ptr<RdmaQueuePair> qp);  // get the NIC index of the qp
     void DeleteQueuePair(Ptr<RdmaQueuePair> qp);    // delete TxQP
 
@@ -73,7 +91,7 @@ class RdmaHw : public Object {
     }
 
     /* RxQueuePair */
-    static uint64_t GetRxQpKey(uint32_t dip, uint16_t dport, uint16_t sport, uint16_t pg);
+    static RdmaFlowKey GetRxQpKey(uint32_t dip, uint16_t dport, uint16_t sport, uint16_t pg);
     Ptr<RdmaRxQueuePair> GetRxQp(uint32_t sip, uint32_t dip, uint16_t sport, uint16_t dport,
                                  uint16_t pg, bool create);  // get a rxQp
     uint32_t GetNicIdxOfRxQp(Ptr<RdmaRxQueuePair> q);        // get the NIC index of the rxQp
@@ -90,6 +108,9 @@ class RdmaHw : public Object {
     void CheckandSendQCN(Ptr<RdmaRxQueuePair> q);
     int ReceiverCheckSeq(uint32_t &seq, Ptr<RdmaRxQueuePair> q, uint32_t size, bool &cnp);
     int ReceiverCheckSeqPsnPath(uint32_t &seq, Ptr<RdmaRxQueuePair> q, uint32_t size, bool &cnp);
+    void SchedulePsnPathGapTimer(Ptr<RdmaRxQueuePair> q);
+    void HandlePsnPathGapTimeout(Ptr<RdmaRxQueuePair> q, uint32_t missingPsn);
+    void SendPsnPathGapTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t missingPsn);
     void AddHeader(Ptr<Packet> p, uint16_t protocolNumber);
     static uint16_t EtherToPpp(uint16_t protocol);
 
@@ -166,6 +187,8 @@ class RdmaHw : public Object {
     bool m_sampleFeedback;  // only react to feedback every RTT, or qlen > 0
     bool m_hpccTrace;       // print HPCC/INT feedback logs
     uint32_t m_hpccTraceInterval;  // print one out of N HPCC ACKs per QP (N>=1)
+    uint32_t m_enableConsoleLog;   // 0: off, 1: concise, 2: verbose per-packet logs
+    std::string m_consoleLogPsns;   // comma/space separated PSNs for focused receiver logs
     void HandleAckHp(Ptr<RdmaQueuePair> qp, Ptr<Packet> p, CustomHeader &ch, bool ack_progress);
     void UpdateRateHp(Ptr<RdmaQueuePair> qp, Ptr<Packet> p, CustomHeader &ch, bool fast_react);
     void UpdateRateHpTest(Ptr<RdmaQueuePair> qp, Ptr<Packet> p, CustomHeader &ch, bool fast_react);
@@ -199,8 +222,15 @@ class RdmaHw : public Object {
     bool m_enablePathAwareRetrans;
     bool m_enableRxOooNack;
     bool m_enableTxNackGoBack;
+    Time m_txNackRetransInterval;
     bool m_enableBitmapRetrans;
     bool m_enableFalcon;
+    bool m_enableOrnic;
+    uint32_t m_bitmapRetransSize;
+    Time m_bitmapRetransTimeout;
+    Time m_falconRxSendDelay;
+    Time m_ornicRxSendDelay;
+    double m_ornicBandwidthGbps;
     uint32_t m_psnPathK;
     uint32_t m_psnPathO;
     uint32_t m_psnPathBasePort;
@@ -210,9 +240,18 @@ class RdmaHw : public Object {
     uint32_t m_psnPathTRemove;
     double m_psnPathEvalIntervalUs;
     uint32_t m_psnPathProbeFrequency;
+    Time m_psnPathGapTimeout;
     BitmapRetransModule m_bitmapRetrans;
     FalconRetransModule m_falcon;
-    Time m_falconReoWnd;
+    OrnicRetransModule m_ornicRetrans;
+    void SendRxControlPacket(Ptr<QbbNetDevice> dev, Ptr<Packet> p,
+                             RxControlDelayKind delayKind);
+    void SendRxControlPacketNow(Ptr<QbbNetDevice> dev, Ptr<Packet> p);
+    void EnqueueFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq);
+    void UpdateBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q,
+                                     const BitmapRetransFeedback &feedback);
+    void HandleBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);
+    void SendBitmapExpectedTimeoutNack(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);
 };
 
 } /* namespace ns3 */

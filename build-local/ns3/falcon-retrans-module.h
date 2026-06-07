@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "ns3/nstime.h"
+#include "rdma-flow-key.h"
 
 namespace ns3 {
 
@@ -27,25 +28,27 @@ struct FalconRxResult {
 
 class FalconRetransModule {
    public:
-    static const uint16_t kBitmapBits = 64;
+    enum : uint16_t { kBitmapBits = 64 };
 
-    void RegisterTxFlow(uint64_t key);
-    void UnregisterTxFlow(uint64_t key);
-    void RegisterRxFlow(uint64_t key);
-    void UnregisterRxFlow(uint64_t key);
+    void RegisterTxFlow(const RdmaFlowKey &key);
+    void UnregisterTxFlow(const RdmaFlowKey &key);
+    void RegisterRxFlow(const RdmaFlowKey &key);
+    void UnregisterRxFlow(const RdmaFlowKey &key);
 
-    void OnPacketSent(uint64_t key, uint32_t seq, uint32_t size, Time now, bool isRetrans);
+    void OnPacketSent(const RdmaFlowKey &key, uint32_t seq, uint32_t size, Time now,
+                      bool isRetrans);
 
-    FalconRxResult OnData(uint64_t key, uint32_t seq, uint32_t size, uint32_t packetSize);
+    FalconRxResult OnData(const RdmaFlowKey &key, uint32_t seq, uint32_t size,
+                          uint32_t packetSize);
 
-    std::vector<uint32_t> OnAck(uint64_t key, uint32_t cumAckSeq, uint16_t bitmapBits,
-                                uint64_t bitmap, uint32_t packetSize, Time now, Time reoWnd);
+    std::vector<uint32_t> OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq,
+                                uint16_t bitmapBits, uint64_t bitmap, uint32_t packetSize);
 
-    bool MarkRetransPending(uint64_t key, uint32_t seq);
-    void ClearRetransPending(uint64_t key, uint32_t seq);
-    void ClearAcked(uint64_t key, uint32_t cumAckSeq);
-    uint32_t GetOldestOutstanding(uint64_t key, uint32_t fallbackSeq) const;
-    uint64_t GetSelectiveAckedBytes(uint64_t key) const;
+    bool MarkRetransPending(const RdmaFlowKey &key, uint32_t seq);
+    void ClearRetransPending(const RdmaFlowKey &key, uint32_t seq);
+    void ClearAcked(const RdmaFlowKey &key, uint32_t cumAckSeq);
+    uint32_t GetOldestOutstanding(const RdmaFlowKey &key, uint32_t fallbackSeq) const;
+    uint64_t GetSelectiveAckedBytes(const RdmaFlowKey &key) const;
 
    private:
     struct TxSegmentState {
@@ -67,8 +70,8 @@ class FalconRetransModule {
 
     FalconAckInfo BuildAck(const RxState &state, uint32_t packetSize) const;
 
-    std::unordered_map<uint64_t, TxState> m_txStates;
-    std::unordered_map<uint64_t, RxState> m_rxStates;
+    std::unordered_map<RdmaFlowKey, TxState, RdmaFlowKeyHash> m_txStates;
+    std::unordered_map<RdmaFlowKey, RxState, RdmaFlowKeyHash> m_rxStates;
 };
 
 }  // namespace ns3

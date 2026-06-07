@@ -26,6 +26,8 @@ class PsnPathTag : public Tag {
     uint32_t GetO() const;
     void SetFpsn(uint32_t v);
     uint32_t GetFpsn() const;
+    void SetActivePathMask(uint32_t v);
+    uint32_t GetActivePathMask() const;
     void SetPathId(uint32_t v);
     uint32_t GetPathId() const;
     void SetProbe(uint8_t v);
@@ -38,6 +40,7 @@ class PsnPathTag : public Tag {
     uint32_t m_k{0};
     uint32_t m_o{0};
     uint32_t m_fpsn{0};
+    uint32_t m_activePathMask{0};
     uint32_t m_pathId{0};
     uint8_t m_probe{0};
     uint16_t m_flowSport{0};

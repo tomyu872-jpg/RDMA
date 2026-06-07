@@ -30,7 +30,9 @@
 #include <cstdarg>
 #include <cstdio>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <unordered_map>
 #include <unistd.h>
@@ -118,6 +120,13 @@ std::string voq_mon_detail_file = "voq_detail.txt";
 std::string uplink_mon_file = "uplink.txt";
 std::string conn_mon_file = "conn.txt";
 std::string est_error_output_file = "est_error.txt";
+std::string burst_loss_schedule = "";
+std::string burst_loss_log_file = "burst_loss.txt";
+uint64_t burst_stat_start_ns = 0;
+uint64_t burst_stat_end_ns = 0;
+uint64_t burst_stat_interval_ns = 0;
+std::string burst_goodput_output_file = "";
+std::string burst_redundancy_output_file = "";
 
 // CC params
 double alpha_resume_interval = 55, rp_timer = 300, ewma_gain = 1 / 16;
@@ -176,6 +185,25 @@ int random_seed = 1;  // change this randomly if you want random expt
 
 uint64_t maxRtt, maxBdp;
 
+struct BurstLossPeriod {
+    uint64_t start_ns;
+    uint64_t end_ns;
+    double loss_rate;
+};
+
+struct BurstStatBucket {
+    uint64_t rx_data_bytes{0};
+    uint64_t tx_data_bytes{0};
+    uint64_t tx_data_pkts{0};
+    uint64_t retrans_data_pkts{0};
+};
+
+std::vector<BurstLossPeriod> burst_loss_periods;
+std::vector<Ptr<RateErrorModel>> burst_loss_error_models;
+std::set<RateErrorModel *> burst_loss_error_model_seen;
+FILE *burst_loss_log_output = NULL;
+std::map<std::pair<uint32_t, uint32_t>, std::vector<BurstStatBucket>> burst_flow_stats;
+
 // app parameters
 struct Interface {
     uint32_t idx;
@@ -227,6 +255,182 @@ std::string HostIpString(Ptr<Node> node);
 std::string JoinNodeNames(const std::vector<Ptr<Node>> &nodes);
 void DumpHostRoutingState(const char *phase);
 void DumpSwitchViewToHosts(const char *phase);
+}
+
+void ParseBurstLossSchedule() {
+    burst_loss_periods.clear();
+    if (burst_loss_schedule.empty()) {
+        return;
+    }
+
+    std::stringstream schedule(burst_loss_schedule);
+    std::string item;
+    while (std::getline(schedule, item, ',')) {
+        if (item.empty()) {
+            continue;
+        }
+        std::stringstream period_stream(item);
+        std::string start, end, rate;
+        if (!std::getline(period_stream, start, ':') ||
+            !std::getline(period_stream, end, ':') ||
+            !std::getline(period_stream, rate, ':')) {
+            NS_FATAL_ERROR("Invalid BURST_LOSS_SCHEDULE segment: " << item);
+        }
+        std::string extra;
+        if (std::getline(period_stream, extra, ':')) {
+            NS_FATAL_ERROR("Invalid BURST_LOSS_SCHEDULE segment: " << item);
+        }
+
+        BurstLossPeriod period;
+        period.start_ns = std::stoull(start);
+        period.end_ns = std::stoull(end);
+        period.loss_rate = std::stod(rate);
+        if (period.end_ns <= period.start_ns) {
+            NS_FATAL_ERROR("BURST_LOSS_SCHEDULE end_ns must be greater than start_ns: " << item);
+        }
+        if (period.loss_rate < 0.0 || period.loss_rate > 1.0) {
+            NS_FATAL_ERROR("BURST_LOSS_SCHEDULE loss_rate must be in [0, 1]: " << item);
+        }
+        burst_loss_periods.push_back(period);
+    }
+}
+
+void RegisterBurstLossErrorModel(Ptr<RateErrorModel> rem) {
+    RateErrorModel *raw = PeekPointer(rem);
+    if (burst_loss_error_model_seen.insert(raw).second) {
+        burst_loss_error_models.push_back(rem);
+    }
+}
+
+void ApplyBurstLossRate(double rate, const char *event) {
+    for (auto rem : burst_loss_error_models) {
+        rem->SetAttribute("ErrorRate", DoubleValue(rate));
+    }
+    if (burst_loss_log_output != NULL) {
+        fprintf(burst_loss_log_output, "%lu %.12g %s\n", Simulator::Now().GetNanoSeconds(), rate,
+                event);
+        fflush(burst_loss_log_output);
+    }
+}
+
+void ScheduleBurstLossEvents() {
+    if (burst_loss_periods.empty()) {
+        return;
+    }
+    burst_loss_log_output = fopen(burst_loss_log_file.c_str(), "w");
+    if (burst_loss_log_output == NULL) {
+        NS_FATAL_ERROR("Cannot open BURST_LOSS_LOG_FILE: " << burst_loss_log_file);
+    }
+    for (const auto &period : burst_loss_periods) {
+        Simulator::Schedule(NanoSeconds(period.start_ns), &ApplyBurstLossRate, period.loss_rate,
+                            "burst_start");
+        Simulator::Schedule(NanoSeconds(period.end_ns), &ApplyBurstLossRate, error_rate_per_link,
+                            "burst_end");
+    }
+}
+
+void RecordBurstTxDataPacket(Ipv4Address sip, Ipv4Address dip, uint32_t bytes, bool is_retrans) {
+    if (burst_stat_interval_ns == 0) {
+        return;
+    }
+    uint64_t now_ns = Simulator::Now().GetNanoSeconds();
+    if (now_ns < burst_stat_start_ns) {
+        return;
+    }
+    if (burst_stat_end_ns != 0 && now_ns >= burst_stat_end_ns) {
+        return;
+    }
+    uint64_t bucket = (now_ns - burst_stat_start_ns) / burst_stat_interval_ns;
+    auto key = std::make_pair(Settings::ip_to_node_id(sip), Settings::ip_to_node_id(dip));
+    auto &buckets = burst_flow_stats[key];
+    if (buckets.size() <= bucket) {
+        buckets.resize(bucket + 1);
+    }
+    buckets[bucket].tx_data_bytes += bytes;
+    buckets[bucket].tx_data_pkts += 1;
+    if (is_retrans) {
+        buckets[bucket].retrans_data_pkts += 1;
+    }
+}
+
+void RecordBurstRxDataPacket(Ipv4Address sip, Ipv4Address dip, uint32_t bytes) {
+    if (burst_stat_interval_ns == 0) {
+        return;
+    }
+    uint64_t now_ns = Simulator::Now().GetNanoSeconds();
+    if (now_ns < burst_stat_start_ns) {
+        return;
+    }
+    if (burst_stat_end_ns != 0 && now_ns >= burst_stat_end_ns) {
+        return;
+    }
+    uint64_t bucket = (now_ns - burst_stat_start_ns) / burst_stat_interval_ns;
+    auto key = std::make_pair(Settings::ip_to_node_id(sip), Settings::ip_to_node_id(dip));
+    auto &buckets = burst_flow_stats[key];
+    if (buckets.size() <= bucket) {
+        buckets.resize(bucket + 1);
+    }
+    buckets[bucket].rx_data_bytes += bytes;
+}
+
+void WriteBurstStatOutputs() {
+    if (burst_stat_interval_ns == 0) {
+        return;
+    }
+    if (burst_goodput_output_file.empty() && burst_redundancy_output_file.empty()) {
+        return;
+    }
+
+    size_t bucket_count = 0;
+    for (const auto &flow : burst_flow_stats) {
+        bucket_count = std::max(bucket_count, flow.second.size());
+    }
+    if (burst_stat_end_ns != 0) {
+        uint64_t stat_duration_ns = burst_stat_end_ns - burst_stat_start_ns;
+        bucket_count = (stat_duration_ns + burst_stat_interval_ns - 1) / burst_stat_interval_ns;
+    }
+
+    if (!burst_goodput_output_file.empty()) {
+        std::ofstream out(burst_goodput_output_file.c_str());
+        if (!out.is_open()) {
+            NS_FATAL_ERROR("Cannot open BURST_GOODPUT_OUTPUT_FILE: " << burst_goodput_output_file);
+        }
+        out << std::setprecision(12);
+        for (const auto &flow : burst_flow_stats) {
+            out << flow.first.first << " " << flow.first.second;
+            for (size_t i = 0; i < bucket_count; ++i) {
+                double goodput_gbps = 0.0;
+                if (i < flow.second.size()) {
+                    goodput_gbps =
+                        flow.second[i].rx_data_bytes * 8.0 / burst_stat_interval_ns;
+                }
+                out << " " << goodput_gbps;
+            }
+            out << "\n";
+        }
+    }
+
+    if (!burst_redundancy_output_file.empty()) {
+        std::ofstream out(burst_redundancy_output_file.c_str());
+        if (!out.is_open()) {
+            NS_FATAL_ERROR("Cannot open BURST_REDUNDANCY_OUTPUT_FILE: "
+                           << burst_redundancy_output_file);
+        }
+        out << std::setprecision(12);
+        for (const auto &flow : burst_flow_stats) {
+            out << flow.first.first << " " << flow.first.second;
+            for (size_t i = 0; i < bucket_count; ++i) {
+                double redundancy_rate = 0.0;
+                if (i < flow.second.size() && flow.second[i].tx_data_pkts > 0) {
+                    redundancy_rate =
+                        static_cast<double>(flow.second[i].retrans_data_pkts) /
+                        flow.second[i].tx_data_pkts;
+                }
+                out << " " << redundancy_rate;
+            }
+            out << "\n";
+        }
+    }
 }
 
 /**
@@ -1246,6 +1450,28 @@ int main(int argc, char *argv[]) {
                 conf >> v;
                 error_rate_per_link = v;
                 std::cerr << "ERROR_RATE_PER_LINK\t\t" << error_rate_per_link << "\n";
+            } else if (key.compare("BURST_LOSS_SCHEDULE") == 0) {
+                conf >> burst_loss_schedule;
+                std::cerr << "BURST_LOSS_SCHEDULE\t\t" << burst_loss_schedule << "\n";
+            } else if (key.compare("BURST_LOSS_LOG_FILE") == 0) {
+                conf >> burst_loss_log_file;
+                std::cerr << "BURST_LOSS_LOG_FILE\t\t" << burst_loss_log_file << "\n";
+            } else if (key.compare("BURST_STAT_START_NS") == 0) {
+                conf >> burst_stat_start_ns;
+                std::cerr << "BURST_STAT_START_NS\t\t" << burst_stat_start_ns << "\n";
+            } else if (key.compare("BURST_STAT_END_NS") == 0) {
+                conf >> burst_stat_end_ns;
+                std::cerr << "BURST_STAT_END_NS\t\t" << burst_stat_end_ns << "\n";
+            } else if (key.compare("BURST_STAT_INTERVAL_NS") == 0) {
+                conf >> burst_stat_interval_ns;
+                std::cerr << "BURST_STAT_INTERVAL_NS\t\t" << burst_stat_interval_ns << "\n";
+            } else if (key.compare("BURST_GOODPUT_OUTPUT_FILE") == 0) {
+                conf >> burst_goodput_output_file;
+                std::cerr << "BURST_GOODPUT_OUTPUT_FILE\t" << burst_goodput_output_file << "\n";
+            } else if (key.compare("BURST_REDUNDANCY_OUTPUT_FILE") == 0) {
+                conf >> burst_redundancy_output_file;
+                std::cerr << "BURST_REDUNDANCY_OUTPUT_FILE\t" << burst_redundancy_output_file
+                          << "\n";
             } else if (key.compare("CC_MODE") == 0) {
                 conf >> cc_mode;
                 std::cerr << "CC_MODE\t\t" << cc_mode << '\n';
@@ -1507,6 +1733,10 @@ int main(int argc, char *argv[]) {
     }
 
     /******************* READING CONFIG FILE IS DONE ***********************/
+    ParseBurstLossSchedule();
+    if (burst_stat_end_ns != 0 && burst_stat_end_ns <= burst_stat_start_ns) {
+        NS_FATAL_ERROR("BURST_STAT_END_NS must be greater than BURST_STAT_START_NS, or 0 to disable the end bound");
+    }
     ProgressLog("[PROGRESS] Config loaded: topo=%s flow=%s cc_mode=%u lb_mode=%u\n",
                 topology_file.c_str(), flow_file.c_str(), cc_mode, lb_mode);
 
@@ -1613,6 +1843,7 @@ int main(int argc, char *argv[]) {
     uv->SetStream(50);
     rem->SetAttribute("ErrorRate", DoubleValue(error_rate_per_link));
     rem->SetAttribute("ErrorUnit", StringValue("ERROR_UNIT_PACKET"));
+    RegisterBurstLossErrorModel(rem);
 
     pfc_file = fopen(pfc_output_file.c_str(), "w");
 
@@ -1641,6 +1872,7 @@ int main(int argc, char *argv[]) {
             uv->SetStream(50);
             rem->SetAttribute("ErrorRate", DoubleValue(error_rate));
             rem->SetAttribute("ErrorUnit", StringValue("ERROR_UNIT_PACKET"));
+            RegisterBurstLossErrorModel(rem);
             qbb.SetDeviceAttribute("ReceiveErrorModel", PointerValue(rem));
         } else {
             qbb.SetDeviceAttribute("ReceiveErrorModel", PointerValue(rem));
@@ -2269,6 +2501,9 @@ int main(int argc, char *argv[]) {
     }
     Simulator::Schedule(Seconds(flowgen_start_time), &periodic_monitoring, voq_output,
                         voq_detail_output, uplink_output, conn_output, &lb_mode);
+    RdmaHw::SetTxDataPacketCallback(MakeCallback(&RecordBurstTxDataPacket));
+    RdmaHw::SetRxDataPacketCallback(MakeCallback(&RecordBurstRxDataPacket));
+    ScheduleBurstLossEvents();
 
     //
     // Now, do the actual simulation.
@@ -2282,6 +2517,11 @@ int main(int argc, char *argv[]) {
                         &stop_simulation_middle);  // check every 100us
     Simulator::Stop(Seconds(flowgen_stop_time + 10.0));
     Simulator::Run();
+    WriteBurstStatOutputs();
+    if (burst_loss_log_output != NULL) {
+        fclose(burst_loss_log_output);
+        burst_loss_log_output = NULL;
+    }
 
     /*-----------------------------------------------------------------------------*/
     /*----- we don't need below. Just we can enforce to close this simulation. -----*/

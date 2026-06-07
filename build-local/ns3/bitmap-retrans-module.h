@@ -4,11 +4,13 @@
 #include <array>
 #include <cstdint>
 #include <deque>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include "rdma-queue-pair.h"
+#include "rdma-flow-key.h"
 
 namespace ns3 {
 
@@ -16,30 +18,31 @@ struct BitmapRetransFeedback {
     bool sendControl{false};
     bool isNack{false};
     bool droppedForOverflow{false};
+    bool hasGap{false};
     uint32_t ackSeq{0};
-    bool hasSack{false};
-    uint32_t sackSeq{0};
-    uint16_t sackSize{0};
+    uint32_t bitmapBasePsn{0};
+    std::string bitmap;
 };
 
 class BitmapRetransModule {
    public:
-    void RegisterTxFlow(uint64_t key);
-    void UnregisterTxFlow(uint64_t key);
-    void RegisterRxFlow(uint64_t key);
-    void UnregisterRxFlow(uint64_t key);
+    void SetBitmapSize(uint32_t bitmapSize);
+    void RegisterTxFlow(const RdmaFlowKey &key);
+    void UnregisterTxFlow(const RdmaFlowKey &key);
+    void RegisterRxFlow(const RdmaFlowKey &key);
+    void UnregisterRxFlow(const RdmaFlowKey &key);
 
-    void OnPacketSent(uint64_t key, uint32_t seq, uint32_t size, bool isRetrans);
-    void OnAck(uint64_t key, uint32_t ackSeq);
-    uint32_t GetOldestUnacked(uint64_t key, uint32_t fallbackSeq) const;
-    bool HasOutstanding(uint64_t key) const;
-    bool TryScheduleRetrans(uint64_t key, uint32_t seq);
-    void ClearRetransMarker(uint64_t key, uint32_t seq);
-    void ClearRetransUpTo(uint64_t key, uint32_t ackSeq);
-    std::vector<uint32_t> CollectMissingSeqs(uint64_t key, uint32_t ackSeq, uint32_t sackSeq,
-                                             uint16_t sackSize, uint32_t packetSize);
+    void OnPacketSent(const RdmaFlowKey &key, uint32_t seq, uint32_t size, bool isRetrans);
+    void OnAck(const RdmaFlowKey &key, uint32_t ackSeq);
+    uint32_t GetOldestUnacked(const RdmaFlowKey &key, uint32_t fallbackSeq) const;
+    bool HasOutstanding(const RdmaFlowKey &key) const;
+    bool TryScheduleRetrans(const RdmaFlowKey &key, uint32_t seq);
+    void ClearRetransMarker(const RdmaFlowKey &key, uint32_t seq);
+    void ClearRetransUpTo(const RdmaFlowKey &key, uint32_t ackSeq);
+    std::vector<uint32_t> CollectMissingSeqs(const RdmaFlowKey &key, uint32_t ackSeq);
 
-    BitmapRetransFeedback OnData(uint64_t key, uint32_t seq, uint32_t size, uint32_t packetSize);
+    BitmapRetransFeedback OnData(const RdmaFlowKey &key, uint32_t seq, uint32_t size,
+                                 uint32_t packetSize);
 
    private:
     struct TxSegment {
@@ -50,16 +53,16 @@ class BitmapRetransModule {
     struct TxState {
         std::deque<TxSegment> outstanding;
         std::unordered_set<uint32_t> pendingRetransSeqs;
-        std::unordered_set<uint32_t> sackSeqs;
     };
 
     struct RxState {
         uint32_t expectedSeq{0};
-        std::array<uint8_t, BITMAP_SIZE> bitmap{};
+        std::vector<uint8_t> bitmap;
     };
 
-    std::unordered_map<uint64_t, TxState> m_txStates;
-    std::unordered_map<uint64_t, RxState> m_rxStates;
+    uint32_t m_bitmapSize{BITMAP_SIZE};
+    std::unordered_map<RdmaFlowKey, TxState, RdmaFlowKeyHash> m_txStates;
+    std::unordered_map<RdmaFlowKey, RxState, RdmaFlowKeyHash> m_rxStates;
 };
 
 }  // namespace ns3
