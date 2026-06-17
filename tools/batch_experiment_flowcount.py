@@ -27,9 +27,10 @@ import subprocess
 from datetime import datetime
 
 
-DEFAULT_METHODS = 'psn_path,mpirn,gbn,falcon,ornic'
-DEFAULT_CCS = '1,3'
+DEFAULT_METHODS = 'falcon,ornic'
+DEFAULT_CCS = '3'
 DEFAULT_FLOW_DIR = '配置文件/大中小流/web-flow'
+DEFAULT_TOPO_FILE = '配置文件/大中小流/topology.txt'
 
 
 METHOD_FLAGS = {
@@ -47,7 +48,7 @@ METHOD_FLAGS = {
               'ORNIC_RX_SEND_DELAY_NS': 9000},
     'falcon': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
                'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0,
-               'ENABLE_FALCON': 1, 'FALCON_RX_SEND_DELAY_NS': 0, 'ENABLE_ORNIC': 0,
+               'ENABLE_FALCON': 1, 'FALCON_RX_SEND_DELAY_NS': 0, 'FALCON_RETRANS_RTT_K': 1.0, 'ENABLE_ORNIC': 0,
                'ORNIC_BW_GBPS': 100, 'ORNIC_RX_SEND_DELAY_NS': 9000},
     'ornic': {'ENABLE_PSN_PATH': 0, 'ENABLE_PATH_SWITCH': 0, 'ENABLE_PATH_AWARE_RETRANS': 0,
               'ENABLE_RX_OOO_NACK': 0, 'ENABLE_TX_NACK_GOBACK': 0, 'ENABLE_BITMAP_RETRANS': 0,
@@ -151,6 +152,7 @@ def run_task(task):
     try:
         result = run_one(
             task['template_config'],
+            task['topo_file'],
             task['flow_file'],
             task['cc'],
             task['method'],
@@ -161,6 +163,7 @@ def run_task(task):
             timeout=task['timeout'])
         result['cc'] = task['cc']
         result['method'] = task['method']
+        result['topo_file'] = task['topo_file']
         result['flow_file'] = task['flow_file']
         result['flow_count'] = task['flow_count']
         return result
@@ -171,13 +174,14 @@ def run_task(task):
             'status': 'error',
             'cc': task['cc'],
             'method': task['method'],
+            'topo_file': task['topo_file'],
             'flow_file': task['flow_file'],
             'flow_count': task['flow_count'],
             'error': str(e),
         }
 
 
-def run_one(template_config_path, flow_file, cc_mode, method, waf_cmd, work_dir,
+def run_one(template_config_path, topo_file, flow_file, cc_mode, method, waf_cmd, work_dir,
             archive_root, dry_run=False, timeout=3600):
     runid = unique_id()
     run_dir = os.path.join(work_dir, 'mix', 'output', runid)
@@ -186,6 +190,7 @@ def run_one(template_config_path, flow_file, cc_mode, method, waf_cmd, work_dir,
 
     cfg_lines = read_lines(template_config_path)
 
+    cfg_lines = replace_config_key(cfg_lines, 'TOPOLOGY_FILE', topo_file)
     cfg_lines = replace_config_key(cfg_lines, 'FLOW_FILE', flow_file)
     cfg_lines = replace_config_key(cfg_lines, 'FLOW_INPUT_FILE', f"mix/output/{runid}/{runid}_in.txt")
     cfg_lines = replace_config_key(cfg_lines, 'CNP_OUTPUT_FILE', f"mix/output/{runid}/{runid}_out_cnp.txt")
@@ -253,12 +258,14 @@ def main():
     parser.add_argument('--flow-dir', default=DEFAULT_FLOW_DIR)
     parser.add_argument('--flow-files', default='',
                         help='comma separated flow files; relative paths are resolved under --flow-dir')
+    parser.add_argument('--topo-file', default=DEFAULT_TOPO_FILE,
+                        help='topology file to use without modification')
     parser.add_argument('--template-config', default='mix/output/1/config.txt')
     parser.add_argument('--methods', default=DEFAULT_METHODS,
                         help='comma separated retransmission methods: psn_path,mpirn,gbn,falcon,ornic')
     parser.add_argument('--ccs', default=DEFAULT_CCS, help='comma separated CC modes')
     parser.add_argument('--work-dir', default='.')
-    parser.add_argument('--archive-root', default='output_flow')
+    parser.add_argument('--archive-root', default='output_big_mid_small')
     parser.add_argument('--waf-cmd', default='python2 ./waf')
     parser.add_argument('--timeout', type=int, default=3600)
     parser.add_argument('--workers', type=int, default=4)
@@ -266,6 +273,8 @@ def main():
     args = parser.parse_args()
 
     flow_files = resolve_flow_files(args.flow_dir, args.flow_files)
+    if not os.path.exists(args.topo_file):
+        raise RuntimeError(f"topology file not found: {args.topo_file}")
     methods = [normalize_method(s) for s in args.methods.split(',') if s.strip() != '']
     ccs = [s.strip() for s in args.ccs.split(',') if s.strip() != '']
 
@@ -277,6 +286,7 @@ def main():
             for flow_file in flow_files:
                 tasks.append({
                     'template_config': args.template_config,
+                    'topo_file': args.topo_file,
                     'flow_file': flow_file,
                     'flow_count': flow_count_from_file(flow_file),
                     'cc': cc,

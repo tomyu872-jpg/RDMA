@@ -478,6 +478,11 @@ TypeId RdmaHw::GetTypeId(void) {
                           TimeValue(NanoSeconds(0)),
                           MakeTimeAccessor(&RdmaHw::m_falconRxSendDelay),
                           MakeTimeChecker())
+            .AddAttribute("FalconRetransRttK",
+                          "Gate Falcon bitmap retransmission until packet age reaches k * SRTT. Zero disables the gate.",
+                          DoubleValue(0.0),
+                          MakeDoubleAccessor(&RdmaHw::m_falconRetransRttK),
+                          MakeDoubleChecker<double>(0.0))
             .AddAttribute("EnableOrnic", "Enable ORNIC OTD-based selective retransmission",
                           BooleanValue(false), MakeBooleanAccessor(&RdmaHw::m_enableOrnic),
                           MakeBooleanChecker())
@@ -541,6 +546,7 @@ RdmaHw::RdmaHw() {
     m_enableBitmapRetrans = false;
     m_enableFalcon = false;
     m_enableOrnic = false;
+    m_falconRetransRttK = 0.0;
     m_bitmapRetransSize = BITMAP_SIZE;
     m_bitmapRetransTimeout = NanoSeconds(0);
     m_falconRxSendDelay = NanoSeconds(0);
@@ -1278,8 +1284,34 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
                       << std::endl;
         }
         qp->Acknowledge(seq);
+        Time falconRetransAgeThreshold = NanoSeconds(0);
+        if (m_falconRetransRttK > 0.0) {
+            uint64_t sampleRttNs = 0;
+            uint64_t nowTs = Simulator::Now().GetTimeStep();
+            if (ch.ack.ih.ts != 0 && nowTs >= ch.ack.ih.ts) {
+                sampleRttNs = nowTs - ch.ack.ih.ts;
+            }
+            if (sampleRttNs != 0) {
+                if (qp->m_falconSrttValid) {
+                    qp->m_falconSrttNs =
+                        static_cast<uint64_t>(0.875 * qp->m_falconSrttNs + 0.125 * sampleRttNs);
+                } else {
+                    qp->m_falconSrttNs = sampleRttNs;
+                    qp->m_falconSrttValid = true;
+                }
+            } else if (!qp->m_falconSrttValid && qp->m_baseRtt != 0) {
+                qp->m_falconSrttNs = qp->m_baseRtt;
+                qp->m_falconSrttValid = true;
+            }
+            if (qp->m_falconSrttValid) {
+                falconRetransAgeThreshold =
+                    NanoSeconds(static_cast<uint64_t>(m_falconRetransRttK * qp->m_falconSrttNs));
+            }
+        }
+        std::vector<std::pair<uint32_t, Time> > deferredRetransSeqs;
         std::vector<uint32_t> retransSeqs =
-            m_falcon.OnAck(key, seq, falconBitmapBits, falconBitmap, qp->psnPath.packetSize);
+            m_falcon.OnAck(key, seq, falconBitmapBits, falconBitmap, qp->psnPath.packetSize,
+                           Simulator::Now(), falconRetransAgeThreshold, &deferredRetransSeqs);
         qp->m_selectiveAckedBytes = m_falcon.GetSelectiveAckedBytes(key);
         while (!qp->psnPath.pendingRetrans.empty()) {
             const PsnRetransRequest &req = qp->psnPath.pendingRetrans.front();
@@ -1289,6 +1321,10 @@ int RdmaHw::ReceiveAck(Ptr<Packet> p, CustomHeader &ch) {
         }
         for (size_t idx = 0; idx < retransSeqs.size(); ++idx) {
             EnqueueFalconBitmapRetrans(qp, retransSeqs[idx]);
+        }
+        for (size_t idx = 0; idx < deferredRetransSeqs.size(); ++idx) {
+            ScheduleDeferredFalconBitmapRetrans(qp, deferredRetransSeqs[idx].first,
+                                                deferredRetransSeqs[idx].second);
         }
         if (qp->snd_nxt < qp->snd_una) {
             qp->snd_nxt = qp->snd_una;
@@ -2550,6 +2586,36 @@ void RdmaHw::EnqueueFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq) {
     req.endPsn = startPsn;
     req.epoch = qp->psnPath.mappingEpoch;
     qp->psnPath.pendingRetrans.push_back(req);
+}
+
+void RdmaHw::ScheduleDeferredFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq,
+                                                 Time delay) {
+    if (qp == 0 || seq < qp->snd_una || qp->IsFinished()) {
+        return;
+    }
+    if (!qp->m_falconDeferredRetrans.insert(seq).second) {
+        return;
+    }
+    Simulator::Schedule(delay, &RdmaHw::EnqueueDeferredFalconBitmapRetrans, this, qp, seq);
+}
+
+void RdmaHw::EnqueueDeferredFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq) {
+    if (qp == 0) {
+        return;
+    }
+    qp->m_falconDeferredRetrans.erase(seq);
+    if (seq < qp->snd_una || qp->IsFinished()) {
+        return;
+    }
+    auto key = GetQpKey(qp->dip.Get(), qp->sport, qp->dport, qp->m_pg);
+    if (!m_falcon.MarkRetransPending(key, seq)) {
+        return;
+    }
+    EnqueueFalconBitmapRetrans(qp, seq);
+    uint32_t nic_idx = GetNicIdxOfQp(qp);
+    if (nic_idx < m_nic.size() && m_nic[nic_idx].dev != 0) {
+        m_nic[nic_idx].dev->TriggerTransmit();
+    }
 }
 
 void RdmaHw::AddTableEntry(Ipv4Address &dstAddr, uint32_t intf_idx) {

@@ -82,7 +82,9 @@ FalconRxResult FalconRetransModule::OnData(const RdmaFlowKey &key, uint32_t seq,
 
 std::vector<uint32_t> FalconRetransModule::OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq,
                                                  uint16_t bitmapBits, uint64_t bitmap,
-                                                 uint32_t packetSize) {
+                                                 uint32_t packetSize, Time now,
+                                                 Time retransAgeThreshold,
+                                                 std::vector<std::pair<uint32_t, Time> > *deferredRetrans) {
     std::vector<uint32_t> retransSeqs;
     TxState &state = m_txStates[key];
     const uint32_t step = std::max<uint32_t>(1, packetSize);
@@ -115,14 +117,25 @@ std::vector<uint32_t> FalconRetransModule::OnAck(const RdmaFlowKey &key, uint32_
     while (scanBits > 0 && ((bitmap >> (scanBits - 1)) & uint64_t(1)) == 0) {
         --scanBits;
     }
+    const bool urgentGap = scanBits >= std::max<uint16_t>(1, validBits / 2);
 
     for (uint16_t bit = 0; bit < scanBits; ++bit) {
         if (((bitmap >> bit) & uint64_t(1)) != 0) {
             continue;
         }
         const uint32_t seq = cumAckSeq + static_cast<uint32_t>(bit) * step;
-        if (state.outstanding.find(seq) == state.outstanding.end()) {
+        std::map<uint32_t, TxSegmentState>::iterator it = state.outstanding.find(seq);
+        if (it == state.outstanding.end()) {
             continue;
+        }
+        if (!urgentGap && !retransAgeThreshold.IsZero()) {
+            Time age = now - it->second.lastSent;
+            if (age < retransAgeThreshold) {
+                if (deferredRetrans != 0) {
+                    deferredRetrans->push_back(std::make_pair(seq, retransAgeThreshold - age));
+                }
+                continue;
+            }
         }
         if (state.retransPending.insert(seq).second) {
             retransSeqs.push_back(seq);

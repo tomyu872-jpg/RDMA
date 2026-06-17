@@ -226,6 +226,7 @@ class RdmaHw : public Object {
     bool m_enableBitmapRetrans;
     bool m_enableFalcon;
     bool m_enableOrnic;
+    double m_falconRetransRttK;
     uint32_t m_bitmapRetransSize;
     Time m_bitmapRetransTimeout;
     Time m_falconRxSendDelay;
@@ -248,6 +249,8 @@ class RdmaHw : public Object {
                              RxControlDelayKind delayKind);
     void SendRxControlPacketNow(Ptr<QbbNetDevice> dev, Ptr<Packet> p);
     void EnqueueFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq);
+    void ScheduleDeferredFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq, Time delay);
+    void EnqueueDeferredFalconBitmapRetrans(Ptr<RdmaQueuePair> qp, uint32_t seq);
     void UpdateBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q,
                                      const BitmapRetransFeedback &feedback);
     void HandleBitmapExpectedTimeout(Ptr<RdmaRxQueuePair> q, uint32_t expectedSeq);

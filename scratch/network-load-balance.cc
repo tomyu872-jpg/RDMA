@@ -173,6 +173,7 @@ uint64_t tx_nack_retrans_interval_ns = 0;
 int enable_bitmap_retrans = 0;
 int enable_falcon = 0;
 int enable_ornic = 0;
+double falcon_retrans_rtt_k = 0.0;
 uint32_t bitmap_retrans_size = BITMAP_SIZE;
 uint64_t bitmap_retrans_timeout_ns = 0;
 uint64_t falcon_rx_send_delay_ns = 0;
@@ -1690,6 +1691,10 @@ int main(int argc, char *argv[]) {
             } else if (key.compare("FALCON_RX_SEND_DELAY_NS") == 0) {
                 conf >> falcon_rx_send_delay_ns;
                 std::cerr << "FALCON_RX_SEND_DELAY_NS\t" << falcon_rx_send_delay_ns << "\n";
+            } else if (key.compare("FALCON_RETRANS_RTT_K") == 0) {
+                conf >> falcon_retrans_rtt_k;
+                falcon_retrans_rtt_k = std::max(0.0, falcon_retrans_rtt_k);
+                std::cerr << "FALCON_RETRANS_RTT_K\t" << falcon_retrans_rtt_k << "\n";
             } else if (key.compare("ENABLE_ORNIC") == 0) {
                 bool v;
                 conf >> v;
@@ -2107,6 +2112,7 @@ int main(int argc, char *argv[]) {
             rdmaHw->SetAttribute("EnableFalcon", BooleanValue(enable_falcon));
             rdmaHw->SetAttribute("FalconRxSendDelay",
                                  TimeValue(NanoSeconds(falcon_rx_send_delay_ns)));
+            rdmaHw->SetAttribute("FalconRetransRttK", DoubleValue(falcon_retrans_rtt_k));
             rdmaHw->SetAttribute("EnableOrnic", BooleanValue(enable_ornic));
             rdmaHw->SetAttribute("OrnicBandwidthGbps", DoubleValue(ornic_bw_gbps));
             rdmaHw->SetAttribute("OrnicRxSendDelay",

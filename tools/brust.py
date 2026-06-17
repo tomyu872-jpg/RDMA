@@ -61,7 +61,8 @@ METHOD_FLAGS = {
         "ENABLE_TX_NACK_GOBACK": 0,
         "ENABLE_BITMAP_RETRANS": 0,
         "ENABLE_FALCON": 1,
-        "FALCON_RX_SEND_DELAY_NS": 0,
+        "FALCON_RX_SEND_DELAY_NS": 32000,
+        "FALCON_RETRANS_RTT_K": 3.5,
         "ENABLE_ORNIC": 0,
         "ORNIC_BW_GBPS": 100,
         "ORNIC_RX_SEND_DELAY_NS": 9000,
@@ -232,6 +233,7 @@ def write_summary(results, summary_file):
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--method", choices=METHOD_ORDER, help="run only one retransmission method")
     parser.add_argument("--template-config", type=Path, default=TEMPLATE_CONFIG)
     parser.add_argument("--summary-file", type=Path, default=SUMMARY_FILE)
     parser.add_argument("--waf-cmd", default=DEFAULT_WAF_CMD)
@@ -246,7 +248,8 @@ def main():
         raise FileNotFoundError(f"missing template config: {args.template_config}")
 
     results = []
-    for method in METHOD_ORDER:
+    methods = [args.method] if args.method else METHOD_ORDER
+    for method in methods:
         method_result = run_method(method, args)
         results.append(method_result)
         method, values, error = method_result

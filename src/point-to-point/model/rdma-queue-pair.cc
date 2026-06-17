@@ -88,6 +88,8 @@ RdmaQueuePair::RdmaQueuePair(uint16_t pg, Ipv4Address _sip, Ipv4Address _dip, ui
 
     m_timeout = MilliSeconds(4);
     m_selectiveAckedBytes = 0;
+    m_falconSrttNs = 0;
+    m_falconSrttValid = false;
 }
 
 void RdmaQueuePair::SetSize(uint64_t size) { m_size = size; }

@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <map>
+#include <utility>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -42,7 +43,9 @@ class FalconRetransModule {
                           uint32_t packetSize);
 
     std::vector<uint32_t> OnAck(const RdmaFlowKey &key, uint32_t cumAckSeq,
-                                uint16_t bitmapBits, uint64_t bitmap, uint32_t packetSize);
+                                uint16_t bitmapBits, uint64_t bitmap, uint32_t packetSize,
+                                Time now, Time retransAgeThreshold,
+                                std::vector<std::pair<uint32_t, Time> > *deferredRetrans = 0);
 
     bool MarkRetransPending(const RdmaFlowKey &key, uint32_t seq);
     void ClearRetransPending(const RdmaFlowKey &key, uint32_t seq);

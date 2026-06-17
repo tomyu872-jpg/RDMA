@@ -13,6 +13,7 @@
 #include <climits> /* for CHAR_BIT */
 #include <array>
 #include <deque>
+#include <unordered_set>
 #include <vector>
 
 #define BITMASK(b) (1 << ((b) % CHAR_BIT))
@@ -136,6 +137,9 @@ class RdmaQueuePair : public Object {
     int32_t m_flow_id;
     Time m_timeout;
     uint64_t m_selectiveAckedBytes;
+    uint64_t m_falconSrttNs;
+    bool m_falconSrttValid;
+    std::unordered_set<uint32_t> m_falconDeferredRetrans;
 
     /******************************
      * runtime states

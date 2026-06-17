@@ -24,7 +24,7 @@ from datetime import datetime
 from statistics import mean
 
 
-DEFAULT_HOSTS = "256,512,1024"
+DEFAULT_HOSTS = "128,256,384,512,768,1024"
 DEFAULT_METHODS = "psn_path,bitmap,gbn,falcon,ornic"
 DEFAULT_CC = ""
 
@@ -69,6 +69,7 @@ METHOD_FLAGS = {
         "ENABLE_TX_NACK_GOBACK": 0,
         "ENABLE_BITMAP_RETRANS": 0,
         "ENABLE_FALCON": 1,
+        "FALCON_RETRANS_RTT_K": 0.0,
         "ENABLE_ORNIC": 0,
     },
     "ornic": {
@@ -198,21 +199,21 @@ def numeric_rows(path):
 
 def summarize_fct(path):
     rows = numeric_rows(path)
-    fct_us = []
+    fct_ns = []
     goodput_gbps = []
     retrans = []
     path_switches = []
     for row in rows:
         if len(row) < 12:
             continue
-        fct_us.append(row[6] / 1000.0)
+        fct_ns.append(row[6])
         retrans.append(row[8])
         path_switches.append(row[9])
         goodput_gbps.append(row[11])
     return {
-        "flow_count": len(fct_us),
-        "fct_p95_us": percentile(fct_us, 0.95),
-        "fct_avg_us": mean(fct_us) if fct_us else "",
+        "flow_count": len(fct_ns),
+        "fct_p95_ns": percentile(fct_ns, 0.95),
+        "fct_avg_ns": mean(fct_ns) if fct_ns else "",
         "goodput_avg_gbps": mean(goodput_gbps) if goodput_gbps else "",
         "goodput_p95_gbps": percentile(goodput_gbps, 0.95),
         "path_switch_total": int(sum(path_switches)) if path_switches else 0,
@@ -456,11 +457,26 @@ def run_one(task):
     else:
         try:
             env = os.environ.copy()
+            ld_paths = []
+            if args.direct_bin:
+                ld_paths.extend([
+                    os.path.join(args.work_dir, "build-local"),
+                    "/usr/lib/x86_64-linux-gnu",
+                    "/lib/x86_64-linux-gnu",
+                ])
             if args.ld_library_path:
-                existing = env.get("LD_LIBRARY_PATH", "")
-                env["LD_LIBRARY_PATH"] = (
-                    args.ld_library_path if not existing
-                    else args.ld_library_path + os.pathsep + existing)
+                ld_paths.extend(p for p in args.ld_library_path.split(os.pathsep) if p)
+            existing = env.get("LD_LIBRARY_PATH", "")
+            if existing:
+                ld_paths.extend(p for p in existing.split(os.pathsep) if p)
+            if ld_paths:
+                deduped = []
+                seen = set()
+                for path in ld_paths:
+                    if path not in seen:
+                        deduped.append(path)
+                        seen.add(path)
+                env["LD_LIBRARY_PATH"] = os.pathsep.join(deduped)
             with open(log_path, "w", encoding="utf-8") as log_file:
                 rc = subprocess.call(
                     run_args, cwd=args.work_dir, stdout=log_file,
@@ -495,7 +511,7 @@ def run_one(task):
 def write_summary(results, path, hosts, methods):
     by_host_method = {(result["host_count"], result["method"]): result for result in results}
     sections = [
-        ("FCT_US", "fct_avg_us"),
+        ("FCT_NS", "fct_avg_ns"),
         ("GOODPUT_GBPS", "goodput_avg_gbps"),
         ("RETRANS", "retrans_avg"),
     ]
@@ -550,6 +566,8 @@ def main():
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--regenerate-inputs", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("host_args", nargs="*",
+                        help="optional host counts, e.g. 128 384 768")
     args = parser.parse_args()
 
     template_lines = read_lines(args.template_config)
@@ -558,7 +576,11 @@ def main():
     if not args.cc:
         args.cc = config_value(template_lines, "CC_MODE", "3")
 
-    hosts = parse_int_list(args.hosts)
+    if args.host_args:
+        hosts = [int(item) for item in args.host_args]
+        args.hosts = ",".join(str(item) for item in hosts)
+    else:
+        hosts = parse_int_list(args.hosts)
     methods = parse_method_list(args.methods)
     os.makedirs(os.path.join(args.work_dir, "mix", "output"), exist_ok=True)
 
